@@ -1,0 +1,110 @@
+<!doctype html>
+
+<!--
+
+Animation.io, an interactive and extendable animation framework
+
+official website: http://animation.io
+support group: http://group.animation.io
+open source code: https://github.com/mehreinfach/animation.io
+a project by Mehreinfach: http://mehreinfach.de
+
+-->
+
+<html>
+	<head>
+		<title>Animation Framework</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<link rel="stylesheet" type="text/css" href="animationframework/css/core.css" charset="utf-8">
+		<link rel="stylesheet" type="text/css" href="css/custom.css" charset="utf-8">
+
+		<!-- animation core: -->
+		<script src="animationframework/js/core/load-animation.js"></script>
+		<script src="animationframework/js/core/faders.js"></script>
+		<script src="animationframework/js/core/actor.js"></script>
+		<script src="animationframework/js/core/reaction.js"></script>
+		<script src="animationframework/js/core/helpers.js"></script>
+		<script src="animationframework/js/core/scene.js"></script>
+		<script src="animationframework/js/core/plugin.js"></script>
+		<script src="animationframework/js/core/eventhandling.js"></script>
+		<script src="animationframework/js/core/array-extension.js"></script>
+		<script src="animationframework/js/core/browserdetection.js"></script>
+
+		<!-- animation configuration -->
+		<script src="animationframework/js/animationconfig.js"></script>
+
+		<!-- animation plugins: -->
+		<script src="animationframework/js/plugins/waves.js"></script>
+		<script src="animationframework/js/plugins/appears.js?t=2"></script>
+		<script src="animationframework/js/plugins/moves.js"></script>
+		<script src="animationframework/js/plugins/movesto.js"></script>
+		<script src="animationframework/js/plugins/swings.js"></script>
+		<script src="animationframework/js/plugins/pulsates.js"></script>
+		<script src="animationframework/js/plugins/dissolves.js"></script>
+		<script src="animationframework/js/plugins/rotates.js"></script>
+		<script src="animationframework/js/plugins/plays.js"></script>
+		<script src="animationframework/js/plugins/drifts.js"></script>
+		<script src="animationframework/js/plugins/shakes.js"></script>
+		<script src="animationframework/js/plugins/links.js"></script>
+		<script src="animationframework/js/plugins/resetreactions.js"></script>
+		<script src="animationframework/js/plugins/togglestext.js"></script>
+		<script src="animationframework/js/plugins/passestouchthrough.js"></script>
+		<script src="animationframework/js/plugins/clonesmovement.js"></script>
+		<script src="animationframework/js/plugins/counts.js"></script>
+		<script src="animationframework/js/plugins/hastext.js"></script>
+		<script src="animationframework/js/plugins/multiplechoice.js"></script>
+		<script src="animationframework/js/plugins/changesimagesrc.js"></script>
+		<script src="animationframework/js/plugins/circles.js"></script>
+		<script src="animationframework/js/plugins/popup.js"></script>
+
+		<!-- your scenes: -->
+		<script src="scenes/scene0.js"></script>
+		<script src="scenes/scene1.js"></script>
+		<script src="scenes/scene2.js"></script>
+		<script src="scenes/scene3.js"></script>
+		<script src="scenes/scene4.js"></script>
+		<script src="scenes/scene5.js"></script>
+		<script src="scenes/scene6.js"></script>
+		<script src="scenes/scene7.js"></script>
+		<script src="scenes/scene8.js"></script>
+		<script src="scenes/scene9.js"></script>
+		<script src="scenes/scene10.js"></script>
+		<script src="scenes/scene11.js"></script>
+		<script src="scenes/scene12.js"></script>
+		<script src="scenes/scene13.js"></script>
+		<script src="scenes/scene14.js"></script>
+		<script src="scenes/scene15.js"></script>
+		<script src="scenes/scene16.js"></script>
+		<script src="scenes/scene17.js"></script>
+		<script src="scenes/scene18.js"></script>
+		<script src="scenes/scene19.js"></script>
+		<script src="scenes/scene20.js"></script>
+		<script src="scenes/scene21.js"></script>
+
+	</head>
+
+	<!-- preload files for scene0: -->
+	<div id="preload" style="display: none;">
+	</div>
+
+	<body>
+		<noscript>
+			<div id="minimalistic" class="minimalistic">
+				<img src="images/fallback.gif">
+			</div>
+		</noscript>
+		<div id="backupdiv" style="display:none;" class="minimalistic">
+			<img src="images/fallback.gif">
+		</div>
+
+		<!-- <div id="animframe"></div> -->
+		<script>
+			loadAnimation('Animation Framework', 800, 600, 'scene0', 60, 960, 40, 600);
+			// loadAnimationInto('Animation Framework', 'animframe', 'scene0', 800, 600);
+			developermode = true;
+		</script>
+	</body>
+</html>
