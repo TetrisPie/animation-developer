@@ -15,10 +15,11 @@ function Linking(actor, url, newwindow, triggeredByAction, reactionTargetIndex){
 	linking.actor.image.gotourl = function(){
 		//this.removeEventListener('mousedown',arguments.callee, false);
 
-		window.open(url, newwindow);
+		alert("should open " + url + " in " + newwindow);
 
+		var tmpwindow = window.open(url, newwindow);
+		return false;
 	};
-
 
 	linking.actor.image.style.cursor = 'pointer';
 
