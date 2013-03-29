@@ -1,8 +1,10 @@
-function Linking(actor, url, triggeredByAction, reactionTargetIndex){
-	linking = new Plugin(0,0, actor, triggeredByAction, reactionTargetIndex); 
+/* globals Plugin, bindEvent */
+
+function Linking(actor, url, newwindow, triggeredByAction, reactionTargetIndex){
+	var linking = new Plugin(0,0, actor, triggeredByAction, reactionTargetIndex);
 
 	linking.actor = actor;
-	linking.url = url
+	linking.url = url;
 
 	if( /iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
 		bindEvent(linking.targetObject.image, 'touchstart', function(){this.gotourl();});
@@ -11,10 +13,11 @@ function Linking(actor, url, triggeredByAction, reactionTargetIndex){
 	}
 
 	linking.actor.image.gotourl = function(){
-		this.removeEventListener('mousedown',arguments.callee, false);
-		
-		location.href=url;
-	}
+		//this.removeEventListener('mousedown',arguments.callee, false);
+
+		window.open(url, newwindow);
+
+	};
 
 
 	linking.actor.image.style.cursor = 'pointer';
@@ -26,6 +29,15 @@ function Linking(actor, url, triggeredByAction, reactionTargetIndex){
 	return linking;
 }
 
-Actor.prototype.links = function(url) {
-	this.addBehavior(new Linking(this, url));
+Actor.prototype.links = function(url, windowname) {
+	if(typeof windowname !== 'undefined'){windowname = "_blank";}
+	this.addBehavior(new Linking(this, url, windowname));
+};
+
+Actor.prototype.linksToNewWindow = function(url) {
+	this.addBehavior(new Linking(this, url, "_blank"));
+};
+
+Actor.prototype.linksToSameWindow = function(url) {
+	this.addBehavior(new Linking(this, url, "_self"));
 };

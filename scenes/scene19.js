@@ -1,11 +1,20 @@
+/* globals Scene */
+
 var scene19 = function(){
-  this.scene = new Scene('scene19', 'setText');
+  var scene = new Scene('scene19', 'setText');
 
   var home = scene.createActor('home.png', 10, 10);
   home.navigatesOnTouch('scene0');
 
-  var actor1 = scene.createActor('actor.png', 300, 225);
-  actor1.links("http://mehreinfach.de");
+  scene.write(100, 100, "Link opens in …");
 
-  return this.scene;
+  var actor1 = scene.createActor('actor.png', 100, 225);
+  actor1.linksToNewWindow("http://mehreinfach.de");
+  actor1.setText("… new window", "", "button");
+
+  var actor2 = scene.createActor('actor.png', 450, 225);
+  actor2.linksToSameWindow("http://mehreinfach.de");
+  actor2.setText("… same window", "", "button");
+
+  return scene;
 };
