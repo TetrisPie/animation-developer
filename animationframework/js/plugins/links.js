@@ -15,8 +15,6 @@ function Linking(actor, url, newwindow, triggeredByAction, reactionTargetIndex){
 	linking.actor.image.gotourl = function(){
 		//this.removeEventListener('mousedown',arguments.callee, false);
 
-		alert("should open " + url + " in " + newwindow);
-
 		var tmpwindow = window.open(url, newwindow);
 		return false;
 	};
