@@ -43,75 +43,6 @@ var Actor = function(imagePath, startX, startY, imagesizeX, imagesizeY){
 	this.scene = null;
 	this.enteredAt = null;
 
-	this.navigatesOnTouch = function(sceneid, secondImageFilename) {	
-	  this.reacts("window.animation.showScene('" + sceneid + "')", 0);
-	  this.image.className += 'navigation';
-	  this.scene.preloadSceneIds.push(sceneid);
-	};
-
-	this.loadsOnTouch = function(sceneid, secondImageFilename) {	
-	  this.reacts("window.animation.reloadAndFadeToScene('" + sceneid + "')", 0);
-	  this.image.className += 'navigation';
-	  // this.scene.preloadSceneIds.push(sceneid);
-	};
-
-	this.delays = function(myDelay){
-		this.originaldelay = myDelay;
-		this.delay = myDelay;
-	};
-
-	this.age = function(){
-		return (now() - this.startAnimationTimestamp);
-	};
-
-	this.alterOpacity = function(newOpacity){
-		if (newOpacity != this.currentOpacity) {
-			this.currentOpacity = newOpacity;
-			this.image.style.opacity = this.currentOpacity;
-			this.image.style.filter = 'alpha(opacity=' + this.newOpacity*100 + ')';
-		};
-	};
-
-	this.setInitialOpacity = function(newOpacity){
-		this.originalOpacity = newOpacity;
-		this.alterOpacity(newOpacity);
-	};
-
-	this.setInvisible = function(){
-		this.image.style.visibility = 'hidden';
-		this.currentlyVisible = false;
-	};
-
-	this.setVisible = function(newOpacity){
-		if (typeof newOpacity !== 'undefined') {
-			this.alterOpacity(newOpacity);
-		};
-		this.image.style.visibility = '';			
-		this.currentlyVisible = true;
-	};
-
-	this.resets = function(resetDelay){
-		// called in scenes when an actor should be resetting
-		this.doesReset = true;
-		if (typeof resetDelay === "undefined") {
-			resetDelay = 0;
-		};
-		this.resetDelay = resetDelay;
-	};
-
-	this.resetReactions = function(){
-		for (var i = this.reactions.length - 1; i >= 0; i--) {
-			this.reactions[i].reset();
-		};
-
-	};
-
-	this.resetBehaviors = function(){
-		for (var i = this.behaviors.length - 1; i >= 0; i--) {
-			this.behaviors[i].reset();
-		};
-	};
-
 	this.cleanupBehaviors = function(){
 		for (var i = this.behaviors.length - 1; i >= 0; i--) {
 			this.behaviors[i].cleanup();
@@ -225,6 +156,73 @@ var Actor = function(imagePath, startX, startY, imagesizeX, imagesizeY){
 	this.hasId = function(newid){
 		// must be called after setup (but setup happens on object creation)
 		this.image.setAttribute('id', newid);
+	};
+};
+
+Actor.prototype.navigatesOnTouch = function(sceneid, secondImageFilename) {	
+	  this.reacts("window.animation.showScene('" + sceneid + "')", 0);
+	  this.image.className += 'navigation';
+	  this.scene.preloadSceneIds.push(sceneid);
+};
+
+Actor.prototype.loadsOnTouch = function(sceneid, secondImageFilename) {	
+	  this.reacts("window.animation.reloadAndFadeToScene('" + sceneid + "')", 0);
+	  this.image.className += 'navigation';
+	  // this.scene.preloadSceneIds.push(sceneid);
+};
+
+Actor.prototype.delays = function(myDelay){
+	this.originaldelay = myDelay;
+	this.delay = myDelay;
+};
+
+Actor.prototype.age = function(){
+	return (now() - this.startAnimationTimestamp);
+};
+
+Actor.prototype.alterOpacity = function(newOpacity){
+	if (newOpacity != this.currentOpacity) {
+		this.currentOpacity = newOpacity;
+		this.image.style.opacity = this.currentOpacity;
+		this.image.style.filter = 'alpha(opacity=' + this.newOpacity*100 + ')';
+	};
+};
+
+Actor.prototype.setInitialOpacity = function(newOpacity){
+	this.originalOpacity = newOpacity;
+	this.alterOpacity(newOpacity);
+};
+
+Actor.prototype.setInvisible = function(){
+	this.image.style.visibility = 'hidden';
+	this.currentlyVisible = false;
+};
+
+Actor.prototype.setVisible = function(newOpacity){
+	if (typeof newOpacity !== 'undefined') {
+		this.alterOpacity(newOpacity);
+	};
+	this.image.style.visibility = '';			
+	this.currentlyVisible = true;
+};
+Actor.prototype.resets = function(resetDelay){
+	// called in scenes when an actor should be resetting
+	this.doesReset = true;
+	if (typeof resetDelay === "undefined") {
+		resetDelay = 0;
+	};
+	this.resetDelay = resetDelay;
+};
+
+Actor.prototype.resetReactions = function(){
+	for (var i = this.reactions.length - 1; i >= 0; i--) {
+		this.reactions[i].reset();
+	};
+};
+
+Actor.prototype.resetBehaviors = function(){
+	for (var i = this.behaviors.length - 1; i >= 0; i--) {
+		this.behaviors[i].reset();
 	};
 };
 
