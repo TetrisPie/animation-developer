@@ -15,23 +15,22 @@ function Swinging(actor, radius, hertz, swingcenterX, swingcenterY, degreeOffset
   }
 
 	swinging.applybehavior = function(){
-		this.runningValue = Math.sin((new Date) * this.hertz/1000);
-		this.degrees = (this.runningValue * this.radius);
+		this.runningValue = Math.sin(this.targetObject.age() * this.hertz/1000);
+		this.degrees = (this.runningValue * this.radius)/2;
 
     if (this.firstRun) {
-      this.firstRun = false;      
+      this.firstRun = false;   
+      this.oldDegrees = this.degrees;
+      this.spin = this.degreeOffset;
     } else {
-      this.targetObject.tilt = this.degreeOffset + (this.degrees/2);
-
       this.targetObject.image.style.transformOrigin = this.swingcenterX + 'px ' + this.swingcenterY + 'px';
       this.targetObject.image.style.webkitTransformOrigin = this.swingcenterX + 'px ' + this.swingcenterY + 'px';
       this.targetObject.image.style.msTransformOrigin = this.swingcenterX + 'px ' + this.swingcenterY + 'px';
 
-      this.targetObject.image.style.transform = 'rotate(' + this.targetObject.tilt + 'deg)'; // Webkit (Chrome, Safari)
-      this.targetObject.image.style.webkitTransform = 'rotate(' + this.targetObject.tilt + 'deg)'; // Webkit (Chrome, Safari)
-      this.targetObject.image.style.msTransform = 'rotate(' + this.targetObject.tilt + 'deg)'; // Internet Explorer
+      this.targetObject.spin = this.oldDegrees - this.degrees;
     }
 
+    this.oldDegrees = this.degrees;
 	};
 
   return swinging;

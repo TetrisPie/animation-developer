@@ -5,8 +5,8 @@ var scene13 = function(){
   home.navigatesOnTouch('scene0');
   
   var actor1 = scene.createActor('actor.png', 270, 250);
-  actor1.swings(45, 0.5, 0, 0);
-  scene.write(20, 100, "actor1 swings with a frequency of 0.5 hertz 45 degrees around the top left corner.");
+  actor1.swings(90, 0.5, 0, 0);
+  scene.write(20, 100, "actor1 swings with a frequency of 0.5 hertz 90 degrees around the top left corner.");
 
   return scene;
 };
