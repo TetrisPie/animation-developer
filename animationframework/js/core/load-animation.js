@@ -1,5 +1,3 @@
-var developermode = false;
-
 function Animation(width, height, firstSceneId, minWidth, maxWidth, minHeight, maxHeight){
 	config(this); // read in configuration residing in animationconfig.js
 

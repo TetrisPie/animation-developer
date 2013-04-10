@@ -3,4 +3,4 @@ function config(animation) {
     maximumAnimationAge: timeInMinutes(10)
   }
 }
-
+var developermode = false;
