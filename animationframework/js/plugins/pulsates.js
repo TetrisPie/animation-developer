@@ -37,6 +37,7 @@ function Pulsating(actor, hertz, strength, pulsateHowOften, triggeredByAction, r
       }
 
       pulsating.targetObject.image.style.webkitTransform = 'scale(' + scale + ', ' + scale + ')';
+      pulsating.targetObject.image.style.transform = 'scale(' + scale + ', ' + scale + ')';
 
       if (!counted && direction === 'up' && scale > 1) {
         counter++;
