@@ -22,7 +22,7 @@ var Actor = function(imagePath, startX, startY, imagesizeX, imagesizeY){
 	this.behaviors = new Array;
 	this.reactions = new Array;
 	this.reactionTargets = new Array;
-	
+
 	this.phases = new Array;
 	this.oldPhase = 0;
 	this.phaseCycle = 1000;
@@ -60,7 +60,6 @@ var Actor = function(imagePath, startX, startY, imagesizeX, imagesizeY){
 		this.lastVector = {x: 0, y: 0};
 		this.setSize(imagesizeX, imagesizeY);
 		this.setInitialOpacity(this.originalOpacity);
-		// this.setVisible();
 		this.delay = this.originaldelay;
 		this.finishedDelaying = false;
 		this.startedDelayingAt = null;
@@ -79,7 +78,7 @@ var Actor = function(imagePath, startX, startY, imagesizeX, imagesizeY){
 		};
 
 		if(this.behaviors.length != newBehaviors.length){
-			this.behaviors = newBehaviors;			
+			this.behaviors = newBehaviors;
 		};
 	};
 
@@ -159,13 +158,13 @@ var Actor = function(imagePath, startX, startY, imagesizeX, imagesizeY){
 	};
 };
 
-Actor.prototype.navigatesOnTouch = function(sceneid, secondImageFilename) {	
+Actor.prototype.navigatesOnTouch = function(sceneid, secondImageFilename) {
 	  this.reacts("window.animation.showScene('" + sceneid + "')", 0);
 	  this.image.className += 'navigation';
 	  this.scene.preloadSceneIds.push(sceneid);
 };
 
-Actor.prototype.loadsOnTouch = function(sceneid, secondImageFilename) {	
+Actor.prototype.loadsOnTouch = function(sceneid, secondImageFilename) {
 	  this.reacts("window.animation.reloadAndFadeToScene('" + sceneid + "')", 0);
 	  this.image.className += 'navigation';
 	  // this.scene.preloadSceneIds.push(sceneid);
@@ -202,7 +201,7 @@ Actor.prototype.setVisible = function(newOpacity){
 	if (typeof newOpacity !== 'undefined') {
 		this.alterOpacity(newOpacity);
 	};
-	this.image.style.visibility = '';			
+	this.image.style.visibility = '';
 	this.currentlyVisible = true;
 };
 Actor.prototype.resets = function(resetDelay){
@@ -249,7 +248,7 @@ function visibleOnStage(actor){
 };
 
 function notVisibleOnStage(actor){
-		return (actor.position.x > actor.scene.dimensions.x) || ((actor.position.x + actor.imagesize.x) < 0) || ((actor.position.y + actor.imagesize.y) < 0) || (actor.position.y > actor.scene.dimensions.y);		
+		return (actor.position.x > actor.scene.dimensions.x) || ((actor.position.x + actor.imagesize.x) < 0) || ((actor.position.y + actor.imagesize.y) < 0) || (actor.position.y > actor.scene.dimensions.y);
 };
 
 function animateactor(actor){

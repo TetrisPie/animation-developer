@@ -11,6 +11,8 @@ function Pulsating(actor, hertz, strength, pulsateHowOften, triggeredByAction, r
 
 
   pulsating.reset = function(){
+    this.resetPlugin();
+
     if (typeof pulsateHowOften === 'undefined' || notNumeric(pulsateHowOften)) {
       pulsateHowOften = 0;
     }

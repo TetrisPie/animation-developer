@@ -1,5 +1,5 @@
 Actor.prototype.triggerResetReactions = function(triggeredByAction, reactionTargetIndex){
-  // l("triggering reset action on " + this.reactionTargets[reactionTargetIndex].filename);
+  // not intended for human consumption!
   this.reactionTargets[reactionTargetIndex].resetReactions();
 };
 
