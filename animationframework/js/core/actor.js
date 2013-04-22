@@ -53,7 +53,8 @@ var Actor = function(imagePath, startX, startY, imagesizeX, imagesizeY){
 		this.resetBehaviors();
 		this.resetReactions();
 
-		this.image.src = defaultImageDirectory + this.image.originalPath;
+		// this.image.src = defaultImageDirectory + this.image.originalPath;
+		this.image.src = relativeOrAbsolutePath(defaultImageDirectory, this.image.originalPath);
 		this.resetStartAnimationTimestamp();
 		this.position = {x: startX, y: startY};
     this.vector = {x: 0, y: 0};
@@ -109,8 +110,10 @@ var Actor = function(imagePath, startX, startY, imagesizeX, imagesizeY){
 
 	this.addPhase = function(phaseImagePath){
 		var tmpImage = document.createElement('img');
-		tmpImage.setAttribute('src', defaultImageDirectory + phaseImagePath);
-		this.phases.push(defaultImageDirectory + phaseImagePath);
+		// tmpImage.setAttribute('src', defaultImageDirectory + phaseImagePath);
+		tmpImage.setAttribute('src', relativeOrAbsolutePath(defaultImageDirectory, phaseImagePath));
+		// this.phases.push(defaultImageDirectory + phaseImagePath);
+		this.phases.push(relativeOrAbsolutePath(defaultImageDirectory, phaseImagePath));
 	};
 
 	this.setPhaseCycleLength = function(milliseconds){
@@ -135,9 +138,11 @@ var Actor = function(imagePath, startX, startY, imagesizeX, imagesizeY){
 		this.image = document.createElement('img');
 		this.image.originalPath = imagePath;
 		this.filename = imagePath.substring(imagePath.lastIndexOf('/')+1)
-		this.image.setAttribute('src', defaultImageDirectory  + this.image.originalPath);
+		// this.image.setAttribute('src', defaultImageDirectory  + this.image.originalPath);
+		this.image.setAttribute('src', relativeOrAbsolutePath(defaultImageDirectory, this.image.originalPath));
 		this.image.actor = this;
-		this.phases.push(defaultImageDirectory + imagePath);
+		// this.phases.push(defaultImageDirectory + imagePath);
+		this.phases.push(relativeOrAbsolutePath(defaultImageDirectory, imagePath));
 
 		this.position = {x: startX, y: startY};
 		this.setSize(imagesizeX, imagesizeY);

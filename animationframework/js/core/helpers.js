@@ -9,13 +9,21 @@ if(!window.console) {
   };
 }
 
+function relativeOrAbsolutePath(defaultLocalPathPrefix, filePath){
+  if(/^https?:\/\//.exec(filePath.toLowerCase())){
+    return filePath;
+  } else {
+    return defaultLocalPathPrefix + filePath;
+  }
+}
+
 function randomId(){
   return 'id' + Math.floor(Math.random()*10000) + Date.now()
 }
 
 function l(msg){
   if (developermode) {
-    console.log(msg);        
+    console.log(msg);
   };
 }
 
@@ -101,7 +109,7 @@ function browserCompatible(){
 }
 
 function minutesToTime(minutes){
-  return minutes * 60 * 1000; 
+  return minutes * 60 * 1000;
 }
 
 function getIntegerFromEndOfString(myString){
