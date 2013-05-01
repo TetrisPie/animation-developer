@@ -49,6 +49,7 @@ function Moving(actor, initialForceX, initialForceY, friction, gravitation, dela
 
 Actor.prototype.moves = function(initialForceX, initialForceY, friction, gravitation, delay, easeIn) {
 	this.addBehavior(new Moving(this, initialForceX, initialForceY, friction, gravitation, delay, easeIn));
+  return this;
 };
 
 Actor.prototype.movesOnTouch = function(initialForceX, initialForceY, friction, gravitation, delay, easeIn) {
@@ -67,4 +68,5 @@ Actor.prototype.movesOnTouch = function(initialForceX, initialForceY, friction, 
 		tmpString += (', ' + easeIn);
 	};
 	this.reacts("this.moves(" + tmpString + ");");
-}
+  return this;
+};

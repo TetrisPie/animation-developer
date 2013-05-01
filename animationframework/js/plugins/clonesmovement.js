@@ -14,4 +14,5 @@ function MovementCloning(actor, parentActor, distanceX, distanceY, triggeredByAc
 
 Actor.prototype.clonesMovement = function(parentActor, distanceX, distanceY, triggeredByAction, reactionTargetIndex) {
   this.addBehavior(new MovementCloning(this, parentActor, distanceX, distanceY, triggeredByAction, reactionTargetIndex));
+  return this;
 };

@@ -42,13 +42,16 @@ Actor.prototype.dissolves = function(startAfter, dissolveLength, triggeredByActi
     behavior.triggeredByAction = triggeredByAction;
   }
   this.addBehavior(behavior);
+  return this;
 };
 
 Actor.prototype.dissolvesOnTouch = function(dissolveLength){
   this.reacts("this.dissolves(0, " + floatValueOfOr(dissolveLength, 1000) + ", true, reactionTargetIndex);", 1);
+  return this;
 };
 
 Actor.prototype.letsDissolve = function(targetObject, dissolveLength){
   this.reacts("this.dissolves(0, " + floatValueOfOr(dissolveLength, 1000) + ", true, reactionTargetIndex);", 1, targetObject);
+  return this;
 };
 

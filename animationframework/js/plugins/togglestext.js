@@ -18,9 +18,11 @@ Actor.prototype.toggle = function(alternativeImagePath) {
   	this.image.src = 'images/' + this.image.originalPath;
   	this.scene.showText();
   };
+  return this;
 };
 
 Actor.prototype.togglesTextOnTouch = function(alternativeImagePath) {
 	this.textToggleAlternativeImagePath = alternativeImagePath; // TODO centralize 'images'-path!
 	this.reacts("this.toggle();")
+  return this;
 };

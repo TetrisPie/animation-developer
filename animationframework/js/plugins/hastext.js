@@ -16,11 +16,11 @@ function HavingText(actor, content, divid, domclass, triggeredByAction, reaction
   havingText.targetObject.scene.div.appendChild(havingText.targetObject.hasTextDiv);
 
   havingText.targetObject.hasTextDivInner.innerHTML = content;
-  
-  havingText.applybehavior = function(){  
-    havingText.targetObject.hasTextDiv.style.visibility = havingText.targetObject.image.style.visibility;    
+
+  havingText.applybehavior = function(){
+    havingText.targetObject.hasTextDiv.style.visibility = havingText.targetObject.image.style.visibility;
     havingText.targetObject.hasTextDiv.style.left = havingText.targetObject.position.x + 'px';
-    havingText.targetObject.hasTextDiv.style.top = havingText.targetObject.position.y + 'px'; 
+    havingText.targetObject.hasTextDiv.style.top = havingText.targetObject.position.y + 'px';
     havingText.targetObject.hasTextDiv.style.opacity = havingText.targetObject.currentOpacity;
     havingText.targetObject.hasTextDiv.style.transform = 'rotate(' +  havingText.targetObject.tilt + 'deg)'; // Firefox
     havingText.targetObject.hasTextDiv.style.webkitTransform = 'rotate(' +  havingText.targetObject.tilt + 'deg)'; // Webkit (Chrome, Safari)
@@ -37,10 +37,11 @@ function HavingText(actor, content, divid, domclass, triggeredByAction, reaction
 
 Actor.prototype.setText = function(content, divid, domclass, triggeredByAction, reactionTargetIndex) {
   if (typeof this.hasTextDiv === 'undefined') {
-    this.addBehavior(new HavingText(this, content, divid, domclass, triggeredByAction, reactionTargetIndex));    
+    this.addBehavior(new HavingText(this, content, divid, domclass, triggeredByAction, reactionTargetIndex));
   } else {
     this.hasTextDivInner.innerHTML = content;
   };
+  return this;
 };
 
 

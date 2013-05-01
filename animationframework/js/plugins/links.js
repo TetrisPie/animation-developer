@@ -31,12 +31,15 @@ function Linking(actor, url, newwindow, triggeredByAction, reactionTargetIndex){
 Actor.prototype.links = function(url, windowname) {
 	if(typeof windowname !== 'undefined'){windowname = "_blank";}
 	this.addBehavior(new Linking(this, url, windowname));
+  return this;
 };
 
 Actor.prototype.linksToNewWindow = function(url) {
 	this.addBehavior(new Linking(this, url, "_blank"));
+  return this;
 };
 
 Actor.prototype.linksToSameWindow = function(url) {
 	this.addBehavior(new Linking(this, url, "_self"));
+  return this;
 };

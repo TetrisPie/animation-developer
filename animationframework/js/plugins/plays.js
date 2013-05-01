@@ -9,14 +9,14 @@ function Playing(actor, audioFilename, playingImagePath, looped, onload, between
 
   playing.actor.playLooped = looped;
   playing.actor.playOnLoad = onload;
-  playing.actor.playOnLoadExecuted = false; 
+  playing.actor.playOnLoadExecuted = false;
 
   playing.reset = function(){
-    playing.actor.playOnLoadExecuted = false; 
+    playing.actor.playOnLoadExecuted = false;
     playing.actor.audioplaying = false;
   };
   playing.reset();
-  
+
   playing.applybehavior = function(){
     if (this.actor.playOnLoad && !this.actor.playOnLoadExecuted) {
       this.actor.playOnLoadExecuted = true;
@@ -28,14 +28,14 @@ function Playing(actor, audioFilename, playingImagePath, looped, onload, between
     this.image.src = this.playingImagePath;
     if (this.pulsatesWhilePlaying) {
       l("pulsates")
-      this.pulsates(3,0.1,0, 0, true);      
+      this.pulsates(3,0.1,0, 0, true);
     };
   };
 
   playing.actor.showWaitingImage = function(){
     this.image.src = this.waitingImagePath;
     if (this.pulsatesWhilePlaying) {
-      this.behaviors = [];      
+      this.behaviors = [];
     };
   };
 
@@ -69,8 +69,8 @@ function Playing(actor, audioFilename, playingImagePath, looped, onload, between
   } else {
     bindEvent(playing.actor.audio, 'ended', function(){
       playing.actor.showWaitingImage(this.actor);
-      playing.actor.audioplaying = false;    
-    });    
+      playing.actor.audioplaying = false;
+    });
   };
 
   playing.actor.toggleAudio = function(force_play_or_pause){
@@ -88,7 +88,7 @@ function Playing(actor, audioFilename, playingImagePath, looped, onload, between
   playing.actor.playAudio = function(){
     // l("playing");
     if (this.audio.currentTime) {
-      this.audio.currentTime = 0;     
+      this.audio.currentTime = 0;
     };
     this.audio.play();
     this.showPlayingImage();
@@ -111,23 +111,27 @@ Actor.prototype.playsOnLoad = function(audioFilename, playingImagePath) {
   var myactor = this;
   var behavior = new Playing(myactor, audioFilename, playingImagePath, false, true);
   setTimeout(function(){myactor.addBehavior(behavior)}, 500);
+  return this;
 };
 
 Actor.prototype.plays = function(audioFilename, playingImagePath) {
   var myactor = this;
   setTimeout(function(){myactor.addBehavior(new Playing(myactor, audioFilename, playingImagePath, false, false))}, 500);
+  return this;
 };
 
 Actor.prototype.playsLoop = function(audioFilename, playingImagePath, betweenLoops) {
   var myactor = this;
   var behavior = new Playing(myactor, audioFilename, playingImagePath, true, false, betweenLoops);
   setTimeout(function(){myactor.addBehavior(behavior)}, 500);
+  return this;
 };
 
 Actor.prototype.playsLoopOnLoad = function(audioFilename, playingImagePath, betweenLoops) {
   var myactor = this;
   var behavior = new Playing(myactor, audioFilename, playingImagePath, true, true, betweenLoops);
   setTimeout(function(){myactor.addBehavior(behavior)}, 500);
+  return this;
 };
 
 Actor.prototype.playsAndPulsates = function(audioFilename, playingImagePath) {
@@ -138,4 +142,5 @@ Actor.prototype.playsAndPulsates = function(audioFilename, playingImagePath) {
   myactor.pulsatesWhilePlaying = true;
   setTimeout(function(){myactor.addBehavior(behavior)}, 500);
   // this.addBehavior(new Playing(this, audioFilename, playingImagePath));
+  return this;
 };

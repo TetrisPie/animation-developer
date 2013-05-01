@@ -17,6 +17,7 @@ Actor.prototype.letsCount = function(targetObject, amount){
   targetObject.counter = 0;
   targetObject.addsToCounter(0);
   this.reacts("this.addsToCounter(" + amount + ", true, reactionTargetIndex);", 0, targetObject);
+  return this;
 };
 
 
@@ -37,9 +38,10 @@ Actor.prototype.addsToCounter = function(amount, triggeredByAction, reactionTarg
     if (targetObject.originalText.indexOf('%count%') >= 0) {
       targetObject.setText(targetObject.originalText.replace('%count%', targetObject.counter)) ;
     } else {
-     targetObject.setText(targetObject.counter);      
+     targetObject.setText(targetObject.counter);
     };
   };
+  return this;
 };
 
 
@@ -60,12 +62,14 @@ Actor.prototype.multipliesCounter = function(amount, triggeredByAction, reaction
     if (targetObject.originalText.indexOf('%count%') >= 0) {
       targetObject.setText(targetObject.originalText.replace('%count%', targetObject.counter)) ;
     } else {
-     targetObject.setText(targetObject.counter);      
+     targetObject.setText(targetObject.counter);
     };
   };
+  return this;
 };
 
 Actor.prototype.letsMultiply = function(targetObject, amount){
   targetObject.counter = 0;
   this.reacts("this.multipliesCounter(" + amount + ", true, reactionTargetIndex);", 0, targetObject);
+  return this;
 };

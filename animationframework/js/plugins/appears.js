@@ -42,7 +42,6 @@ function Appearing(actor, startAfter, appearLength, startsVisible, triggeredByAc
       this.isDoneWhen(this.targetObject.currentOpacity >= 1);
     }
   };
-
   return appearing;
 }
 
@@ -52,19 +51,23 @@ Actor.prototype.appears = function(startAfter, appearLength, startsVisible, trig
     behavior.triggeredByAction = triggeredByAction;
   }
   this.addBehavior(behavior);
+  return this;
 };
 
 Actor.prototype.appearsOnTouch = function(appearLength){
   this.setInitialOpacity(0);
   this.reacts("this.appears(0," + appearLength + ", true, false, reactionTargetIndex);", 1);
+  return this;
 };
 
 Actor.prototype.letsAppearStartsVisible = function(targetObject, appearLength){
   this.reacts("this.appears(0, " + floatValueOfOr(appearLength, 1000) + ", true, true, reactionTargetIndex);", 1, targetObject);
+  return this;
 };
 
 Actor.prototype.letsAppear = function(targetObject, appearLength){
   targetObject.setInvisible();
   this.reacts("this.appears(0, " + floatValueOfOr(appearLength, 1000) + ", false, true, reactionTargetIndex);", 1, targetObject);
+  return this;
 };
 

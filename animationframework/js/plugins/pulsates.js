@@ -53,14 +53,17 @@ function Pulsating(actor, hertz, strength, pulsateHowOften, triggeredByAction, r
 Actor.prototype.pulsates = function(hertz, strength, pulsateHowOften, triggeredByAction, reactionTargetIndex) {
   var behavior = new Pulsating(this, hertz, strength, pulsateHowOften, triggeredByAction, reactionTargetIndex);
   this.addBehavior(behavior);
+  return this;
 };
 
 Actor.prototype.pulsatesOnTouch = function(hertz, strength, pulsatehowOften, reactHowOften){
   this.reacts("this.pulsates(" + hertz + ", " + strength + ", " + pulsatehowOften + ", true, reactionTargetIndex);", reactHowOften);
+  return this;
 };
 
 Actor.prototype.letsPulsate = function(targetObject, hertz, strength, pulsateHowOften, reactHowOften){
   this.reacts("this.pulsates(" + hertz + ", " + strength + ", " + pulsateHowOften + ", true, reactionTargetIndex);", reactHowOften, targetObject);
+  return this;
 };
 
 

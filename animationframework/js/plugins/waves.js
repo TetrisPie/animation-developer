@@ -31,4 +31,5 @@ function Waving(actor, radius, hertz, centerOffsetX, centerOffsetY, triggeredByA
 
 Actor.prototype.waves = function(radius, hertz, centerOffsetX, centerOffsetY) {
 	this.addBehavior(new Waving(this, radius, hertz, centerOffsetX, centerOffsetY));
+  return this;
 };

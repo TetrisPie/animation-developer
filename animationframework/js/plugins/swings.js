@@ -19,7 +19,7 @@ function Swinging(actor, radius, hertz, swingcenterX, swingcenterY, degreeOffset
 		this.degrees = (this.runningValue * this.radius)/2;
 
     if (this.firstRun) {
-      this.firstRun = false;   
+      this.firstRun = false;
       this.oldDegrees = this.degrees;
       this.spin = this.degreeOffset;
     } else {
@@ -38,4 +38,5 @@ function Swinging(actor, radius, hertz, swingcenterX, swingcenterY, degreeOffset
 
 Actor.prototype.swings = function(radius, hertz, swingcenterX, swingcenterY, degreeOffset, triggeredByAction, reactionTargetIndex) {
   this.addBehavior(new Swinging(this, radius, hertz, swingcenterX, swingcenterY, degreeOffset, triggeredByAction, reactionTargetIndex));
+  return this;
 };

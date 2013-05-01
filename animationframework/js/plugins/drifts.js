@@ -17,12 +17,15 @@ function Drifting(actor, forceX, forceY, triggeredByAction, reactionTargetIndex)
 
 Actor.prototype.drifts = function(forceX, forceY, triggeredByAction, reactionTargetIndex) {
   this.addBehavior(new Drifting(this, forceX, forceY, triggeredByAction, reactionTargetIndex));
+  return this;
 };
 
 Actor.prototype.driftsOnTouch = function(forceX, forceY){
   this.reacts("this.drifts(" + forceX + "," + forceY + ", true, reactionTargetIndex);", 1);
+  return this;
 };
 
 Actor.prototype.letsDrift = function(targetObject, forceX, forceY){
   this.reacts("this.drifts(" + forceX + "," + forceY + ", true, reactionTargetIndex);", 1, targetObject);
+  return this;
 };

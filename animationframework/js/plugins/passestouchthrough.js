@@ -2,4 +2,5 @@
 
 Actor.prototype.passesTouchThrough = function(){
 	this.image.style.pointerEvents = "none";
+  return this;
 };

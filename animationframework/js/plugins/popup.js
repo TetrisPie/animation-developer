@@ -30,11 +30,11 @@ function Popup(actor, url, width, height, offsetX, offsetY, closeAfter, triggere
 
     popup.wrapdiv.scene = popup.targetObject.scene;
     popup.wrapdiv.actor = popup.targetObject;
-    
+
     var closer = window.document.createElement('a');
     closer.setAttribute('class', 'closer')
     var linkText = document.createTextNode("×");
-    
+
     closer.href="javascript:void(0)";
     closer.setAttribute('onclick', "closepopup('" + popup.iframeDivId + "');");
 
@@ -74,10 +74,12 @@ function Popup(actor, url, width, height, offsetX, offsetY, closeAfter, triggere
 
 Actor.prototype.hasPopup = function(url, width, height, offsetX, offsetY, closeAfter, triggeredByAction, reactionTargetIndex) {
   this.addBehavior(new Popup(this, url, width, height, offsetX, offsetY, closeAfter, triggeredByAction, reactionTargetIndex));
+  return this;
 };
 
 Actor.prototype.hasPopupOnTouch = function(url, width, height, offsetX, offsetY, closeAfter){
   this.reacts("this.hasPopup('" + url + "', " + width +  ", " + height +  ", " + offsetX +  ", " + offsetY +  ", " + closeAfter + ", true, reactionTargetIndex);", 0);
+  return this;
 };
 
 // Actor.prototype.letsDrift = function(targetObject, forceX, forceY){

@@ -2,7 +2,7 @@
 
 function MovingTo(actor, targetX, targetY, forceX, forceY, triggeredByAction, reactionTargetIndex){
   var movingto = new Plugin(0, 0.5);
-  
+
   movingto.triggeredByAction = triggeredByAction;
   movingto.actor = actor;
 
@@ -28,7 +28,7 @@ function MovingTo(actor, targetX, targetY, forceX, forceY, triggeredByAction, re
         this.targetObject.vector.y += this.force.y * moveVector.y;
       } else {
         this.finishedMovingTo = true;
-      };      
+      };
     };
   };
   return movingto;
@@ -41,7 +41,7 @@ Actor.prototype.movesTo = function(targetX, targetY, forceX, forceY, triggeredBy
 
   for (var i = this.behaviors.length - 1; i >= 0; i--) {
     try {
-      this.behaviors[i].finishedMovingTo = true;      
+      this.behaviors[i].finishedMovingTo = true;
     }
     catch(e){}
   };
@@ -50,7 +50,7 @@ Actor.prototype.movesTo = function(targetX, targetY, forceX, forceY, triggeredBy
     for (var j = 0; j < this.scene.actors[i].behaviors.length; j++){
       try {
         if (this.scene.actors[i].reactionTargets[j].filename === this.filename) {
-          this.scene.actors[i].behaviors[j].finishedMovingTo = true;   
+          this.scene.actors[i].behaviors[j].finishedMovingTo = true;
           l("finished");
         };
       }
@@ -62,16 +62,20 @@ Actor.prototype.movesTo = function(targetX, targetY, forceX, forceY, triggeredBy
 
   var behavior = new MovingTo(this, targetX, targetY, forceX, forceY, triggeredByAction, reactionTargetIndex)
   this.addBehavior(behavior);
+  return this;
 };
 
 Actor.prototype.movesToOnTouch = function(targetX, targetY, forceX, forceY){
   this.reacts("this.movesTo(" + targetX + "," + targetY + "," + forceX + "," + forceY + ", true, reactionTargetIndex);", 1);
+  return this;
 };
 
 Actor.prototype.letsMoveTo = function(targetObject, targetX, targetY, forceX, forceY){
   this.reacts("this.movesTo(" + targetX + "," + targetY + "," + forceX + "," + forceY + ", true, reactionTargetIndex);", 1, targetObject);
+  return this;
 };
 
 Actor.prototype.movesToOnTouch = function(targetX, targetY, forceX, forceY){
   this.reacts("this.movesTo(" + targetX + "," + targetY + "," + forceX + "," + forceY + ", true, reactionTargetIndex);", 1);
+  return this;
 };

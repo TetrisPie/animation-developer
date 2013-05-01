@@ -14,6 +14,7 @@ function Multichoicing(actor, triggeredByAction, reactionTargetIndex){
 
 Actor.prototype.multichoices = function(triggeredByAction, reactionTargetIndex) {
   this.addBehavior(new Multichoicing(this, triggeredByAction, reactionTargetIndex));
+  return this;
 };
 
 Actor.prototype.isQuestion = function(rightanswers, wronganswers, nextQuestion, imageOnRightAnswer, imageOnWrongAnswer, soundOnRightAnswer, soundOnWrongAnswer, isLast) {
@@ -43,11 +44,12 @@ Actor.prototype.isQuestion = function(rightanswers, wronganswers, nextQuestion, 
   for (var i = wronganswers.length - 1; i >= 0; i--) {
     wronganswers[i].letsChangeImageSrc(wronganswers[i], imageOnWrongAnswer);
     wronganswers[i].plays(soundOnWrongAnswer, imageOnWrongAnswer);
-  };  
+  };
 };
 
 Actor.prototype.isLastQuestion = function(rightanswers, wronganswers, nextQuestion, imageOnRightAnswer, imageOnWrongAnswer, soundOnRightAnswer, soundOnWrongAnswer) {
   this.isQuestion(rightanswers, wronganswers, nextQuestion, imageOnRightAnswer, imageOnWrongAnswer, soundOnRightAnswer, soundOnWrongAnswer, true);
+  return this;
 };
 
 function AppearingAsQuestion(actor, triggeredByAction, reactionTargetIndex) {
@@ -64,12 +66,15 @@ function AppearingAsQuestion(actor, triggeredByAction, reactionTargetIndex) {
   };
 
   return appearingAsQuestion;
+  return this;
 };
 
 Actor.prototype.appearsAsQuestion = function(triggeredByAction, reactionTargetIndex) {
   this.addBehavior(new AppearingAsQuestion(this, triggeredByAction, reactionTargetIndex));
+  return this;
 };
 
 Actor.prototype.letsAppearAsQuestion = function(targetObject){
   this.reacts("this.appearsAsQuestion(true, reactionTargetIndex);", 1, targetObject);
+  return this;
 };

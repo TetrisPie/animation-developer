@@ -11,12 +11,15 @@ function Rotating(actor, hertz, triggeredByAction, reactionTargetIndex){
 Actor.prototype.rotates = function(hertz, triggeredByAction, reactionTargetIndex) {
   var behaviour = new Rotating(this, hertz, triggeredByAction, reactionTargetIndex);
   this.addBehavior(behaviour);
+  return this;
 };
 
 Actor.prototype.rotatesOnTouch = function(hertz, reactsHowOften, triggeredByAction, reactionTargetIndex) {
   this.reacts("this.rotates(" + hertz + ", true, reactionTargetIndex);", reactsHowOften);
+  return this;
 };
 
 Actor.prototype.letsRotate = function(targetObject, hertz, reactsHowOften){
   this.reacts("this.rotates(" + hertz + ", true, reactionTargetIndex);", reactsHowOften, targetObject);
+  return this;
 };

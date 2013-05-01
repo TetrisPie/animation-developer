@@ -1,6 +1,6 @@
 var scene4 = function(){
   var scene = new Scene('scene4', 'Appearing');
-  
+
   var home = scene.createActor('home.png', 10, 10);
   home.navigatesOnTouch('scene0');
 
@@ -8,17 +8,13 @@ var scene4 = function(){
   actor1.appears(500, 2000);
   scene.write(20, 205, "actor1 appears when the scene loads.");
 
-  var actor2 = scene.createActor('actor.png', 20, 250);
   var actor3 = scene.createActor('actor.png', 300, 250);
-  actor2.letsAppear(actor3, 500, 2000);
+  scene.createActor('actor.png', 20, 250).letsAppear(actor3, 500, 2000);
   // actor2.letsDissolve(actor3, 500);
   scene.write(20, 345, "click on actor2 to let actor3 appear");
 
-  var actor4 = scene.createActor('actors/actor1.png', 20, 400);
   var actor5 = scene.createActor('actor.png', 285, 400);
-  actor4.letsAppear(actor5, 500, 2000);  
-  actor4.dissolvesOnTouch(2000);
-  actor4.letsResetReactions(actor5);
+  var actor4 = scene.createActor('actors/actor1.png', 20, 400).letsAppear(actor5, 500, 2000).dissolvesOnTouch(2000).letsResetReactions(actor5);
 
   var actor6 = scene.createActor('actor.png', 540, 400);
   actor5.letsAppear(actor6, 500, 2000);
