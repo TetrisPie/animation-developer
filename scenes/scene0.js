@@ -89,9 +89,9 @@ var scene0 = function(){
   csstricks.navigatesOnTouch('scene21');
 
   // LAYERS
-  var layers = scene.createActor('button.png', 20, 500);
-  layers.setText("layers", "", "button");
-  layers.navigatesOnTouch('scene22');
+  var yourscene = scene.createActor('button.png', 20, 500);
+  yourscene.setText("Your Scene", "", "button");
+  yourscene.navigatesOnTouch('scene22');
 
   return scene;
 };
