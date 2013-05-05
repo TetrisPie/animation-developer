@@ -9,6 +9,8 @@ if(!window.console) {
   };
 }
 
+
+
 function relativeOrAbsolutePath(defaultLocalPathPrefix, filePath){
   if(/^https?:\/\//.exec(filePath.toLowerCase())){
     return filePath;

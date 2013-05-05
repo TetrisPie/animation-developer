@@ -106,7 +106,7 @@ function Animation(width, height, firstSceneId, minWidth, maxWidth, minHeight, m
 				this.currentScene.resetAge();
 				this.dropUnneededScenes(this.currentScene.preloadSceneIds);
 				this.loadNeededScenes(this.currentScene.preloadSceneIds);
-				window.forceReloadTimer = setTimeout('reloadAndFadeToScene("' + sceneid + '")', window.animation.config.maximumAnimationAge);  
+				window.forceReloadTimer = setTimeout('reloadAndFadeToScene("' + sceneid + '")', window.animation.config.maximumAnimationAge);
 			};
 		};
 	}
@@ -202,10 +202,22 @@ function animationLoader(title, width, height, firstSceneId, minWidth, maxWidth,
 
 	if (window.onresize) var oldOnresize = window.onresize;
 	window.onresize = function() {
+		// setGuessedOrientation();
 		if(oldOnresize) oldOnresize();
 		window.animation.scaleToWindow();
 	};
 }
+
+function setGuessedOrientation(){
+  if(window.innerWidth > window.innerHeight) {
+    window.orientation = "landscape";
+    return "landscape";
+  } else {
+    window.orientation = "portrait";
+    return "portrait";
+  };
+}
+setGuessedOrientation();
 
 // requestAnim shim layer by Paul Irish
 requestAnimFrame = (function(){

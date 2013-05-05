@@ -85,12 +85,12 @@ var scene0 = function(){
 
   // LAYERS 1
   var layers1 = scene.createActor('button.png', 20, 500);
-  layers1.setText("layers 1", "", "button");
+  layers1.setText("layers 1 (dev)", "", "button");
   layers1.navigatesOnTouch('scene22');
 
   // LAYERS 2
   var layers2 = scene.createActor('button.png', 270, 500);
-  layers2.setText("layers 2", "", "button");
+  layers2.setText("layers 2 (dev)", "", "button");
   layers2.navigatesOnTouch('scene23');
 
   // CSS-tricks
