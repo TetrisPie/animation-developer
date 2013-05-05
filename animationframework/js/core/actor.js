@@ -10,11 +10,13 @@ var Actor = function(imagePath, startX, startY, imagesizeX, imagesizeY){
 	this.startPosition = {x: startX, y: startY}; // for resetting
 
 	// FOR PLUGIN-WRITERS:
-	// 'vector' and 'spin' are the two things that plugins _should_ be
+	// these are the things that plugins _should_ be
 	// modifiying. Only those are truly "stackable" (i.e. can be changed
-        // by multiple plugins in a row.)
+  // by multiple plugins in a row.)
 	this.vector = {x: 0, y: 0};
 	this.spin = 0;
+	this.offsetX = 0;
+	this.offsetY = 0;
 	/////////////////////////////////
 
 	this.tilt = 0;
@@ -233,8 +235,8 @@ Actor.prototype.resetBehaviors = function(){
 function moveActor(actor){
 	actor.position.x += actor.vector.x;
 	actor.position.y += actor.vector.y;
-	actor.image.style.left = actor.position.x + 'px';
-	actor.image.style.top = actor.position.y + 'px';
+	actor.image.style.left = (actor.position.x + actor.offsetX) + 'px';
+	actor.image.style.top = (actor.position.y + actor.offsetY) + 'px';
   actor.lastVector = actor.vector;
 	actor.vector = {x: 0, y: 0};
 }
@@ -297,9 +299,9 @@ function animateactor(actor){
 			actor.behaviors[i].applybehavior();
 		}
 
-		if ((actor.vector.x != 0) || (actor.vector.y != 0)){
+		//if ((actor.vector.x != 0) || (actor.vector.y != 0)){
 			moveActor(actor);
-		}
+		//}
 
 		if (actor.spin != 0 || actor.tilt != 0) {
 			tiltActor(actor);

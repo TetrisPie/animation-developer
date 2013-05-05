@@ -83,15 +83,21 @@ var scene0 = function(){
   popup.setText("popup", "", "button");
   popup.navigatesOnTouch('scene20');
 
+  // LAYERS 1
+  var layers1 = scene.createActor('button.png', 20, 500);
+  layers1.setText("layers 1", "", "button");
+  layers1.navigatesOnTouch('scene22');
+
+  // LAYERS 2
+  var layers2 = scene.createActor('button.png', 270, 500);
+  layers2.setText("layers 2", "", "button");
+  layers2.navigatesOnTouch('scene23');
+
   // CSS-tricks
-  var csstricks = scene.createActor('button.png', 270, 500);
+  var csstricks = scene.createActor('button.png', 520, 500);
   csstricks.setText("CSS-tricks", "", "button");
   csstricks.navigatesOnTouch('scene21');
 
-  // LAYERS
-  var layers = scene.createActor('button.png', 20, 500);
-  layers.setText("layers", "", "button");
-  layers.navigatesOnTouch('scene22');
 
   return scene;
 };

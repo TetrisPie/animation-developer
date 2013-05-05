@@ -1,21 +1,21 @@
-function bindEvent(el, eventName, eventHandler, reacting) {
-  // l("el: " + el);
+function bindEvent(element, eventName, eventHandler, reacting) {
+  // l("element: " + element);
   // l("eventName: " + eventName);
   // l("eventHandler: " + eventHandler);
   if (typeof reacting !== "undefined") {
     reacting = null;
   };
-  
-  if (el.addEventListener){
-    el.addEventListener(eventName, eventHandler, false);
-  } else if (el.attachEvent){
-    el.attachEvent('on'+eventName, eventHandler);
+
+  if (element.addEventListener){
+    element.addEventListener(eventName, eventHandler, false);
+  } else if (element.attachEvent){
+    element.attachEvent('on'+eventName, eventHandler);
   }
 }
 
 function unbindEvent(el, callee){
-  // should work 
-  this.removeEventListener('click',arguments.callee,false);
+  // should work
+  this.removeEventListener('click', arguments.callee,false);
 }
 
 function getClickPosition(el) {
