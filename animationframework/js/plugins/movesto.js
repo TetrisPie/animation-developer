@@ -39,26 +39,26 @@ function MovingTo(actor, targetX, targetY, forceX, forceY, triggeredByAction, re
 Actor.prototype.movesTo = function(targetX, targetY, forceX, forceY, triggeredByAction, reactionTargetIndex) {
   triggeredByAction = (typeof triggeredByAction === 'undefined') ? false : triggeredByAction
 
-  for (var i = this.behaviors.length - 1; i >= 0; i--) {
-    try {
-      this.behaviors[i].finishedMovingTo = true;
-    }
-    catch(e){}
-  };
+  // for (var i = this.behaviors.length - 1; i >= 0; i--) {
+  //   try {
+  //     this.behaviors[i].finishedMovingTo = true;
+  //   }
+  //   catch(e){}
+  // };
 
-  for (var i = this.scene.actors.length - 1; i >= 0; i--) {
-    for (var j = 0; j < this.scene.actors[i].behaviors.length; j++){
-      try {
-        if (this.scene.actors[i].reactionTargets[j].filename === this.filename) {
-          this.scene.actors[i].behaviors[j].finishedMovingTo = true;
-          l("finished");
-        };
-      }
-      catch(e){
-        l("not applicable");
-      }
-    };
-  };
+  // for (var i = this.scene.actors.length - 1; i >= 0; i--) {
+  //   for (var j = 0; j < this.scene.actors[i].behaviors.length; j++){
+  //     try {
+  //       if (this.scene.actors[i].reactionTargets[j].filename === this.filename) {
+  //         this.scene.actors[i].behaviors[j].finishedMovingTo = true;
+  //         l("finished");
+  //       };
+  //     }
+  //     catch(e){
+  //       l("not applicable");
+  //     }
+  //   };
+  // };
 
   var behavior = new MovingTo(this, targetX, targetY, forceX, forceY, triggeredByAction, reactionTargetIndex)
   this.addBehavior(behavior);
