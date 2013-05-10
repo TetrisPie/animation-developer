@@ -7,7 +7,7 @@ Scene.prototype.createActor = function (filename, startAtX, startAtY, width, hei
         actor.image.originalPath = filename;
         actor.filename = filename.substring(filename.lastIndexOf('/') + 1)
         actor.image.setAttribute('src', relativeOrAbsolutePath(defaultImageDirectory, actor.image.originalPath));
-
+        this.image.setAttribute('draggable', 'false');
         actor.image.actor = actor;
         actor.phases.push(relativeOrAbsolutePath(defaultImageDirectory, filename));
         actor.defaultdirectory = defaultImageDirectory;
@@ -37,5 +37,6 @@ Scene.prototype.createActor = function (filename, startAtX, startAtY, width, hei
 Actor.prototype.addPhase = function (phaseImagePath) {
         var tmpImage = document.createElement('img');
         tmpImage.setAttribute('src', relativeOrAbsolutePath(this.defaultdirectory, phaseImagePath));
+        tmpImage.setAttribute('draggable', 'false');
         this.phases.push(relativeOrAbsolutePath(this.defaultdirectory, phaseImagePath));
     };
