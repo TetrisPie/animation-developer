@@ -109,12 +109,6 @@ function Scene(id, title){
 		}
 	};
 
-	this.createActor = function(filename, startAtX, startAtY, width, height){
-		var actor = new Actor(filename, startAtX, startAtY, width, height);
-		actor.scene = this;
-		this.actors.push(actor);
-		return actor;
-	};
 
 	this.enterActors = function(){
 		for (var i = 0; i < this.actors.length; i++) {
