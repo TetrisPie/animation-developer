@@ -2,7 +2,7 @@ function Plugin(delay, easeIn, actor, triggeredByAction, reactionTargetIndex){
   this.delay = delay;
   this.easeIn = (typeof easeIn != 'undefined') ? easeIn : 0;
   this.needsToCalculateEasein = this.easeIn > 0;
-  this.startAnimationTimestamp = new Date;
+  this.startAnimationTimestamp = new Date();
   this.triggeredByAction = false;
 
   var targetObject = null;
@@ -14,10 +14,10 @@ function Plugin(delay, easeIn, actor, triggeredByAction, reactionTargetIndex){
       this.targetObject = actor.reactionTargets[reactionTargetIndex];
     } else {
       this.targetObject = actor;
-    };
+    }
   };
   this.setup();
-  
+
   this.resetStartAnimationTimestamp = function(){
     this.startAnimationTimestamp = now();
   };
@@ -56,7 +56,7 @@ function Plugin(delay, easeIn, actor, triggeredByAction, reactionTargetIndex){
   };
 
   this.age = function(){
-    return (new Date - this.startAnimationTimestamp);
+    return (new Date() - this.startAnimationTimestamp);
   };
 
   this.factor = function(){
@@ -66,8 +66,8 @@ function Plugin(delay, easeIn, actor, triggeredByAction, reactionTargetIndex){
     } else {
       this.needsToCalculateEasein = false;
       return 1;
-    };
+    }
   };
 
   return this;
-};
+}
