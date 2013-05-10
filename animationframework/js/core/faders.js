@@ -1,12 +1,12 @@
 function fadeIn(domobject, length){
-  if (notNumeric(domobject.style.opacity) || domobject.style.opacity < 0) {domobject.style.opacity = 0};
-  if (notNumeric(length)) {length = 1000};
+  if (notNumeric(domobject.style.opacity) || domobject.style.opacity < 0) {domobject.style.opacity = 0;}
+  if (notNumeric(length)) {length = 1000;}
   prepareFade(domobject, length, 1);
 }
 
 function fadeOut(domobject, length){
-  if (notNumeric(domobject.style.opacity) || domobject.style.opacity > 1) {domobject.style.opacity = 1};
-  if (notNumeric(length)) {length = 1000};
+  if (notNumeric(domobject.style.opacity) || domobject.style.opacity > 1) {domobject.style.opacity = 1;}
+  if (notNumeric(length)) {length = 1000;}
   prepareFade(domobject, length, 0);
 }
 
@@ -20,12 +20,11 @@ function executeFadeInTimeoutLoop(domobject, startOpacity, targetOpacity, length
   var newOpacity = startOpacity + stepSize;
 
   if (newOpacity > 1 || newOpacity < 0) {
-    domobject.style.opacity = targetOpacity
+    domobject.style.opacity = targetOpacity;
   } else {
     domobject.style.opacity = newOpacity;
-    // l("current opacity:" + newOpacity);
-    setTimeout(function(){executeFadeInTimeoutLoop(domobject, newOpacity, targetOpacity, length - frameLength, framesPerSecond, frameLength)}, frameLength);      
-  };
+    setTimeout(function(){executeFadeInTimeoutLoop(domobject, newOpacity, targetOpacity, length - frameLength, framesPerSecond, frameLength);}, frameLength);
+  }
 }
 
 function prepareFade(domobject, length, targetOpacity){
@@ -34,5 +33,5 @@ function prepareFade(domobject, length, targetOpacity){
   var framesPerSecond = 30;
   var frameLength = (1000 / framesPerSecond);
 
-  executeFadeInTimeoutLoop(domobject, startOpacity, targetOpacity, length, framesPerSecond, frameLength)
+  executeFadeInTimeoutLoop(domobject, startOpacity, targetOpacity, length, framesPerSecond, frameLength);
 }
