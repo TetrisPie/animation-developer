@@ -27,7 +27,7 @@ body { /* the page itself */ background-color: #111; background-image: url(../im
 
 .hastext .inner { margin: 25px 5px; font-size: 16px; line-height: 22px; font-family: sans-serif; }
 
-.button .inner { text-align: left; color: #fff; font-size: 17pt; line-height: 17pt; margin-top: 38px; margin-left: 10px; font-weight: normal; }
+.button .inner { text-align: left; color: #fff; font-size: 17pt; line-height: 17pt; margin-top: 33px; margin-left: 10px; font-weight: normal; }
 
 /* =========================================================== */
 /* CUSTOM CLASS AND ID IN SCENE 21 */
