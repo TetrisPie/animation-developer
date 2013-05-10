@@ -21,11 +21,11 @@ var Actor = function(imagePath, startX, startY, imagesizeX, imagesizeY){
 
 	this.tilt = 0;
 
-	this.behaviors = new Array;
-	this.reactions = new Array;
-	this.reactionTargets = new Array;
+	this.behaviors = [];
+	this.reactions = [];
+	this.reactionTargets = [];
 
-	this.phases = new Array;
+	this.phases = [];
 	this.oldPhase = 0;
 	this.phaseCycle = 1000;
 
@@ -48,7 +48,7 @@ var Actor = function(imagePath, startX, startY, imagesizeX, imagesizeY){
 	this.cleanupBehaviors = function(){
 		for (var i = this.behaviors.length - 1; i >= 0; i--) {
 			this.behaviors[i].cleanup();
-		};
+		}
 	};
 
 	this.reset = function(){
@@ -77,12 +77,12 @@ var Actor = function(imagePath, startX, startY, imagesizeX, imagesizeY){
 		for (var i = this.behaviors.length - 1; i >= 0; i--) {
 			if(!this.behaviors[i].triggeredByAction){
 				newBehaviors.push(this.behaviors[i]);
-			};
-		};
+			}
+		}
 
 		if(this.behaviors.length != newBehaviors.length){
 			this.behaviors = newBehaviors;
-		};
+		}
 	};
 
 	this.setSize = function(width, height){
@@ -105,7 +105,7 @@ var Actor = function(imagePath, startX, startY, imagesizeX, imagesizeY){
 
 	// variables for delayed start:
 	if (typeof delay != 'undefined'){
-		this.delay = parseInt(delay); // milliseconds it takes the actor to launch
+		this.delay = parseInt(delay, 10); // milliseconds it takes the actor to launch
 		this.startedDelayingAt = null; // should be Date.now() once started
 		this.finishedDelaying = false; // should be set to true once done
 	}
@@ -131,7 +131,7 @@ var Actor = function(imagePath, startX, startY, imagesizeX, imagesizeY){
 			var passedTimeSinceEntered = now() - this.enteredAt;
 			var lengthOfPhase = this.phaseCycle  / numberOfPhases;
 			var rest = passedTimeSinceEntered % (numberOfPhases * lengthOfPhase);
-			myPhase = parseInt(rest / lengthOfPhase);
+			myPhase = parseInt((rest / lengthOfPhase), 10);
 		}
 		return myPhase;
 	};
@@ -139,7 +139,7 @@ var Actor = function(imagePath, startX, startY, imagesizeX, imagesizeY){
 	this.setup = function(){
 		this.image = document.createElement('img');
 		this.image.originalPath = imagePath;
-		this.filename = imagePath.substring(imagePath.lastIndexOf('/')+1)
+		this.filename = imagePath.substring(imagePath.lastIndexOf('/')+1);
 		// this.image.setAttribute('src', defaultImageDirectory  + this.image.originalPath);
 		this.image.setAttribute('src', relativeOrAbsolutePath(defaultImageDirectory, this.image.originalPath));
 		this.image.actor = this;
@@ -150,7 +150,7 @@ var Actor = function(imagePath, startX, startY, imagesizeX, imagesizeY){
 		this.setSize(imagesizeX, imagesizeY);
 		this.vector = {x: 0, y: 0};
 
-		bindEvent(this.image, 'mousedown', function(){this.actor.react()});
+		bindEvent(this.image, 'mousedown', function(){this.actor.react();});
 		moveActor(this);
 	};
 	this.setup();
@@ -166,15 +166,9 @@ var Actor = function(imagePath, startX, startY, imagesizeX, imagesizeY){
 };
 
 Actor.prototype.navigatesOnTouch = function(sceneid, secondImageFilename) {
-	  this.reacts("window.animation.showScene('" + sceneid + "')", 0);
-	  this.image.className += 'navigation';
-	  this.scene.preloadSceneIds.push(sceneid);
-};
-
-Actor.prototype.loadsOnTouch = function(sceneid, secondImageFilename) {
-	  this.reacts("window.animation.reloadAndFadeToScene('" + sceneid + "')", 0);
-	  this.image.className += 'navigation';
-	  // this.scene.preloadSceneIds.push(sceneid);
+	this.reacts("window.animation.showScene('" + sceneid + "')", 0);
+	this.image.className += 'navigation';
+	this.scene.preloadSceneIds.push(sceneid);
 };
 
 Actor.prototype.delays = function(myDelay){
@@ -191,7 +185,7 @@ Actor.prototype.alterOpacity = function(newOpacity){
 		this.currentOpacity = newOpacity;
 		this.image.style.opacity = this.currentOpacity;
 		this.image.style.filter = 'alpha(opacity=' + this.newOpacity*100 + ')';
-	};
+	}
 };
 
 Actor.prototype.setInitialOpacity = function(newOpacity){
@@ -207,7 +201,7 @@ Actor.prototype.setInvisible = function(){
 Actor.prototype.setVisible = function(newOpacity){
 	if (typeof newOpacity !== 'undefined') {
 		this.alterOpacity(newOpacity);
-	};
+	}
 	this.image.style.visibility = '';
 	this.currentlyVisible = true;
 };
@@ -216,20 +210,20 @@ Actor.prototype.resets = function(resetDelay){
 	this.doesReset = true;
 	if (typeof resetDelay === "undefined") {
 		resetDelay = 0;
-	};
+	}
 	this.resetDelay = resetDelay;
 };
 
 Actor.prototype.resetReactions = function(){
 	for (var i = this.reactions.length - 1; i >= 0; i--) {
 		this.reactions[i].reset();
-	};
+	}
 };
 
 Actor.prototype.resetBehaviors = function(){
 	for (var i = this.behaviors.length - 1; i >= 0; i--) {
 		this.behaviors[i].reset();
-	};
+	}
 };
 
 function moveActor(actor){
@@ -248,15 +242,15 @@ function tiltActor(actor){
 	actor.image.style.msTransform = 'rotate(' + actor.tilt + 'deg)'; // Internet Explorer
 	actor.image.style.OTransform = 'rotate(' + actor.tilt + 'deg)'; //Opera
 	actor.spin = 0;
-};
+}
 
 function visibleOnStage(actor){
 	return !notVisibleOnStage;
-};
+}
 
 function notVisibleOnStage(actor){
 		return (actor.position.x > actor.scene.dimensions.x) || ((actor.position.x + actor.imagesize.x) < 0) || ((actor.position.y + actor.imagesize.y) < 0) || (actor.position.y > actor.scene.dimensions.y);
-};
+}
 
 function animateactor(actor){
 	if (actor.doesReset && notVisibleOnStage(actor)) {
@@ -275,7 +269,7 @@ function animateactor(actor){
 	}
 	else if ((actor.delay > 0) && !actor.finishedDelaying) {
 		// NEEDS TO DELAY
-		if (actor.startedDelayingAt == null) {
+		if (actor.startedDelayingAt === null) {
 			// start delaying
 			actor.startedDelayingAt = t();
 		} else if (t() >= (actor.startedDelayingAt + actor.delay)) {
@@ -291,8 +285,8 @@ function animateactor(actor){
 			if (actor.currentPhase() != actor.oldPhase) {
 				actor.image.src = actor.phases[actor.currentPhase()];
 				actor.oldPhase = actor.currentPhase();
-			};
-		};
+			}
+		}
 
 		// run through all behaviors
 		for (var i = 0; i < actor.behaviors.length; i++){
@@ -303,8 +297,8 @@ function animateactor(actor){
 			moveActor(actor);
 		//}
 
-		if (actor.spin != 0 || actor.tilt != 0) {
+		if (actor.spin !== 0 || actor.tilt !== 0) {
 			tiltActor(actor);
-		};
+		}
 	}
 }
