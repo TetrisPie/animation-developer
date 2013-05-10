@@ -9,8 +9,6 @@ if(!window.console) {
   };
 }
 
-
-
 function relativeOrAbsolutePath(defaultLocalPathPrefix, filePath){
   if(/^https?:\/\//.exec(filePath.toLowerCase())){
     return filePath;
@@ -20,13 +18,13 @@ function relativeOrAbsolutePath(defaultLocalPathPrefix, filePath){
 }
 
 function randomId(){
-  return 'id' + Math.floor(Math.random()*10000) + Date.now()
+  return 'id' + Math.floor(Math.random()*10000) + Date.now();
 }
 
 function l(msg){
   if (developermode) {
     console.log(msg);
-  };
+  }
 }
 
 function truth(expression){
@@ -34,7 +32,7 @@ function truth(expression){
     return false;
   } else {
     return Boolean(expression);
-  };
+  }
 }
 
 function distance(x1, y1, x2, y2){
@@ -55,21 +53,21 @@ function timeInMinutes(minutes){
 }
 
 function seconds(){
-  return parseInt(now()/1000);
+  return parseInt((now()/1000), 10);
 }
 
 function floatValueOfOr(n, or){
-  return isNumeric(n) ? parseFloat(n) : or
+  return isNumeric(n) ? parseFloat(n) : or;
 }
 
 Number.prototype.subtractUntilZero = function(subtract){
   return subtract >= this ? 0 : (this - subtract);
-}
+};
 
 Number.prototype.addUntilTarget = function(addAmount, target){
   var ret = this + addAmount;
   return ret > target ? target : ret;
-}
+};
 
 function isNumeric(n) {
   return !notNumeric(n);
@@ -115,7 +113,7 @@ function minutesToTime(minutes){
 }
 
 function getIntegerFromEndOfString(myString){
-  return parseInt(myString.match(/\d+$/)[0]);
+  return parseInt((myString.match(/\d+$/)[0]), 10);
 }
 
 function rescale(domobject, newscale){
