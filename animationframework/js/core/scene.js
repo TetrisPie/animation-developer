@@ -69,7 +69,7 @@ function Scene(id, title){
 	this.cleanup = function(){
 		for (var i = this.actors.length - 1; i >= 0; i--) {
 			this.actors[i].cleanupBehaviors();
-		};		
+		}
 	};
 
 	this.makeOthersInvisible = function(){
@@ -128,7 +128,7 @@ function Scene(id, title){
 		this.stage = myStageDiv;
 
 		// get dimensions and set css-size according to stage
-		this.dimensions = {x: parseInt(myStageDiv.style.width), y: parseInt(myStageDiv.style.height)};
+		this.dimensions = {x: parseInt(myStageDiv.style.width, 10), y: parseInt(myStageDiv.style.height, 19)};
 		this.div.style.width = this.dimensions.x + 'px';
 		this.div.style.height = this.dimensions.y + 'px';
 
@@ -151,7 +151,7 @@ function Scene(id, title){
 		this.textDisplaying = true;
 		for (var i = this.texts.length - 1; i >= 0; i--) {
 			this.texts[i].style.visibility = 'visible';
-		};
+		}
 		window.animation.textIsDisplaying = true;
 	};
 
@@ -159,9 +159,9 @@ function Scene(id, title){
 		this.textDisplaying = false;
 		for (var i = this.texts.length - 1; i >= 0; i--) {
 			this.texts[i].style.visibility = 'hidden';
-		};
+		}
 		window.animation.textIsDisplaying = false;
 	};
 
 	return this;
-};
+}
