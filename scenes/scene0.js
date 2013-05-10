@@ -103,7 +103,11 @@ var scene0 = function(){
   csstricks.setText("bounces", "", "button");
   csstricks.navigatesOnTouch('scene24');
 
-
+  // VIDEOACTOR
+  var videoactor = scene.createActor('button.png', 270, 520, 240, 60);
+  var newBatch = scene.createActor('new.png', 265, 505, 50, 50);
+  videoactor.setText("video", "", "button");
+  videoactor.navigatesOnTouch('scene25');
 
   return scene;
 };
