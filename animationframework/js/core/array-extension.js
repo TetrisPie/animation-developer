@@ -7,15 +7,15 @@ Array.prototype.minus = function(secondarr){
       if (secondarr[j].match(result[i])){
         result = result.without(i);
         break;
-      };
-    };
-  };
+      }
+    }
+  }
   return result;
 };
 
 Array.prototype.without = function(index){
   // or learn to understand SLICE?!
-  var part1 = index > 0 ? this.slice(0,index) : []
-  var part2 = this.slice(index+1)
+  var part1 = index > 0 ? this.slice(0,index) : [];
+  var part2 = this.slice(index+1);
   return part1.concat(part2);
 };
