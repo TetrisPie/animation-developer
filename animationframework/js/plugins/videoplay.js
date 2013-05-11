@@ -6,7 +6,6 @@ function PlayVideo(actor, startAfter, startsAt, playLength, triggeredByAction, r
   playing.originalPlayTime = actor.image.currentTime * 1000;
   playing.newPlayTime = startsAt;
   playing.playLength = playLength;
-  playing.initVideo = true;
 
   if (typeof startsAt == 'undefined') {
     playing.startsAtBegin = true;
@@ -24,29 +23,37 @@ function PlayVideo(actor, startAfter, startsAt, playLength, triggeredByAction, r
       }
   };
 
-  playing.reset = function () {
-        if (playing.initVideo) {
-            if (this.targetObject.image.currentSrc != '') {
-                if (this.startsAtBegin) {
-                    this.targetObject.image.currentTime = 0;
-                } else {
-                    this.targetObject.image.currentTime = playing.newPlayTime / 1000;
-                }
-                playing.initVideo = false;
-            }
-        }
-      this.resetPlugin(); // quasi "call to super";
-  };
-  playing.reset();
 
-  playing.applybehavior = function () {
-      if (!this.done && (this.targetObject.age() > startAfter)) {
-          this.targetObject.image.play();
-          this.isDoneWhen(true)
-      }
-  };
-  return playing;
+  playing.listener = function(){
+          playing.reset = function () {
+            if (playing.videoReady && (this.targetObject.image.currentSrc != '')) {
+                if (this.startsAtBegin) {
+                        this.targetObject.image.currentTime = 0;
+                    } else {
+                        this.targetObject.image.currentTime = playing.newPlayTime / 1000;
+                    }
+                }
+                this.resetPlugin(); // quasi "call to super";
+            };
+            playing.reset();
+
+            playing.applybehavior = function () {
+                if (!this.done && (this.targetObject.age() > startAfter)) {
+                    this.targetObject.image.play();
+                    this.isDoneWhen(true)
+                }
+            };
+       this.targetObject.image.removeEventListener('click', playing.listener , false);
+    };
+
+ if (actor.image.readyState != 4) {
+     actor.image.addEventListener('canplay', playing.listener ,false);
+     return playing;
+     } else {
+     playing.listener();
+     }
 }
+
 
 Actor.prototype.playvideo = function (startAfter, startsAt, playLength, triggeredByAction, reactionTargetIndex) {
     var behavior = new PlayVideo(this, startAfter, startsAt, playLength, triggeredByAction, reactionTargetIndex);
