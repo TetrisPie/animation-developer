@@ -54,7 +54,6 @@ function PlayVideo(actor, startAfter, startsAt, playLength, triggeredByAction, r
      }
 }
 
-
 Actor.prototype.playvideo = function (startAfter, startsAt, playLength, triggeredByAction, reactionTargetIndex) {
     var behavior = new PlayVideo(this, startAfter, startsAt, playLength, triggeredByAction, reactionTargetIndex);
     if (typeof triggeredByAction !== 'undefined') {
