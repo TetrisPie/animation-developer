@@ -4,9 +4,9 @@ function PlayVideo(actor, startAfter, startsAt, playLength, triggeredByAction, r
   var playing = new Plugin(0,0, actor, triggeredByAction, reactionTargetIndex);
 
   playing.originalPlayTime = actor.image.currentTime * 1000;
-  playing.initVideo = true;
   playing.newPlayTime = startsAt;
   playing.playLength = playLength;
+  playing.initVideo = true;
 
   if (typeof startsAt == 'undefined') {
     playing.startsAtBegin = true;
@@ -25,31 +25,24 @@ function PlayVideo(actor, startAfter, startsAt, playLength, triggeredByAction, r
   };
 
   playing.reset = function () {
-      playing.initVideo = true;
+        if (playing.initVideo) {
+            if (this.targetObject.image.currentSrc != '') {
+                if (this.startsAtBegin) {
+                    this.targetObject.image.currentTime = 0;
+                } else {
+                    this.targetObject.image.currentTime = playing.newPlayTime / 1000;
+                }
+                playing.initVideo = false;
+            }
+        }
       this.resetPlugin(); // quasi "call to super";
   };
   playing.reset();
 
   playing.applybehavior = function () {
-      if (!this.done) {
-          alert(playing.initVideo);
-          if (playing.initVideo) {
-              alert(this.targetObject.image.currentSrc);
-              if (this.targetObject.image.currentSrc != '') {
-                  alert("dd");
-                  if (this.startsAtBegin) {
-                      this.targetObject.image.currentTime = 0;
-                  } else {
-                      this.targetObject.image.currentTime = playing.newPlayTime / 1000;
-                  }
-                  playing.initVideo = false;
-              }
-          }
-      }
-
       if (!this.done && (this.targetObject.age() > startAfter)) {
           this.targetObject.image.play();
-          this.isDoneWhen(true);
+          this.isDoneWhen(true)
       }
   };
   return playing;

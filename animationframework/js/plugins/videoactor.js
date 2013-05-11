@@ -6,7 +6,7 @@ Scene.prototype.createVideoActor = function (fileName, startAtX, startAtY, width
         actor.image = document.createElement('video');
         actor.image.originalPath = fileName;
         actor.filename = fileName.substring(fileName.lastIndexOf('/') + 1)
-
+                         
         var srcTag = actor.image.appendChild(document.createElement('source'));
         srcTag.setAttribute('type', 'video/mp4');
         srcTag.setAttribute('src', relativeOrAbsolutePath(defaultVideoDirectory, actor.image.originalPath) + '.mp4');
@@ -43,7 +43,7 @@ Scene.prototype.createVideoActor = function (fileName, startAtX, startAtY, width
 };
 
 Actor.prototype.addPhase = function (phaseVideoPath) {
-        var defaultVideoDirectory = 'videos/';
+       /* var defaultVideoDirectory = 'videos/';
         tempImage = document.createElement('video');
 
         var srcTag = tempImage.appendChild(document.createElement('source'));
@@ -53,6 +53,6 @@ Actor.prototype.addPhase = function (phaseVideoPath) {
         srcTag = tempImage.appendChild(document.createElement('source'));
         srcTag.setAttribute('type', 'video/webm');
         srcTag.setAttribute('src', relativeOrAbsolutePath(defaultVideoDirectory, phaseVideoPath) + '.webm');
-
+        */
         this.phases.push(relativeOrAbsolutePath(this.defaultdirectory, phaseVideoPath));
     };
