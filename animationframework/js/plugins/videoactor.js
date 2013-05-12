@@ -42,17 +42,17 @@ Scene.prototype.createVideoActor = function (fileName, startAtX, startAtY, width
     return actor;
 };
 
-Actor.prototype.addPhase = function (phaseVideoPath) {
-        var defaultVideoDirectory = 'videos/';
-        tempImage = document.createElement('video');
+// Actor.prototype.addPhase = function (phaseVideoPath) {
+//     var defaultVideoDirectory = 'videos/';
+//     tempImage = document.createElement('video');
 
-        var srcTag = tempImage.appendChild(document.createElement('source'));
-        srcTag.setAttribute('type', 'video/mp4');
-        srcTag.setAttribute('src', relativeOrAbsolutePath(defaultVideoDirectory, phaseVideoPath) + '.mp4');
+//     var srcTag = tempImage.appendChild(document.createElement('source'));
+//     srcTag.setAttribute('type', 'video/mp4');
+//     srcTag.setAttribute('src', relativeOrAbsolutePath(defaultVideoDirectory, phaseVideoPath) + '.mp4');
 
-        srcTag = tempImage.appendChild(document.createElement('source'));
-        srcTag.setAttribute('type', 'video/webm');
-        srcTag.setAttribute('src', relativeOrAbsolutePath(defaultVideoDirectory, phaseVideoPath) + '.webm');
+//     srcTag = tempImage.appendChild(document.createElement('source'));
+//     srcTag.setAttribute('type', 'video/webm');
+//     srcTag.setAttribute('src', relativeOrAbsolutePath(defaultVideoDirectory, phaseVideoPath) + '.webm');
 
-        this.phases.push(relativeOrAbsolutePath(this.defaultdirectory, phaseVideoPath));
-    };
+//     this.phases.push(relativeOrAbsolutePath(this.defaultdirectory, phaseVideoPath));
+// };
