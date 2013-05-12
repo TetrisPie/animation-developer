@@ -1,4 +1,4 @@
-/* jshint -W061 */ // allow the evil eval
+/* jshint -W061 */ // allow "evil eval"
 
 function Animation(width, height, firstSceneId, minWidth, maxWidth, minHeight, maxHeight){
 	config(this); // read in configuration residing in animationconfig.js
@@ -32,9 +32,7 @@ function Animation(width, height, firstSceneId, minWidth, maxWidth, minHeight, m
 
 	this.scaleToDiv = function(){
 		console.log("scaling to div");
-		// when we resize towards a gif we resize only by width.
-
-		// grab the full window size and height and scale into it.
+		// when we resize towards a div we resize only by width.
 		var divWidth = this.animationwrapper.clientWidth;
 
 		var newWidth, newHeight;
@@ -121,6 +119,7 @@ function Animation(width, height, firstSceneId, minWidth, maxWidth, minHeight, m
 	};
 
 	this.loadScene = function(sceneid){
+		console.log("jshdgfjhsdgf");
 		// is the scene maybe already loaded?
 		for (var i = this.loadedScenes.length - 1; i >= 0; i--) {
 			if (this.loadedScenes[i].id === sceneid) {
@@ -130,8 +129,9 @@ function Animation(width, height, firstSceneId, minWidth, maxWidth, minHeight, m
 
 		// if we reached this point, the scene isn't loaded yet.
 		var newScene = eval(sceneid + '()');
-		newScene.setDimensions(width, height);
+		newScene.setSzeneSizeToStageIfNotSetInScenedefinition(width, height);
 		this.loadedScenes.push(newScene);
+		newScene.stageDiv = this.stageDiv;
 		this.stageDiv.appendChild(newScene.div);
 		newScene.makeInvisible();
 		return newScene;

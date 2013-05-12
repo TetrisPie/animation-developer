@@ -38,20 +38,34 @@ Actor.prototype.isInLayer = function(layerNumber, factorX, factorY) {
   return this;
 };
 
+Scene.prototype.scrollingPerspective = function(){
+  console.log("FIGURE OUT HOW TO CONNECT SCROLLING TO PERSPECTIVE-SHIFT");
+
+  // (function(){
+  //   // add scroll listener to stage
+  //   bindEvent(this.stageDiv, 'scroll', function(callee){
+  //     console.log("horizontal scrolling position " + callee.srcElement.scrollLeft + "px");
+  //     console.log("vertical scrolling position " + callee.srcElement.scrollTop + "px");
+  //   });
+  // })();
+};
+
+
+
 /*
   In order to change the perspective with the movement of the iPad, the
   scene-script has to set how x- and y-tilting affect the x- and y-perspectives.
   This is done via the function scene.handheldPerspective().
 */
-Scene.prototype.handheldPerspectiveIsSet = false; // default: ignore device-tilting
-Scene.prototype.handheldPerspective = function(factorX, factorY){
-  // script can omit
-  if (typeof factorX == "undefined") factorX = 1;
-  if (typeof factorY == "undefined") factorY = 1;
-  this.handheldPerspectiveIsSet = true;
-  this.perspecticeFactorX = factorX;
-  this.perspecticeFactorY = factorY;
-};
+// Scene.prototype.handheldPerspectiveIsSet = false; // default: ignore device-tilting
+// Scene.prototype.handheldPerspective = function(factorX, factorY){
+//   // script can omit
+//   if (typeof factorX == "undefined") factorX = 1;
+//   if (typeof factorY == "undefined") factorY = 1;
+//   this.handheldPerspectiveIsSet = true;
+//   this.perspecticeFactorX = factorX;
+//   this.perspecticeFactorY = factorY;
+// };
 
 
 Actor.prototype.shiftAbsolute = function(shiftingAmountX, shiftingAmountY, triggeredByAction, reactionTargetIndex){

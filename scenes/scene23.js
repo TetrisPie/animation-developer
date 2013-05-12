@@ -2,13 +2,13 @@
 /* exported scene0 */
 
 var scene23 = function(){
-  var scene = new Scene('scene23', 'All');
+  var scene = new Scene('scene23', 'All', 1200, 600);
   scene.createActor('home.png', 10, 10).navigatesOnTouch('scene0');
 
-  scene.handheldPerspective(1, 0.5);
+  scene.scrollingPerspective(1, 0.5);
 
   scene.write(20, 110, "Layers (in development)", "title");
-  scene.write(20, 145, "On handhelds you can change the perspective by tilting the device.", "");
+  scene.write(20, 145, "You can scroll this scene sideways and the actors wil shift perspective.", "");
 
   var actor1 = scene.createActor('actors/actor1.png', 250, 230);
   actor1.isInLayer(3);

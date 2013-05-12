@@ -9,11 +9,12 @@ div, img {
 }
 
 .stage {
-  overflow: hidden;
+  overflow: scroll;
   position: relative;
 }
 
 .scene {
+  overflow: hidden;
   position: absolute;
   left: 0;
   top: 0;
