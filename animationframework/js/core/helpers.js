@@ -115,14 +115,3 @@ function minutesToTime(minutes){
 function getIntegerFromEndOfString(myString){
   return parseInt((myString.match(/\d+$/)[0]), 10);
 }
-
-function rescale(domobject, newscale){
-    domobject.style.transformOrigin = "0 0";
-    domobject.style.transform = "scale(" + newscale + ", " + newscale + ")";
-    domobject.style.msTransformOrigin = "0 0";
-    domobject.style.msTransform = "scale(" + newscale + ", " + newscale + ")";
-    domobject.style.webkitTransformOrigin = "0 0";
-    domobject.style.webkitTransform = "scale(" + newscale + ", " + newscale + ")";
-    domobject.style.OTransformOrigin = "0 0";
-    domobject.style.OTransform = "scale(" + newscale + ", " + newscale + ")";
-}

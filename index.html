@@ -103,18 +103,19 @@ a project by Mehreinfach: http://mehreinfach.de
 	<body>
 		<noscript>
 			<div id="minimalistic" class="minimalistic">
-				<img src="images/fallback.gif" alt="Fallback">
+				<img src="images/fallback.gif">
 			</div>
 		</noscript>
 		<div id="backupdiv" style="display:none;" class="minimalistic">
-			<img src="images/fallback.gif" alt="Fallback">
+			<img src="images/fallback.gif">
 		</div>
 
-		<!-- <div id="animframe"></div> -->
+		<div id="animframe" style="width: 75%; border: 1px solid green;">
+		</div>
 		<script>
-			loadAnimation('Animation Framework', 800, 600, 'scene0', 60, 960, 40, 600);
-			// loadAnimationInto('Animation Framework', 'animframe', 'scene0', 800, 600);
+			// loadAnimation('Animation Framework', 800, 600, 'scene0', 60, 960, 40, 600);
+			loadAnimationInto('Animation Framework', 'animframe', 'scene0', 2000, 600);
 			developermode = true;
 		</script>
-	</body>
+		</body>
 </html>

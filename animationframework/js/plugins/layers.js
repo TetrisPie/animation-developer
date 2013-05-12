@@ -77,7 +77,6 @@ Actor.prototype.shiftsPerspective = function(shiftingAmountX, shiftingAmountY, t
       for (var actorCounterInLayer = this.scene.layers[layernumber].length - 1; actorCounterInLayer >= 0; actorCounterInLayer--) {
         var obj = this.scene.layers[layernumber][actorCounterInLayer];
         if (shiftingAmountX) {
-          console.log("shiftingAmountX:" + shiftingAmountX);
           obj.offsetX += shiftingAmountX * (layernumber-1);
           obj.needsMoving = true;
         }
