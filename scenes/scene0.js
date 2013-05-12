@@ -100,13 +100,14 @@ var scene0 = function(){
 
   // BOUNCES
   var csstricks = scene.createActor('button.png', 20, 520, 240, 60);
+  var newBatch = scene.createActor('new.png', 220, 510, 50, 50);
   csstricks.setText("bounces", "", "button");
   csstricks.navigatesOnTouch('scene24');
 
   // VIDEOACTOR
   var videoactor = scene.createActor('button.png', 270, 520, 240, 60);
   var newBatch = scene.createActor('new.png', 470, 510, 50, 50);
-  videoactor.setText("video", "", "button");
+  videoactor.setText("video (dev)", "", "button");
   videoactor.navigatesOnTouch('scene25');
 
   return scene;
