@@ -1,3 +1,5 @@
+/* jshint -W061 */ // allow the evil eval
+
 function Animation(width, height, firstSceneId, minWidth, maxWidth, minHeight, maxHeight){
 	config(this); // read in configuration residing in animationconfig.js
 
@@ -56,7 +58,7 @@ function Animation(width, height, firstSceneId, minWidth, maxWidth, minHeight, m
 			metaWrapperDiv.style.border = "10px solid red";
 			metaWrapperDiv.style.height = newHeight + "px";
 			metaWrapperDiv.style.width = newWidth + "px";
-		};
+		}
 
 		rescale(parseFloat(newWidth/this.width));
 	};
@@ -68,40 +70,41 @@ function Animation(width, height, firstSceneId, minWidth, maxWidth, minHeight, m
 		var winHeight = window.innerHeight;
 		var newHeight = winHeight;
 		var newWidth = winWidth;
-		var winWidth = winWidth
 
 		var windowFactor = window.innerWidth / window.innerHeight;
 		var animationFactor = this.width / this.height;
 
-		if (this.minWidth != 0 && (animationFactor > windowFactor)) {
+		var scaleFactor;
+
+		if (this.minWidth !== 0 && (animationFactor > windowFactor)) {
 			// the WIDTH has to be set
 			if (winWidth < this.minWidth) {
-				winWidth = this.minWidth
+				winWidth = this.minWidth;
 			} else if (winWidth > this.maxWidth) {
 				winWidth = this.maxWidth;
-			};
-			var scaleFactor = winWidth / this.width;
+			}
+			scaleFactor = winWidth / this.width;
 			newHeight = winWidth * scaleFactor;
 
-		} else if (this.minWidth != 0){
+		} else if (this.minWidth !== 0){
 			// the HEIGHT has to be set
 			if (winHeight < this.minHeight) {
-				winHeight = this.minHeight
+				winHeight = this.minHeight;
 			} else if (winHeight > this.maxHeight) {
 				winHeight = this.maxHeight;
-			};
-			var scaleFactor = winHeight / this.height;
+			}
+			scaleFactor = winHeight / this.height;
 			newWidth = winHeight * scaleFactor;
-		};
+		}
 
 		if (scaleFactor != 1) {
 			rescale(scaleFactor);
-		};
+		}
 
 		// position on screen:
-		window.animationwrapper.style.marginTop = ((window.innerHeight - parseInt(this.height * scaleFactor))/2) + 'px';
+		window.animationwrapper.style.marginTop = ((window.innerHeight - parseInt(this.height * scaleFactor, 10))/2) + 'px';
 		window.animationwrapper.style.width = newWidth + 'px';
-		window.animationwrapper.style.marginLeft = ((window.innerWidth - parseInt(this.width * scaleFactor))/2) + 'px';
+		window.animationwrapper.style.marginLeft = ((window.innerWidth - parseInt(this.width * scaleFactor, 10))/2) + 'px';
 		window.animationwrapper.style.height = newHeight + 'px';
 	};
 
@@ -115,7 +118,7 @@ function Animation(width, height, firstSceneId, minWidth, maxWidth, minHeight, m
 		this.stageDiv.style.webkitTransform = "scale(" + scaleFactor + ", " + scaleFactor + ")";
 		this.stageDiv.style.OTransformOrigin = "0 0";
 		this.stageDiv.style.OTransform = "scale(" + scaleFactor + ", " + scaleFactor + ")";
-	}
+	};
 
 	this.loadScene = function(sceneid){
 		// is the scene maybe already loaded?
@@ -139,8 +142,8 @@ function Animation(width, height, firstSceneId, minWidth, maxWidth, minHeight, m
 		window.location.hash = sceneNum;
 		var fadeTime = 1200;
 		fadeOut(window.animationwrapper, fadeTime / 2);
-		setTimeout("window.location.reload()", (fadeTime / 2) + 250);
-	}
+		setTimeout(function(){window.location.reload();}, (fadeTime / 2) + 250);
+	};
 
 	this.showScene = function(sceneid, maximumAnimationAge){
 		if ((this.animation.age() >= this.config.maximumAnimationAge)) {
@@ -153,7 +156,7 @@ function Animation(width, height, firstSceneId, minWidth, maxWidth, minHeight, m
 				}
 				this.currentScene = loadScene(sceneid);
 				var sceneNum = getIntegerFromEndOfString(sceneid);
-				window.location.hash = sceneNum == 0 ? '' : sceneNum;
+				window.location.hash = sceneNum === 0 ? '' : sceneNum;
 				this.currentScene.enterActors();
 				this.currentScene.resetActors();
 				this.currentScene.makeOthersInvisible();
@@ -162,16 +165,16 @@ function Animation(width, height, firstSceneId, minWidth, maxWidth, minHeight, m
 				this.dropUnneededScenes(this.currentScene.preloadSceneIds);
 				this.loadNeededScenes(this.currentScene.preloadSceneIds);
 				window.forceReloadTimer = setTimeout('reloadAndFadeToScene("' + sceneid + '")', window.animation.config.maximumAnimationAge);
-			};
-		};
-	}
+			}
+		}
+	};
 
 	this.showFirstScene = function(){
 		this.showScene(this.firstSceneId);
 	};
 
 	this.loadedSceneIds = function(){
-		var result = new Array;
+		var result = [];
 		for (var i = this.loadedScenes.length - 1; i >= 0; i--) {
 			result.push(this.loadedScenes[i].id);
 		}
@@ -183,7 +186,7 @@ function Animation(width, height, firstSceneId, minWidth, maxWidth, minHeight, m
 		var droplist = this.loadedSceneIds().minus(neededScenes);
 		for (var i = droplist.length - 1; i >= 0; i--) {
 			this.dropScene(droplist[i]);
-		};
+		}
 	};
 
 	this.loadNeededScenes = function(neededScenes){
@@ -203,13 +206,13 @@ function Animation(width, height, firstSceneId, minWidth, maxWidth, minHeight, m
 		}
 	};
 	return this;
-};
+}
 
 function loadAnimation(title, width, height, firstSceneId, minWidth, maxWidth, minHeight, maxHeight){
 	if (!compatibleBrowser()) {
 		document.getElementById('backupdiv').style.display = "block";
 		return;
-	};
+	}
 	animationLoader(title, width, height, firstSceneId, minWidth, maxWidth, minHeight, maxHeight);
 }
 
@@ -230,7 +233,7 @@ function animationLoader(title, width, height, firstSceneId, minWidth, maxWidth,
 		if (oldOnload) oldOnload();
 
 		// scroll away address bar:
-		setTimeout(function() { window.scrollTo(0, 1) }, 100);
+		setTimeout(function(){window.scrollTo(0, 1);}, 100);
 
 		if (typeof targetDiv !== "undefined") {
 			console.log("width: " + targetDiv.clientWidth);
@@ -256,13 +259,13 @@ function animationLoader(title, width, height, firstSceneId, minWidth, maxWidth,
 			window.animation.resizeToDiv = true;
 			if (typeof metaWrapperDiv !== "undefined") {
 				window.animation.metaWrapperDiv = metaWrapperDiv;
-			};
+			}
 		}
 
 		window.animation.adaptScaling();
 
 		// read scene-number from hashtag in URL or start with default:
-		var sceneNum = parseInt(window.location.hash.substring(1));
+		var sceneNum = parseInt(window.location.hash.substring(1), 10);
 		if (isNaN(sceneNum)) {
 			window.animation.showScene(firstSceneId);
 		} else{
@@ -280,7 +283,7 @@ function animationLoader(title, width, height, firstSceneId, minWidth, maxWidth,
 		// setGuessedOrientation();
 		if(oldOnresize) oldOnresize();
 		window.animation.adaptScaling();
-	}
+	};
 }
 
 function setGuessedOrientation(){
