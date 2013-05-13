@@ -43,24 +43,3 @@ Scene.prototype.createVideoActor = function (fileName, startAtX, startAtY, width
     this.actors.push(actor);
     return actor;
 };
-
-<<<<<<< HEAD
-// Actor.prototype.addPhase = function (phaseVideoPath) {
-//     var defaultVideoDirectory = 'videos/';
-//     tempImage = document.createElement('video');
-
-//     var srcTag = tempImage.appendChild(document.createElement('source'));
-//     srcTag.setAttribute('type', 'video/mp4');
-//     srcTag.setAttribute('src', relativeOrAbsolutePath(defaultVideoDirectory, phaseVideoPath) + '.mp4');
-
-//     srcTag = tempImage.appendChild(document.createElement('source'));
-//     srcTag.setAttribute('type', 'video/webm');
-//     srcTag.setAttribute('src', relativeOrAbsolutePath(defaultVideoDirectory, phaseVideoPath) + '.webm');
-
-//     this.phases.push(relativeOrAbsolutePath(this.defaultdirectory, phaseVideoPath));
-// };
-=======
-Actor.prototype.addPhase = function (phaseVideoPath) {
-        this.phases.push(relativeOrAbsolutePath(this.defaultdirectory, phaseVideoPath));
-    };
->>>>>>> 0d02963f1ecfe6ec9ff7a2f1c14ad06d6804c47a
