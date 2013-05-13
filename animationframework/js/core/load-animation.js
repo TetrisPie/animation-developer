@@ -31,24 +31,53 @@ function Animation(width, height, firstSceneId, minWidth, maxWidth, minHeight, m
 	};
 
 	this.scaleToDiv = function(){
+		console.log("\n------------");
 		console.log("scaling to div");
 		// when we resize towards a div we resize only by width.
 		var divWidth = this.animationwrapper.clientWidth;
+		var divHeight = this.animationwrapper.clientHeight;
+
+		console.log("divWidth: " + divWidth);
+		console.log("divHeight: " + divHeight);
 
 		var newWidth, newHeight;
 
-		if (divWidth > this.maxWidth) {
-			// the div is wider than allowed, set to maximum
-			newWidth = this.maxWidth;
-		} else if (divWidth < this.minWidth) {
-			// the div is narrower than allowed, set to minimum
-			newWidth = this.minWidth;
+		/*
+			If the height of the div can be determined (if it has
+			been set via CSS as opposed to being automatically
+			determined by the browser-engine) and it is bigger than
+			10 (0 + borders or similar), we will also take the
+			div-height into consideration. Otherwise we will
+			only
+		*/
+
+		if (divHeight > 10 && divWidth > 10) {
+			// take both height and width consideration
+			console.log("take both height and width consideration");
+
+			// TODO
+
+		} else if (divWidth > 10){ // take only width into consideration
+			console.log("take only width into consideration");
+
+			if (divWidth > this.maxWidth) { // the div is wider than allowed, set to maximum
+				newWidth = this.maxWidth;
+			} else if (divWidth < this.minWidth) { // the div is narrower than allowed, set to minimum
+				newWidth = this.minWidth;
+			} else { // div-width is within permitted scope
+				newWidth = divWidth;
+			}
+			newHeight = newWidth / (this.width/this.height);
+
+		} else if (divHeight > 10){ // take only height into consideration
+			console.log("take only height into consideration");
+			// TODO
+
+		} else { // use default animation size
+			console.log("use default animation size");
+			// TODO
 		}
-		else {
-			// div-width is within permitted scope
-			newWidth = divWidth;
-		}
-		newHeight = newWidth / (this.width/this.height);
+
 		// console.log("newWidth: " + newWidth);
 		// console.log("newHeight: " + newHeight);
 
@@ -118,7 +147,6 @@ function Animation(width, height, firstSceneId, minWidth, maxWidth, minHeight, m
 	};
 
 	this.loadScene = function(sceneid){
-		console.log("jshdgfjhsdgf");
 		// is the scene maybe already loaded?
 		for (var i = this.loadedScenes.length - 1; i >= 0; i--) {
 			if (this.loadedScenes[i].id === sceneid) {

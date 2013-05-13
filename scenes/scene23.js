@@ -8,7 +8,7 @@ var scene23 = function(){
   scene.scrollingPerspective(1, 0.5);
 
   scene.write(20, 110, "Layers (in development)", "title");
-  scene.write(20, 145, "You can scroll this scene sideways and the actors wil shift perspective.", "");
+  scene.write(20, 145, "You can scroll this scene sideways and the actors will shift perspective.", "");
 
   var actor1 = scene.createActor('actors/actor1.png', 250, 230);
   actor1.isInLayer(3);

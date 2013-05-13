@@ -18,7 +18,7 @@ function Scene(id, title, width, height){
 	this.dimensions = {};
 	this.dimensions.x = (typeof width !== 'undefined') ? parseInt(width, 10) : 0
 	this.dimensions.y = (typeof height !== 'undefined') ? parseInt(height, 10) : 0
-	console.log(id + ": " + this.dimensions.x);
+	// console.log(id + ": " + this.dimensions.x);
 
 	this.setSzeneSizeToStageIfNotSetInScenedefinition = function(newWidth, newHeight){
 		if (this.dimensions.x === 0) {
