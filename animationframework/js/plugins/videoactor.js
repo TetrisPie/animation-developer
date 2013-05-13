@@ -6,7 +6,7 @@ Scene.prototype.createVideoActor = function (fileName, startAtX, startAtY, width
         actor.image = document.createElement('video');
         actor.image.originalPath = fileName;
         actor.filename = fileName.substring(fileName.lastIndexOf('/') + 1)
-        actor.image.setAttribute('poster', relativeOrAbsolutePath(defaultVideoDirectory, actor.image.originalPath) + '.png');
+        //actor.image.setAttribute('poster', relativeOrAbsolutePath(defaultVideoDirectory, actor.image.originalPath) + '.png');
                            
         var srcTag = actor.image.appendChild(document.createElement('source'));
         srcTag.setAttribute('type', 'video/mp4');
