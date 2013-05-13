@@ -44,6 +44,3 @@ Scene.prototype.createVideoActor = function (fileName, startAtX, startAtY, width
     return actor;
 };
 
-Actor.prototype.addPhase = function (phaseVideoPath) {
-        this.phases.push(relativeOrAbsolutePath(this.defaultdirectory, phaseVideoPath));
-    };
