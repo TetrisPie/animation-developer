@@ -1,13 +1,11 @@
 /* global createDiv, Actor */
 /* exported Scene */
 
-function Scene(id, title){
+function Scene(id, title, width, height){
 	this.id = id;
 	this.title = (typeof title !== 'undefined' ? title : id);
 	this.div = createDiv(id, 'scene');
 
-	this.stage = null; // will be set when putting on stage
-	this.dimensions = {x: 0, y: 0}; // will be set when putting on stage
 	this.isVisible = false;
 	this.actors = [];
 	this.texts = [];
@@ -15,6 +13,23 @@ function Scene(id, title){
 	this.alwaysShowsText = false;
 
 	this.displayedAt = Date.now();
+
+	// dimensions of the scene's div
+	this.dimensions = {};
+	this.dimensions.x = (typeof width !== 'undefined') ? parseInt(width, 10) : 0
+	this.dimensions.y = (typeof height !== 'undefined') ? parseInt(height, 10) : 0
+	// console.log(id + ": " + this.dimensions.x);
+
+	this.setSzeneSizeToStageIfNotSetInScenedefinition = function(newWidth, newHeight){
+		if (this.dimensions.x === 0) {
+			this.dimensions.x = parseInt(newWidth, 10);
+		}
+		this.div.style.width = this.dimensions.x + 'px';
+		if (this.dimensions.y === 0) {
+			this.dimensions.y = parseInt(newHeight, 10);
+		}
+		this.div.style.height = this.dimensions.y + 'px';
+	};
 
 	this.resetAge = function(){
 		this.displayedAt = Date.now();
@@ -45,12 +60,6 @@ function Scene(id, title){
 				this.actors[i].removeBehaviorsThatCameFromReacts();
 			} catch(e){}
 		}
-	};
-
-	this.setDimensions = function(width, height){
-		this.dimensions = {x: width, y: height};
-		this.div.style.width = this.dimensions.x + 'px';
-		this.div.style.height = this.dimensions.y + 'px';
 	};
 
 	this.makeVisible = function(){
@@ -109,24 +118,8 @@ function Scene(id, title){
 		}
 	};
 
-
 	this.enterActors = function(){
 		for (var i = 0; i < this.actors.length; i++) {
-			this.actors[i].enter(this);
-		}
-	};
-
-	this.putOnStage = function(myStageDiv){
-		myStageDiv.appendChild(this.div);
-		myStageDiv.scene = this;
-		this.stage = myStageDiv;
-
-		// get dimensions and set css-size according to stage
-		this.dimensions = {x: parseInt(myStageDiv.style.width, 10), y: parseInt(myStageDiv.style.height, 19)};
-		this.div.style.width = this.dimensions.x + 'px';
-		this.div.style.height = this.dimensions.y + 'px';
-
-		for (var i = 0; i < window.stage.scene.actors.length; i++){
 			this.actors[i].enter(this);
 		}
 	};
