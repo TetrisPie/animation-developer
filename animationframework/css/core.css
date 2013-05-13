@@ -78,7 +78,6 @@ div, img {
   z-index: 1000000;
   text-align: right;
   overflow: visible;
-  background-color: red;
 }
 
 .popupdiv .iframe {
