@@ -53,7 +53,6 @@ function Animation(width, height, firstSceneId, minWidth, maxWidth, minHeight, m
 		// console.log("newHeight: " + newHeight);
 
 		if (typeof window.metaWrapperDiv !== "undefined") {
-			metaWrapperDiv.style.border = "10px solid red";
 			metaWrapperDiv.style.height = newHeight + "px";
 			metaWrapperDiv.style.width = newWidth + "px";
 		}
