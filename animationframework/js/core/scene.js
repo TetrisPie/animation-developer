@@ -63,12 +63,12 @@ function Scene(id, title, width, height){
 	};
 
 	this.makeVisible = function(){
-		this.div.style.visibility = 'visible';
+		this.div.style.display = 'block';
 		this.isVisible = true;
 	};
 
 	this.makeInvisible = function(){
-		this.div.style.visibility = 'hidden';
+		this.div.style.display = 'none';
 		this.isInvisible = false;
 		this.resetActors(); // while we are at it
 		this.removeBehaviorsThatCameFromReacts();

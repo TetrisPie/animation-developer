@@ -2,7 +2,7 @@
 /* exported scene0 */
 
 var scene23 = function(){
-  var scene = new Scene('scene23', 'All', 1200, 600);
+  var scene = new Scene('scene23', 'All', 1200, 660);
   scene.createActor('home.png', 10, 10).navigatesOnTouch('scene0');
 
   scene.scrollingPerspective(1, 0.5);
