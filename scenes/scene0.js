@@ -110,5 +110,11 @@ var scene0 = function(){
   videoactor.setText("video (dev)", "", "button");
   videoactor.navigatesOnTouch('scene25');
 
+  // BOUNCE-SAMPLE
+  var bouncesample = scene.createActor('button.png', 520, 520, 240, 60);
+  var newBatch = scene.createActor('new.png', 470, 510, 50, 50);
+  bouncesample.setText("bouncesample", "", "button");
+  bouncesample.navigatesOnTouch('scene26');
+
   return scene;
 };
