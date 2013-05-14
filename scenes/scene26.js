@@ -24,7 +24,7 @@ var scene26 = function () {
   man.addPhase('walkcycle/12walk.png');
   man.phaseCycle = 1400;
 
-  man.bouncesOnTouch(100,10,5,0.6);
+  man.bouncesOnTouch(200, 1, 3, 0.6);
 
   return scene;
 };
