@@ -1,9 +1,3 @@
-/*
-
-ATTENTION: This "code in development" - don't use it yet in production.
-
-*/
-
 Actor.prototype.isInLayer = function(layerNumber, factorX, factorY) {
   this.layer = layerNumber;
 

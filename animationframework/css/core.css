@@ -9,7 +9,7 @@ div, img {
 }
 
 .stage {
-  overflow: scroll;
+  /*overflow: scroll;*/
   position: relative;
 }
 

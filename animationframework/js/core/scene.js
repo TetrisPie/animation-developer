@@ -14,11 +14,12 @@ function Scene(id, title, width, height){
 
 	this.displayedAt = Date.now();
 
-	// dimensions of the scene's div
+	// dimensions of the scene's div and related settings -->
 	this.dimensions = {};
 	this.dimensions.x = (typeof width !== 'undefined') ? parseInt(width, 10) : 0;
 	this.dimensions.y = (typeof height !== 'undefined') ? parseInt(height, 10) : 0;
-	// console.log(id + ": " + this.dimensions.x);
+	// <-- dimensions of the scene's div and related settings
+
 
 	this.setSzeneSizeToStageIfNotSetInScenedefinition = function(newWidth, newHeight){
 		if (this.dimensions.x === 0) {
@@ -65,6 +66,22 @@ function Scene(id, title, width, height){
 	this.makeVisible = function(){
 		this.div.style.display = 'block';
 		this.isVisible = true;
+
+		if (this.dimensions.x > window.animation.width) {
+			console.log("a");
+			window.animation.stageDiv.style.overflowX = "scroll";
+		} else {
+			console.log("b");
+			window.animation.stageDiv.style.overflowX = "hidden";
+		}
+
+		if (this.dimensions.y > window.animation.height) {
+			console.log("a");
+			window.animation.stageDiv.style.overflowY = "scroll";
+		} else {
+			console.log("b");
+			window.animation.stageDiv.style.overflowY = "hidden";
+		}
 	};
 
 	this.makeInvisible = function(){
@@ -72,6 +89,7 @@ function Scene(id, title, width, height){
 		this.isInvisible = false;
 		this.resetActors(); // while we are at it
 		this.removeBehaviorsThatCameFromReacts();
+		// window.animation.stageDiv.style.overflowX = "hidden";
 	};
 	this.makeInvisible(); // start out invisible
 
