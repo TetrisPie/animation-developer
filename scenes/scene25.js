@@ -18,7 +18,7 @@ var scene25 = function () {
     scene.write(20, 240, "videoactor3 starts delayed to play.");
 
     var actor4 = scene.createVideoActor('Chrome_ImF', 20, 290, 240, 88);
-    actor4.movesToOnTouch(500, 290, 2, 2);
+    actor4.shakes(50, -10, 1);
     actor4.playvideoOnTouch();
     scene.write(20, 390, "videoactor4 plays when touched with animation applied.");
 
