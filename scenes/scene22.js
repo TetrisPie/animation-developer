@@ -10,16 +10,16 @@ var scene22 = function(){
   scene.write(20, 145, "Change the perspective by using the buttons below.", "");
 
   var actor1 = scene.createActor('actors/actor1.png', 250, 230);
-  actor1.isInLayer(1, 1.5, 1.5);
+  actor1.isInLayer(2);
 
   var actor2 = scene.createActor('actors/actor2.png', 100, 300);
-  actor2.isInLayer(2);
+  actor2.isInLayer(3);
 
   var actor3 = scene.createActor('actors/actor3.png', 400, 300);
-  actor3.isInLayer(2);
+  actor3.isInLayer(3);
 
   var actor4 = scene.createActor('actors/actor4.png', 250, 370);
-  actor4.isInLayer(3);
+  actor4.isInLayer(4);
 
   scene.createActor('actor.png', 20, 500).setText('shift perspective left', '', 'button').shiftsPerspectiveOnTouch(5);
   scene.createActor('actor.png', 540, 500).setText('shift perspective right', '', 'button').shiftsPerspectiveOnTouch(-5);

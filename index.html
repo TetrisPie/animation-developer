@@ -17,7 +17,7 @@ a project by Mehreinfach: http://mehreinfach.de
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge"/> 
+		<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 		<link rel="stylesheet" type="text/css" href="animationframework/css/core.css" charset="utf-8">
 		<link rel="stylesheet" type="text/css" href="css/custom.css" charset="utf-8">
 
@@ -31,8 +31,8 @@ a project by Mehreinfach: http://mehreinfach.de
 		<script src="animationframework/js/core/reaction.js"></script>
 		<script src="animationframework/js/core/helpers.js"></script>
 		<script src="animationframework/js/core/scene.js"></script>
-        <script src="animationframework/js/plugins/imageactor.js"></script>
-        <script src="animationframework/js/plugins/videoactor.js"></script>
+		<script src="animationframework/js/plugins/imageactor.js"></script>
+		<script src="animationframework/js/plugins/videoactor.js"></script>
 		<script src="animationframework/js/core/plugin.js"></script>
 		<script src="animationframework/js/core/eventhandling.js"></script>
 		<script src="animationframework/js/core/array-extension.js"></script>
@@ -95,7 +95,7 @@ a project by Mehreinfach: http://mehreinfach.de
 		<script src="scenes/scene22.js"></script>
 		<script src="scenes/scene23.js"></script>
 		<script src="scenes/scene24.js"></script>
-        <script src="scenes/scene25.js"></script>
+    <script src="scenes/scene25.js"></script>
 	</head>
 
 	<!-- preload files for scene0: -->
@@ -105,18 +105,20 @@ a project by Mehreinfach: http://mehreinfach.de
 	<body>
 		<noscript>
 			<div id="minimalistic" class="minimalistic">
-				<img src="images/fallback.gif" alt="Fallback">
+				<img src="images/fallback.gif">
 			</div>
 		</noscript>
 		<div id="backupdiv" style="display:none;" class="minimalistic">
-			<img src="images/fallback.gif" alt="Fallback">
+			<img src="images/fallback.gif">
 		</div>
 
-		<!-- <div id="animframe"></div> -->
+		<div id="animframe" style="width: 900px; height: 660px !important; margin: 20px auto;">
+		</div>
+
 		<script>
-			loadAnimation('Animation Framework', 800, 600, 'scene0', 60, 960, 40, 600);
-			// loadAnimationInto('Animation Framework', 'animframe', 'scene0', 800, 600);
+			// loadAnimation('Animation Framework', 800, 600, 'scene0', 60, 960, 40, 600);
+			loadAnimationInto('Animation Framework', 'animframe', 'scene0', 800, 660);
 			developermode = true;
 		</script>
-	</body>
+		</body>
 </html>
