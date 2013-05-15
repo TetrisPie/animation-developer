@@ -31,14 +31,14 @@ function Animation(width, height, firstSceneId, minWidth, maxWidth, minHeight, m
 	};
 
 	this.scaleToDiv = function(){
-		console.log("\n------------");
-		console.log("scaling to div");
+		// console.log("\n------------");
+		// console.log("scaling to div");
 		// when we resize towards a div we resize only by width.
 		var divWidth = this.animationwrapper.clientWidth;
 		var divHeight = this.animationwrapper.clientHeight;
 
-		console.log("divWidth: " + divWidth);
-		console.log("divHeight: " + divHeight);
+		// console.log("divWidth: " + divWidth);
+		// console.log("divHeight: " + divHeight);
 
 		var newWidth, newHeight;
 

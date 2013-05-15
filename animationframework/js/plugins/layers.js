@@ -1,3 +1,9 @@
+/*
+
+ATTENTION: This "code in development" - don't use it yet in production.
+
+*/
+
 Actor.prototype.isInLayer = function(layerNumber, factorX, factorY) {
   this.layer = layerNumber;
 
@@ -38,20 +44,6 @@ Actor.prototype.isInLayer = function(layerNumber, factorX, factorY) {
   return this;
 };
 
-Scene.prototype.scrollingPerspective = function(){
-  console.log("FIGURE OUT HOW TO CONNECT SCROLLING TO PERSPECTIVE-SHIFT");
-
-  // (function(){
-  //   // add scroll listener to stage
-  //   bindEvent(this.stageDiv, 'scroll', function(callee){
-  //     console.log("horizontal scrolling position " + callee.srcElement.scrollLeft + "px");
-  //     console.log("vertical scrolling position " + callee.srcElement.scrollTop + "px");
-  //   });
-  // })();
-};
-
-
-
 /*
   In order to change the perspective with the movement of the iPad, the
   scene-script has to set how x- and y-tilting affect the x- and y-perspectives.
@@ -85,11 +77,55 @@ for (var layernumber = 1; layernumber < this.scene.layers.length; layernumber++)
   return this;
 };
 
+Scene.prototype.scrollingPerspective = function(strength){
+  (function(){
+    // add scroll listener to stage
+    bindEvent(window.animation.stageDiv, 'scroll', function(callee){
+      var overflowX = window.animation.currentScene.dimensions.x - window.animation.width;
+
+      // scrollX is calculated as percentage difference between a centered scrolling position and current
+      var scrollX = (callee.srcElement.scrollLeft - (overflowX/2)) / (overflowX/200);
+      // var scrollY = (callee.srcElement.scrollTop - (overflowY/2)) / (overflowY/200);
+
+      window.animation.currentScene.setPerspective(scrollX * strength, callee.srcElement.scrollTop);
+    });
+  })();
+};
+
+
+Scene.prototype.setPerspective = function(shiftingAmountX, shiftingAmountY){
+  for (var layernumber = 1; layernumber < this.layers.length; layernumber++) {
+    if (typeof this.layers[layernumber] != "undefined") {
+      for (var actorCounterInLayer = this.layers[layernumber].length - 1; actorCounterInLayer >= 0; actorCounterInLayer--) {
+        var obj = this.layers[layernumber][actorCounterInLayer];
+        if (shiftingAmountX) {
+          obj.offsetX = shiftingAmountX * (layernumber-1);
+          obj.needsMoving = true;
+        }
+        if (shiftingAmountY) {
+          obj.offsetY = shiftingAmountY * (layernumber-1);
+          obj.needsMoving = true;
+        }
+      }
+    }
+  }
+};
+
 Actor.prototype.shiftsPerspective = function(shiftingAmountX, shiftingAmountY, triggeredByAction, reactionTargetIndex){
-  for (var layernumber = 1; layernumber < this.scene.layers.length; layernumber++) {
-    if (typeof this.scene.layers[layernumber] != "undefined") {
-      for (var actorCounterInLayer = this.scene.layers[layernumber].length - 1; actorCounterInLayer >= 0; actorCounterInLayer--) {
-        var obj = this.scene.layers[layernumber][actorCounterInLayer];
+  this.scene.shiftPerspective(shiftingAmountX, shiftingAmountY);
+  return this;
+};
+
+Actor.prototype.shiftsPerspectiveOnTouch = function(shiftingAmountX, shiftingAmountY){
+  this.reacts("this.shiftsPerspective(" + shiftingAmountX + ", " + shiftingAmountY + ", true, reactionTargetIndex)", 0);
+  return this;
+};
+
+Scene.prototype.shiftPerspective = function(shiftingAmountX, shiftingAmountY){
+  for (var layernumber = 1; layernumber < this.layers.length; layernumber++) {
+    if (typeof this.layers[layernumber] != "undefined") {
+      for (var actorCounterInLayer = this.layers[layernumber].length - 1; actorCounterInLayer >= 0; actorCounterInLayer--) {
+        var obj = this.layers[layernumber][actorCounterInLayer];
         if (shiftingAmountX) {
           obj.offsetX += shiftingAmountX * (layernumber-1);
           obj.needsMoving = true;
@@ -101,11 +137,5 @@ Actor.prototype.shiftsPerspective = function(shiftingAmountX, shiftingAmountY, t
       }
     }
   }
-  return this;
-};
-
-Actor.prototype.shiftsPerspectiveOnTouch = function(shiftingAmountX, shiftingAmountY){
-  this.reacts("this.shiftsPerspective(" + shiftingAmountX + ", " + shiftingAmountY + ", true, reactionTargetIndex)", 0);
-  return this;
 };
 
