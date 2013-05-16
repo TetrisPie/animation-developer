@@ -263,11 +263,11 @@ function animationLoader(title, width, height, firstSceneId, minWidth, maxWidth,
 		setTimeout(function(){window.scrollTo(0, 1);}, 100);
 
 		if (typeof targetDiv !== "undefined") {
-			console.log("width: " + targetDiv.clientWidth);
-			console.log("height: " + targetDiv.clientHeight);
+			// console.log("width: " + targetDiv.clientWidth);
+			// console.log("height: " + targetDiv.clientHeight);
 
-			console.log("width: " + targetDiv.offsetWidth);
-			console.log("height: " + targetDiv.offsetHeight);
+			// console.log("width: " + targetDiv.offsetWidth);
+			// console.log("height: " + targetDiv.offsetHeight);
 
 			minWidth = maxWidth = targetDiv.clientWidth;
 			minHeight = maxHeight = targetDiv.clientHeight;
