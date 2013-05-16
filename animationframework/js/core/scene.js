@@ -68,18 +68,14 @@ function Scene(id, title, width, height){
 		this.isVisible = true;
 
 		if (this.dimensions.x > window.animation.width) {
-			console.log("a");
 			window.animation.stageDiv.style.overflowX = "scroll";
 		} else {
-			console.log("b");
 			window.animation.stageDiv.style.overflowX = "hidden";
 		}
 
 		if (this.dimensions.y > window.animation.height) {
-			console.log("a");
 			window.animation.stageDiv.style.overflowY = "scroll";
 		} else {
-			console.log("b");
 			window.animation.stageDiv.style.overflowY = "hidden";
 		}
 	};
