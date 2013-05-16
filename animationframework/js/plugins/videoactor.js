@@ -1,6 +1,6 @@
 Scene.prototype.createVideoActor = function (fileName, startAtX, startAtY, width, height) {
     var actor = new Actor(startAtX, startAtY, width, height);
-    var defaultVideoDirectory = 'videos/';
+    var defaultVideoDirectory = 'video/';
 
     actor.setup = function () {
         actor.image = document.createElement('video');
