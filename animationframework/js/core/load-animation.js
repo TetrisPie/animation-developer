@@ -3,6 +3,9 @@
 function Animation(width, height, firstSceneId, minWidth, maxWidth, minHeight, maxHeight){
 	config(this); // read in configuration residing in animationconfig.js
 
+
+	this.server = developermode ? 'http://localhost:8080' : 'http://server.animation.io';
+
 	this.firstSceneId = firstSceneId;
 	this.loadedScenes = [];
 	this.stageDiv = createDiv('stage', 'stage');
@@ -16,6 +19,8 @@ function Animation(width, height, firstSceneId, minWidth, maxWidth, minHeight, m
 	this.maxWidth = (typeof maxWidth == 'undefined') ? this.width : maxWidth;
 	this.minHeight = (typeof minHeight == 'undefined') ? this.height : minHeight;
 	this.maxHeight = (typeof maxHeight == 'undefined') ? this.height : maxHeight;
+
+	this.currentUser = getOrCreateIdentity();
 
 	this.startAnimationTimestamp = now();
 	this.age = function(){
