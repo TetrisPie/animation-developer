@@ -1,27 +1,29 @@
 function getOrCreateIdentity(){
-  var myCookie = readCookie("currentUser");
+  var currentUserUuid = readCookie("currentUserUuid");
 
-  if (myCookie === null) {
-    var currentUser = createIdentity();
-    console.log("created identity " + currentUser);
-    createCookie("currentUser", currentUser, 10000);
-    return currentUser;
+  if (currentUserUuid === null) {
+    // NO USER SAVED ON THIS MACHINE/BROWSER
+    console.log("no user saved on this machine");
+
+    currentUserUuid = uuid();
+
+    console.log("created identity " + currentUserUuid);
+    createCookie("currentUserUuid", currentUserUuid, 10000);
+
+    // Cookie don't work when called as local file:
+    if(developermode && readCookie("currentUserUuid") === null)
+      console.log("\nERROR Couldn't set cookie! Are you running framework as local file?\n");
+
+  } else {
+    // FOUND A USER-UUID VIA COOKIE ON THIS MACHINE
+    console.log("Found identity " + currentUserUuid + " on system.");
   }
 
-  if (myCookie !== null){
-    console.log("found identity on system!");
-    console.log(myCookie);
-  }
+  currentUser = {"key":currentUserUuid}; // "real" data comes from server will overwrite this in a sec
+  getOrCreateCurrentUserFromServer(currentUserUuid);
 }
 
-
-function createIdentity(){
-  return uuid();
-}
-
-
-// code inspired by http://www.quirksmode.org/js/cookies.html -->
-
+// The following cookie-code is inspired by http://www.quirksmode.org/js/cookies.html
 function createCookie(name,value,days) {
   if (days) {
     var date = new Date();

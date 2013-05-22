@@ -1,13 +1,5 @@
 function BeingPublic(actor, globalkey, triggeredByAction, reactionTargetIndex){
 
-  /*
-
-    INDEVELOPMENT
-
-    public actors are synced across all instances of this animation
-
-  */
-
   var beingPublic = new Plugin(0,0, actor, triggeredByAction, reactionTargetIndex);
 
   beingPublic.reset = function(){
