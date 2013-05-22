@@ -11,8 +11,9 @@ function Scene(id, title, width, height){
 	this.texts = [];
 	this.textDisplaying = true;
 	this.alwaysShowsText = false;
-
+	this.scrollingLocked = false;
 	this.displayedAt = Date.now();
+	scrollingPerspectiveStrength = 'undefined';
 
 	// dimensions of the scene's div and related settings -->
 	this.dimensions = {};
@@ -20,6 +21,8 @@ function Scene(id, title, width, height){
 	this.dimensions.y = (typeof height !== 'undefined') ? parseInt(height, 10) : 0;
 	// <-- dimensions of the scene's div and related settings
 
+    this.scrollTo(1,0);
+    this.scrollTo(0,0);
 
 	this.setSzeneSizeToStageIfNotSetInScenedefinition = function(newWidth, newHeight){
 		if (this.dimensions.x === 0) {
@@ -63,25 +66,11 @@ function Scene(id, title, width, height){
 		}
 	};
 
-	this.makeVisible = function(){
-		this.div.style.display = 'block';
-		this.isVisible = true;
-
-		if (this.dimensions.x > window.animation.width) {
-			console.log("a");
-			window.animation.stageDiv.style.overflowX = "scroll";
-		} else {
-			console.log("b");
-			window.animation.stageDiv.style.overflowX = "hidden";
-		}
-
-		if (this.dimensions.y > window.animation.height) {
-			console.log("a");
-			window.animation.stageDiv.style.overflowY = "scroll";
-		} else {
-			console.log("b");
-			window.animation.stageDiv.style.overflowY = "hidden";
-		}
+	this.makeVisible = function () {
+	    this.div.style.display = 'block';
+	    this.isVisible = true;
+	    this.scrollingLocked = false;
+        this.setScrolling();
 	};
 
 	this.makeInvisible = function(){
@@ -89,14 +78,14 @@ function Scene(id, title, width, height){
 		this.isInvisible = false;
 		this.resetActors(); // while we are at it
 		this.removeBehaviorsThatCameFromReacts();
-		// window.animation.stageDiv.style.overflowX = "hidden";
 	};
 	this.makeInvisible(); // start out invisible
 
-	this.cleanup = function(){
-		for (var i = this.actors.length - 1; i >= 0; i--) {
-			this.actors[i].cleanupBehaviors();
-		}
+	this.cleanup = function () {
+	    for (var i = this.actors.length - 1; i >= 0; i--) {
+	        this.actors[i].cleanupBehaviors();
+	    }
+	    this.scrollingLocked = false;
 	};
 
 	this.makeOthersInvisible = function(){
@@ -170,3 +159,41 @@ function Scene(id, title, width, height){
 
 	return this;
 }
+
+Scene.prototype.scrollTo = function (x, y) {
+    if (typeof x != 'undefined') {
+        window.animation.stageDiv.scrollLeft = x;
+    }
+    if (typeof y != 'undefined') {
+        window.animation.stageDiv.scrollTop = y;
+    }
+}
+
+Scene.prototype.lockScrolling = function () {
+    this.scrollingLocked = true;
+    this.setScrolling();
+}
+
+Scene.prototype.unlockScrolling = function () {
+    this.scrollingLocked = false;
+    this.setScrolling();
+}
+
+Scene.prototype.setScrolling = function () {
+    if ((this.dimensions.x > window.animation.width) && !(this.scrollingLocked)) {
+        console.log("a");   
+        window.animation.stageDiv.style.overflowX = "scroll";
+    } else {
+        console.log("b");
+        window.animation.stageDiv.style.overflowX = "hidden";
+    }
+
+    if ((this.dimensions.y > window.animation.height) && !(this.scrollingLocked)) {
+        console.log("a");
+        window.animation.stageDiv.style.overflowY = "scroll";
+    } else {
+        console.log("b");
+        window.animation.stageDiv.style.overflowY = "hidden";
+    }
+}
+
