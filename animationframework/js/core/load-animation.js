@@ -20,7 +20,7 @@ function Animation(width, height, firstSceneId, minWidth, maxWidth, minHeight, m
 	this.minHeight = (typeof minHeight == 'undefined') ? this.height : minHeight;
 	this.maxHeight = (typeof maxHeight == 'undefined') ? this.height : maxHeight;
 
-	this.currentUser = getOrCreateIdentity();
+	getOrCreateIdentity();
 
 	this.startAnimationTimestamp = now();
 	this.age = function(){
@@ -57,13 +57,13 @@ function Animation(width, height, firstSceneId, minWidth, maxWidth, minHeight, m
 		*/
 
 		if (divHeight > 10 && divWidth > 10) {
-			// take both height and width consideration
-			console.log("take both height and width consideration");
+			// take both height and width into consideration
+			// console.log("take both height and width into consideration");
 
 			// TODO
 
 		} else if (divWidth > 10){ // take only width into consideration
-			console.log("take only width into consideration");
+			// console.log("take only width into consideration");
 
 			if (divWidth > this.maxWidth) { // the div is wider than allowed, set to maximum
 				newWidth = this.maxWidth;
@@ -82,9 +82,6 @@ function Animation(width, height, firstSceneId, minWidth, maxWidth, minHeight, m
 			console.log("use default animation size");
 			// TODO
 		}
-
-		// console.log("newWidth: " + newWidth);
-		// console.log("newHeight: " + newHeight);
 
 		if (typeof window.metaWrapperDiv !== "undefined") {
 			metaWrapperDiv.style.height = newHeight + "px";
@@ -199,6 +196,7 @@ function Animation(width, height, firstSceneId, minWidth, maxWidth, minHeight, m
 				window.forceReloadTimer = setTimeout('reloadAndFadeToScene("' + sceneid + '")', window.animation.config.maximumAnimationAge);
 			}
 		}
+		setUserProperty(currentUser.key, 'scene', sceneid);
 	};
 
 	this.showFirstScene = function(){
