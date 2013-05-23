@@ -19,7 +19,7 @@ function getOrCreateIdentity(){
     console.log("Found identity " + currentUserUuid + " on system.");
   }
 
-  currentUser = {"key":currentUserUuid}; // "real" data comes from server will overwrite this in a sec
+  currentUser = {"uuid":currentUserUuid}; // "real" data comes from server will overwrite this in a sec
   getOrCreateCurrentUserFromServer(currentUserUuid);
 }
 

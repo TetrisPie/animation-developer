@@ -40,9 +40,9 @@ function Circling(actor, radius, hertz, tilt, triggeredByAction, reactionTargetI
       this.targetObject.vector.y += this.vectorY;
     }
 
-    if (this.counter <= 10) {
-      console.log("this.tilt: " + this.tilt) // WTF?
-    };
+    // if (this.counter <= 10) {
+    //   console.log("this.tilt: " + this.tilt) // WTF?
+    // };
 
   };
 
