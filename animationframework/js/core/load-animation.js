@@ -1,8 +1,6 @@
 /* jshint -W061 */ // allow "evil eval"
 
 function Animation(width, height, firstSceneId, minWidth, maxWidth, minHeight, maxHeight){
-	config(this); // read in configuration residing in animationconfig.js
-
 
 	this.server = developermode ? 'http://localhost:8080' : 'http://server.animation.io';
 
@@ -19,8 +17,6 @@ function Animation(width, height, firstSceneId, minWidth, maxWidth, minHeight, m
 	this.maxWidth = (typeof maxWidth == 'undefined') ? this.width : maxWidth;
 	this.minHeight = (typeof minHeight == 'undefined') ? this.height : minHeight;
 	this.maxHeight = (typeof maxHeight == 'undefined') ? this.height : maxHeight;
-
-	getOrCreateIdentity();
 
 	this.startAnimationTimestamp = now();
 	this.age = function(){
@@ -196,7 +192,7 @@ function Animation(width, height, firstSceneId, minWidth, maxWidth, minHeight, m
 				window.forceReloadTimer = setTimeout('reloadAndFadeToScene("' + sceneid + '")', window.animation.config.maximumAnimationAge);
 			}
 		}
-		setUserProperty(currentUser.key, 'scene', sceneid);
+		setAndSaveCurrentUserProperty('scene', sceneid);
 	};
 
 	this.showFirstScene = function(){
@@ -239,16 +235,23 @@ function Animation(width, height, firstSceneId, minWidth, maxWidth, minHeight, m
 }
 
 function loadAnimation(title, width, height, firstSceneId, minWidth, maxWidth, minHeight, maxHeight){
-	if (!compatibleBrowser()) {
-		document.getElementById('backupdiv').style.display = "block";
-		return;
-	}
-	animationLoader(title, width, height, firstSceneId, minWidth, maxWidth, minHeight, maxHeight);
+	config(this); // read in configuration residing in animationconfig.js
+	getOrCreateIdentity();
+
+	waitForCurrentuserDataFromServerFor(10000, function(){
+		if (!compatibleBrowser()) {
+			document.getElementById('backupdiv').style.display = "block";
+			return;
+		}
+		animationLoader(title, width, height, firstSceneId, minWidth, maxWidth, minHeight, maxHeight);
+	});
 }
 
 function loadAnimationInto(title, metaWrapperDivId, firstSceneId, width, height){
-	var metaWrapperDiv = document.getElementById(metaWrapperDivId);
+	config(this); // read in configuration residing in animationconfig.js
+	getOrCreateIdentity();
 
+	var metaWrapperDiv = document.getElementById(metaWrapperDivId);
 	var targetDiv = createDiv('animationwrapper', '');
 	metaWrapperDiv.appendChild(targetDiv);
 
@@ -262,51 +265,55 @@ function animationLoader(title, width, height, firstSceneId, minWidth, maxWidth,
 	window.onload = function(){
 		if (oldOnload) oldOnload();
 
-		// scroll away address bar:
-		setTimeout(function(){window.scrollTo(0, 1);}, 100);
+		waitForCurrentuserDataFromServerFor(10000, function(){
 
-		if (typeof targetDiv !== "undefined") {
-			// console.log("width: " + targetDiv.clientWidth);
-			// console.log("height: " + targetDiv.clientHeight);
+			// scroll away address bar:
+			setTimeout(function(){window.scrollTo(0, 1);}, 100);
 
-			// console.log("width: " + targetDiv.offsetWidth);
-			// console.log("height: " + targetDiv.offsetHeight);
+			if (typeof targetDiv !== "undefined") {
+				// console.log("width: " + targetDiv.clientWidth);
+				// console.log("height: " + targetDiv.clientHeight);
 
-			minWidth = maxWidth = targetDiv.clientWidth;
-			minHeight = maxHeight = targetDiv.clientHeight;
-		}
+				// console.log("width: " + targetDiv.offsetWidth);
+				// console.log("height: " + targetDiv.offsetHeight);
 
-		window.animation = Animation(width, height, firstSceneId, minWidth, maxWidth, minHeight, maxHeight);
-
-		if (typeof targetDiv === "undefined") {
-			window.animationwrapper = createDiv('animationwrapper', '');
-			window.document.body.appendChild(window.animationwrapper);
-			window.animationwrapper.appendChild(this.stageDiv);
-			window.animation.resizeToWindow = true;
-		} else {
-			window.animationwrapper = targetDiv;
-			window.animationwrapper.appendChild(this.stageDiv);
-			window.animation.resizeToDiv = true;
-			if (typeof metaWrapperDiv !== "undefined") {
-				window.animation.metaWrapperDiv = metaWrapperDiv;
+				minWidth = maxWidth = targetDiv.clientWidth;
+				minHeight = maxHeight = targetDiv.clientHeight;
 			}
-		}
 
-		window.animation.adaptScaling();
+			window.animation = Animation(width, height, keyOr('scene', firstSceneId), minWidth, maxWidth, minHeight, maxHeight);
 
-		// read scene-number from hashtag in URL or start with default:
-		var sceneNum = parseInt(window.location.hash.substring(1), 10);
-		if (isNaN(sceneNum)) {
-			window.animation.showScene(firstSceneId);
-		} else{
-			eval("window.animation.showScene('scene" + sceneNum + "')");
-		}
-		window.animation.startLoop();
+			if (typeof targetDiv === "undefined") {
+				window.animationwrapper = createDiv('animationwrapper', '');
+				window.document.body.appendChild(window.animationwrapper);
+				window.animationwrapper.appendChild(this.stageDiv);
+				window.animation.resizeToWindow = true;
+			} else {
+				window.animationwrapper = targetDiv;
+				window.animationwrapper.appendChild(this.stageDiv);
+				window.animation.resizeToDiv = true;
+				if (typeof metaWrapperDiv !== "undefined") {
+					window.animation.metaWrapperDiv = metaWrapperDiv;
+				}
+			}
 
-		// setTimeout(function(){window.animationwrapper.style.opacity = 1},2000);
-		// window.animationwrapper.style.opacity = 0.2;
-		fadeIn(window.animationwrapper);
+			window.animation.adaptScaling();
+
+			// read scene-number from hashtag in URL or start with default:
+			var sceneNum = parseInt(window.location.hash.substring(1), 10);
+			if (isNaN(sceneNum)) {
+				window.animation.showScene(keyOr('scene', firstSceneId));
+			} else{
+				eval("window.animation.showScene('scene" + sceneNum + "')");
+			}
+			window.animation.startLoop();
+
+			// setTimeout(function(){window.animationwrapper.style.opacity = 1},2000);
+			// window.animationwrapper.style.opacity = 0.2;
+			fadeIn(window.animationwrapper);
+		});
 	};
+	// ******************************************
 
 	if (window.onresize) var oldOnresize = window.onresize;
 	window.onresize = function() {
