@@ -17,7 +17,7 @@
   border-radius: 5px;
 
   &.grey, .grey {
-    color: #aaa;    
+    color: #aaa;
   }
 
   &.black, .black {
@@ -46,7 +46,7 @@
   &.title, .title {
     font-weight: 700;
     font-size: 150%;
-  }  
+  }
 }
 
 
@@ -79,6 +79,23 @@ body {
 
 .minimalistic {
   text-align: center;
+}
+
+/* =========================================================== */
+/* WAITING-GIF */
+
+#waitingdiv {
+  position: relative;
+  text-align: center;
+  font-family: 'Helvetica Neue', 'Arial', sans-serif;
+  color: #aaa;
+  height: 100px;
+  top: 280px;
+
+  img  {
+    margin: 20px auto;
+    display: block;
+  }
 }
 
 /* =========================================================== */

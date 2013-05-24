@@ -1,4 +1,4 @@
-// IE9 fix
+// IE9 fix for console-log
 if(!window.console) {
   var console = {
     log : function(){},
@@ -57,6 +57,11 @@ function now(){
 }
 
 function timeInMinutes(minutes){
+  console.log("DEPRECATION-WARNING: timeInMinutes() is deprecated, please use minutesToMilliseconds()")
+  return minutesToMilliseconds(minutes);
+}
+
+function minutesToMilliseconds(minutes){
   return minutes * 1000 * 60;
 }
 
@@ -122,4 +127,19 @@ function minutesToTime(minutes){
 
 function getIntegerFromEndOfString(myString){
   return parseInt((myString.match(/\d+$/)[0]), 10);
+}
+
+function dowhen(theAction, conditionAsString, tryAgainIn, doAnywayAfter){
+  /*
+    Checks every 'tryAgainIn' milliseconds for 'conditionAsString'.
+    If 'conditionAsString' is the case it executes 'theAction'.
+    After 'doAnywayAfter' milliseconds 'theAction' will execute anway.
+  */
+  if (eval(conditionAsString) || doAnywayAfter <= 0) {
+    // condition satisfied or time up, fire!
+    theAction();
+  } else {
+    // condition not satisfied, let's try again later
+    window.setTimeout(function(){dowhen(theAction, conditionAsString, tryAgainIn, doAnywayAfter - tryAgainIn)}, tryAgainIn);
+  };
 }

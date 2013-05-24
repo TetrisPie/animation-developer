@@ -13,47 +13,10 @@ function getOrCreateCurrentUserFromServer(currentUserUuid){
   var url = server_url() + '/getorcreate/' + encodeURIComponent(currentUserUuid)
   url += '?cachebuster=' + new Date().getTime().toString();
   make_script_tag(url);
-
-  // waitForIdentityFromServer(5000);
-}
-
-function waitForIdentityFromServer(waitingtime){
-  var start = now();
-  while (start + waitingtime >= now()){
-
-  }
-}
-
-function dowhen(theaction, conditionAsString, tryagainin, doanywayafter){
-  /*
-    Checks every 'tryagainin' milliseconds for 'conditionAsString'.
-    If 'conditionAsString' is the case it executes 'theaction'.
-    After 'doanywayafter' milliseconds 'theaction' will execute anway.
-  */
-  var start = now();
-
-  console.log("conditionAsString");
-  console.log(eval(conditionAsString));
-
-  if (eval(conditionAsString) || doanywayafter <= 0) {
-    console.log("conditionAsString satisfied, do it!");
-
-    // yey, fire and exit!
-    theaction();
-
-  } else {
-
-    // condition not satsfied, let's try again later
-    console.log("conditionAsString not satisfied, try again for " + doanywayafter + " milliseconds");
-    window.setTimeout(function(){dowhen(theaction, conditionAsString, tryagainin, doanywayafter - tryagainin)}, tryagainin);
-  };
 }
 
 function waitForCurrentuserDataFromServerFor(length, callback){
-  console.log("START WAITING")
-
   dowhen(callback, "(typeof window.currentUserLoaded !== 'undefined' && window.currentUserLoaded == true)", 500, 10000);
-
 }
 
 function setCurrentUser(data){
@@ -65,8 +28,9 @@ function setCurrentUser(data){
 }
 
 function keyOr(keyname, defaultvalue){
-  console.log("currentUser[keyname]: " + currentUser[keyname]);
-  return typeof currentUser[keyname] !== 'untitled' ? currentUser[keyname] : defaultvalue;
+  // If there a value is set for 'currentUser[keyname]' (e.g. it came saved from server)
+  // then return that, otherwise return the 'defaultvalue'.
+  return typeof currentUser[keyname] !== 'undefined' ? currentUser[keyname] : defaultvalue;
 }
 
 function setAndSaveCurrentUserProperty(key, value){
