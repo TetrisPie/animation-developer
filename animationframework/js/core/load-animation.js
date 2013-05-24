@@ -238,13 +238,11 @@ function loadAnimation(title, width, height, firstSceneId, minWidth, maxWidth, m
 	config(this); // read in configuration residing in animationconfig.js
 	getOrCreateIdentity();
 
-	waitForCurrentuserDataFromServerFor(10000, function(){
-		if (!compatibleBrowser()) {
-			document.getElementById('backupdiv').style.display = "block";
-			return;
-		}
-		animationLoader(title, width, height, firstSceneId, minWidth, maxWidth, minHeight, maxHeight);
-	});
+	if (!compatibleBrowser()) {
+		document.getElementById('backupdiv').style.display = "block";
+		return;
+	}
+	animationLoader(title, width, height, firstSceneId, minWidth, maxWidth, minHeight, maxHeight);
 }
 
 function loadAnimationInto(title, metaWrapperDivId, firstSceneId, width, height){
@@ -265,39 +263,53 @@ function animationLoader(title, width, height, firstSceneId, minWidth, maxWidth,
 	window.onload = function(){
 		if (oldOnload) oldOnload();
 
-		waitForCurrentuserDataFromServerFor(10000, function(){
 
-			// scroll away address bar:
-			setTimeout(function(){window.scrollTo(0, 1);}, 100);
 
-			if (typeof targetDiv !== "undefined") {
-				// console.log("width: " + targetDiv.clientWidth);
-				// console.log("height: " + targetDiv.clientHeight);
+		// scroll away address bar on e.g. iOS-devices:
+		setTimeout(function(){window.scrollTo(0, 1);}, 100);
 
-				// console.log("width: " + targetDiv.offsetWidth);
-				// console.log("height: " + targetDiv.offsetHeight);
+		if (typeof targetDiv !== "undefined") {
+			minWidth = maxWidth = targetDiv.clientWidth;
+			minHeight = maxHeight = targetDiv.clientHeight;
+		}
 
-				minWidth = maxWidth = targetDiv.clientWidth;
-				minHeight = maxHeight = targetDiv.clientHeight;
+		window.animation = Animation(width, height, keyOr('scene', firstSceneId), minWidth, maxWidth, minHeight, maxHeight);
+
+		if (typeof targetDiv === "undefined") {
+			window.animationwrapper = createDiv('animationwrapper', '');
+			window.document.body.appendChild(window.animationwrapper);
+			window.animationwrapper.appendChild(this.stageDiv);
+			window.animation.resizeToWindow = true;
+		} else {
+			window.animationwrapper = targetDiv;
+			window.animationwrapper.appendChild(this.stageDiv);
+			window.animation.resizeToDiv = true;
+			if (typeof metaWrapperDiv !== "undefined") {
+				window.animation.metaWrapperDiv = metaWrapperDiv;
 			}
+		}
 
-			window.animation = Animation(width, height, keyOr('scene', firstSceneId), minWidth, maxWidth, minHeight, maxHeight);
+		window.animation.adaptScaling();
 
-			if (typeof targetDiv === "undefined") {
-				window.animationwrapper = createDiv('animationwrapper', '');
-				window.document.body.appendChild(window.animationwrapper);
-				window.animationwrapper.appendChild(this.stageDiv);
-				window.animation.resizeToWindow = true;
-			} else {
-				window.animationwrapper = targetDiv;
-				window.animationwrapper.appendChild(this.stageDiv);
-				window.animation.resizeToDiv = true;
-				if (typeof metaWrapperDiv !== "undefined") {
-					window.animation.metaWrapperDiv = metaWrapperDiv;
-				}
-			}
+		if (window.animation.config.waitForServer > 0) {
+			// according to animationconfig.js the animation should wait for the server to
+			// return a result. In the meantime we show a rotating waiting.gif.
 
-			window.animation.adaptScaling();
+			var waitingImg = document.createElement('img');
+			waitingImg.src = "images/waiting.gif";
+
+			window.animation.waitingDiv = document.createElement('div');
+			window.animation.waitingDiv.id = 'waitingdiv';
+			window.animation.waitingDiv.appendChild(waitingImg);
+			window.animation.waitingDiv.innerHTML += window.animation.config.waitingText;
+
+			window.animation.stageDiv.appendChild(waitingDiv);
+		}
+
+		waitForCurrentuserDataFromServerFor(window.animation.waitForServer, function(){
+
+			// remove the waiting-gif, if it was created
+			if (typeof window.animation.waitingDiv !== 'undefined') window.stageDiv.removeChild(window.animation.waitingDiv);
 
 			// read scene-number from hashtag in URL or start with default:
 			var sceneNum = parseInt(window.location.hash.substring(1), 10);
@@ -311,9 +323,8 @@ function animationLoader(title, width, height, firstSceneId, minWidth, maxWidth,
 			// setTimeout(function(){window.animationwrapper.style.opacity = 1},2000);
 			// window.animationwrapper.style.opacity = 0.2;
 			fadeIn(window.animationwrapper);
-		});
+		}); // <-- waitForCurrentuserDataFromServerFor();
 	};
-	// ******************************************
 
 	if (window.onresize) var oldOnresize = window.onresize;
 	window.onresize = function() {
