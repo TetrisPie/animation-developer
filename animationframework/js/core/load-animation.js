@@ -4,6 +4,8 @@ function Animation(width, height, firstSceneId, minWidth, maxWidth, minHeight, m
 
 	this.server = developermode ? 'http://localhost:8080' : 'http://server.animation.io';
 
+	console.log("UUID: " + getParameterByName("setuser"));
+
 	this.firstSceneId = firstSceneId;
 	this.loadedScenes = [];
 	this.stageDiv = createDiv('stage', 'stage');
@@ -192,7 +194,7 @@ function Animation(width, height, firstSceneId, minWidth, maxWidth, minHeight, m
 				window.forceReloadTimer = setTimeout('reloadAndFadeToScene("' + sceneid + '")', window.animation.config.maximumAnimationAge);
 			}
 		}
-		setAndSaveCurrentUserProperty('scene', sceneid);
+		updateKey('scene', sceneid);
 	};
 
 	this.showFirstScene = function(){
@@ -263,8 +265,6 @@ function animationLoader(title, width, height, firstSceneId, minWidth, maxWidth,
 	window.onload = function(){
 		if (oldOnload) oldOnload();
 
-
-
 		// scroll away address bar on e.g. iOS-devices:
 		setTimeout(function(){window.scrollTo(0, 1);}, 100);
 
@@ -294,20 +294,16 @@ function animationLoader(title, width, height, firstSceneId, minWidth, maxWidth,
 		if (window.animation.config.waitForServer > 0) {
 			// according to animationconfig.js the animation should wait for the server to
 			// return a result. In the meantime we show a rotating waiting.gif.
-
 			var waitingImg = document.createElement('img');
 			waitingImg.src = "images/waiting.gif";
-
 			window.animation.waitingDiv = document.createElement('div');
 			window.animation.waitingDiv.id = 'waitingdiv';
 			window.animation.waitingDiv.appendChild(waitingImg);
 			window.animation.waitingDiv.innerHTML += window.animation.config.waitingText;
-
 			window.animation.stageDiv.appendChild(waitingDiv);
 		}
 
 		waitForCurrentuserDataFromServerFor(window.animation.waitForServer, function(){
-
 			// remove the waiting-gif, if it was created
 			if (typeof window.animation.waitingDiv !== 'undefined') window.stageDiv.removeChild(window.animation.waitingDiv);
 
@@ -320,8 +316,6 @@ function animationLoader(title, width, height, firstSceneId, minWidth, maxWidth,
 			}
 			window.animation.startLoop();
 
-			// setTimeout(function(){window.animationwrapper.style.opacity = 1},2000);
-			// window.animationwrapper.style.opacity = 0.2;
 			fadeIn(window.animationwrapper);
 		}); // <-- waitForCurrentuserDataFromServerFor();
 	};

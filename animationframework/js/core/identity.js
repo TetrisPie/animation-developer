@@ -1,12 +1,17 @@
 function getOrCreateIdentity(){
-  var currentUserUuid = readCookie("currentUserUuid");
+  var currentUserUuid;
+
+  if (getParameterByName('setuser').length > 0) {
+    currentUserUuid = getParameterByName('setuser');
+  } else {
+    currentUserUuid= readCookie("currentUserUuid");
+  }
 
   if (currentUserUuid === null) {
     // NO USER SAVED ON THIS MACHINE/BROWSER
-    console.log("no user saved on this machine");
+    console.log("NO USER SAVED ON THIS MACHINE/BROWSER");
 
     currentUserUuid = uuid();
-
     console.log("created identity " + currentUserUuid);
     createCookie("currentUserUuid", currentUserUuid, 10000);
 
@@ -16,14 +21,18 @@ function getOrCreateIdentity(){
 
   } else {
     // FOUND A USER-UUID VIA COOKIE ON THIS MACHINE
-    console.log("Found identity " + currentUserUuid + " on system.");
+    console.log("exitsing identity " + currentUserUuid);
   }
 
   currentUser = {"uuid":currentUserUuid}; // "real" data comes from server will overwrite this in a sec
   getOrCreateCurrentUserFromServer(currentUserUuid);
 }
 
-// The following cookie-code is inspired by http://www.quirksmode.org/js/cookies.html
+function identitylink(){
+  return location.href.split(/[?|#]/)[0] + "?setuser=" + currentUser.uuid
+}
+
+// code inspired by http://www.quirksmode.org/js/cookies.html -->
 function createCookie(name,value,days) {
   if (days) {
     var date = new Date();
@@ -48,5 +57,4 @@ function readCookie(name) {
 function eraseCookie(name) {
   createCookie(name,"",-1);
 }
-
-// <-- code inspired by http://www.quirksmode.org/js/cookies.html -->
+// <-- code inspired by http://www.quirksmode.org/js/cookies.html

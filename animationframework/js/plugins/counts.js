@@ -11,7 +11,6 @@ function CountResetter(actor, triggeredByAction, reactionTargetIndex){
   return countresetter
 }
 
-
 Actor.prototype.letsCount = function(targetObject, amount){
   targetObject.addBehavior(new CountResetter(targetObject));
   targetObject.counter = 0;
@@ -19,7 +18,6 @@ Actor.prototype.letsCount = function(targetObject, amount){
   this.reacts("this.addsToCounter(" + amount + ", true, reactionTargetIndex);", 0, targetObject);
   return this;
 };
-
 
 Actor.prototype.addsToCounter = function(amount, triggeredByAction, reactionTargetIndex) {
   var targetObject;
@@ -41,9 +39,9 @@ Actor.prototype.addsToCounter = function(amount, triggeredByAction, reactionTarg
      targetObject.setText(targetObject.counter);
     };
   };
+
   return this;
 };
-
 
 Actor.prototype.multipliesCounter = function(amount, triggeredByAction, reactionTargetIndex) {
   var targetObject;

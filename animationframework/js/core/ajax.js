@@ -33,14 +33,14 @@ function keyOr(keyname, defaultvalue){
   return typeof currentUser[keyname] !== 'undefined' ? currentUser[keyname] : defaultvalue;
 }
 
-function setAndSaveCurrentUserProperty(key, value){
+function updateKey(key, value){
   // Set a user-property both in the local object and on the server.
   if (typeof currentUser === 'undefined') {console.log("ERROR no currentUser to save to!"); return;}
 
   // 1. set value as local currentUser-property and flag it unsaved
   currentUser[key] = value;
 
-  // 2. try saving all unsaved | TODO: count saving failure in
+  // 2. try saving on server | TODO: what to do on failure?
   var url = server_url() + '/setvalue';
   url += '/' + encodeURIComponent(currentUser.uuid);
   url += '/' + encodeURIComponent(key);
