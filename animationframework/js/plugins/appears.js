@@ -9,6 +9,8 @@ function Appearing(actor, startAfter, appearLength, startsVisible, triggeredByAc
   appearing.newOpacity = 0;
   appearing.opacityStep = 0;
   appearing.appearLength = appearLength;
+  started = false;
+
 
   if ((typeof startsVisible !== 'undefined') && startsVisible === true) {
     appearing.startsVisible = true;
@@ -23,24 +25,30 @@ function Appearing(actor, startAfter, appearLength, startsVisible, triggeredByAc
     }
   };
 
-  appearing.reset = function(){
-    this.resetPlugin(); // quasi "call to super";
-    if (this.startsVisible) {
-      this.targetObject.setVisible();
-    } else {
-      this.targetObject.setInvisible();
-    }
-    this.opacityStep = 60 / this.appearLength; // assuming 60 frames per second
+  appearing.reset = function () {
+      this.resetPlugin(); // quasi "call to super";
+      started = false;
+      if (this.startsVisible) {
+          this.targetObject.setVisible();
+      } else {
+          this.targetObject.setInvisible();
+      }
+      this.opacityStep = 60 / this.appearLength; // assuming 60 frames per second
   };
   appearing.reset();
 
-  appearing.applybehavior = function(){
-    if (!this.done && (this.targetObject.age() > startAfter)) {
-      this.targetObject.setVisible();
-      this.newOpacity = this.newOpacity.addUntilTarget(this.opacityStep, 1);
-      this.targetObject.alterOpacity(this.newOpacity);
-      this.isDoneWhen(this.targetObject.currentOpacity >= 1);
-    }
+  appearing.applybehavior = function () {
+      if (!started) {
+          this.resetStartAnimationTimestamp();
+          started = true;
+          return;
+      }
+      if (!this.done && (this.age() > startAfter)) {
+          this.targetObject.setVisible();
+          this.newOpacity = this.newOpacity.addUntilTarget(this.opacityStep, 1);
+          this.targetObject.alterOpacity(this.newOpacity);
+          this.isDoneWhen(this.targetObject.currentOpacity >= 1);
+      }
   };
   return appearing;
 }
@@ -68,6 +76,12 @@ Actor.prototype.letsAppearStartsVisible = function(targetObject, appearLength){
 Actor.prototype.letsAppear = function(targetObject, appearLength){
   targetObject.setInvisible();
   this.reacts("this.appears(0, " + floatValueOfOr(appearLength, 1000) + ", false, true, reactionTargetIndex);", 1, targetObject);
+  return this;
+};
+
+Actor.prototype.letsAppear2 = function(targetObject, startAfter, appearLength){
+  targetObject.setInvisible();
+  this.reacts("this.appears(" + startAfter + ", " + floatValueOfOr(appearLength, 1000) + ", false, true, reactionTargetIndex);", 1, targetObject);
   return this;
 };
 
