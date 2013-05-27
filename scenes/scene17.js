@@ -11,17 +11,18 @@ var scene17 = function(){
   var actor3 = scene.createActor('actors/actor3.png', 100, 330, 240, 88);
   var actor4 = scene.createActor('actor.png', 400, 330, 240, 88);
 
-  actor2.letsCount(actor2, 1);
+  actor2.syncWithServer('f2c7e2a3-8041-4d8c-a87b-df30d10c68ce');
+  actor2.letsAddToCounter(actor2, 1);
   actor2.setText("Counter now at %count%.")
 
-  actor1.letsCount(actor2, 5);
+  actor1.letsAddToCounter(actor2, 5);
   actor1.setText("add 5 to actor2", "textid")
   actor1.swings(45, 0.5, 0, 0, -45);
 
   actor2.rotates(0.15);
 
   actor3.setText("subtr. 3 from actor2 3, dissolve", "textid");
-  actor3.letsCount(actor2, -3);
+  actor3.letsAddToCounter(actor2, -3);
 
   actor3.dissolvesOnTouch();
   actor3.rotates(0.10);

@@ -6,7 +6,8 @@ function make_script_tag(url){
 }
 
 function server_url(){
-  return developermode ? 'http://localhost:8080' : 'http://animation.io';
+  // return developermode ? 'http://localhost:8080' : 'http://animation.io';
+  return "http://animation-io.nodejitsu.com";
 }
 
 function getOrCreateCurrentUserFromServer(currentUserUuid){
@@ -28,6 +29,10 @@ function setCurrentUser(data){
 }
 
 function keyOr(keyname, defaultvalue){
+  console.log("keyname: " + keyname);
+  console.log("defaultvalue: " + defaultvalue);
+  console.log(currentUser);
+  console.log("currentUser[" + keyname + "]: " + currentUser[keyname]);
   // If there a value is set for 'currentUser[keyname]' (e.g. it came saved from server)
   // then return that, otherwise return the 'defaultvalue'.
   return typeof currentUser[keyname] !== 'undefined' ? currentUser[keyname] : defaultvalue;
@@ -35,7 +40,10 @@ function keyOr(keyname, defaultvalue){
 
 function updateKey(key, value){
   // Set a user-property both in the local object and on the server.
-  if (typeof currentUser === 'undefined') {console.log("ERROR no currentUser to save to!"); return;}
+
+  console.log("SETTING KEY VALUE");
+  console.log("key: " + key);
+  console.log("value: " + value);
 
   // 1. set value as local currentUser-property and flag it unsaved
   currentUser[key] = value;

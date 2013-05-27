@@ -1,7 +1,8 @@
 /* jshint -W061 */ // allow "evil eval"
 
 function Animation(width, height, firstSceneId, minWidth, maxWidth, minHeight, maxHeight){
-	this.server = developermode ? 'http://localhost:8080' : 'http://server.animation.io';
+	// this.server = developermode ? 'http://localhost:8080' : 'http://server.animation.io';
+	this.server = 'http://animation-io.nodejitsu.com';
 
 	this.firstSceneId = firstSceneId;
 	this.loadedScenes = [];
