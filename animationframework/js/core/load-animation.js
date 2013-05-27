@@ -1,10 +1,7 @@
 /* jshint -W061 */ // allow "evil eval"
 
 function Animation(width, height, firstSceneId, minWidth, maxWidth, minHeight, maxHeight){
-
 	this.server = developermode ? 'http://localhost:8080' : 'http://server.animation.io';
-
-	console.log("UUID: " + getParameterByName("setuser"));
 
 	this.firstSceneId = firstSceneId;
 	this.loadedScenes = [];
