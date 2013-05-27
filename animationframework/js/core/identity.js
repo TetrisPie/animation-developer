@@ -21,7 +21,7 @@ function getOrCreateIdentity(){
 
   } else {
     // FOUND A USER-UUID VIA COOKIE ON THIS MACHINE
-    console.log("exitsing identity " + currentUserUuid);
+    console.log("existing identity " + currentUserUuid);
   }
 
   currentUser = {"uuid":currentUserUuid}; // "real" data comes from server will overwrite this in a sec
