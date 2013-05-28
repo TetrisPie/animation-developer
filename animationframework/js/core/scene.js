@@ -82,10 +82,10 @@ function Scene(id, title, width, height){
 	this.makeInvisible(); // start out invisible
 
 	this.cleanup = function () {
-	    for (var i = this.actors.length - 1; i >= 0; i--) {
-	        this.actors[i].cleanupBehaviors();
-	    }
-	    this.scrollingLocked = false;
+    for (var i = this.actors.length - 1; i >= 0; i--) {
+      this.actors[i].cleanupBehaviors();
+    }
+    this.scrollingLocked = false;
 	};
 
 	this.makeOthersInvisible = function(){
