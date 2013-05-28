@@ -27,12 +27,28 @@ function Scene(id, title, width, height){
 
   this.setSzeneSizeToStageIfNotSetInScenedefinition = function(newWidth, newHeight){
     // width
-    if (this.dimensions.x === 0) this.dimensions.x = parseInt(newWidth, 10);
-    this.div.style.width = this.dimensions.x + 'px';
-    // height
-    if (this.dimensions.y === 0) this.dimensions.y = parseInt(newHeight, 10);
-    this.div.style.height = this.dimensions.y + 'px';
+    // if (this.dimensions.x === 0) this.dimensions.x = parseInt(newWidth, 10);
+    // this.div.style.width = this.dimensions.x + 'px';
+    // // height
+    // if (this.dimensions.y === 0) this.dimensions.y = parseInt(newHeight, 10);
+    // this.div.style.height = this.dimensions.y + 'px';
   };
+
+  this.setDivSizeToStage = function(myWidth, myHeight){
+    setDivSize(this.div, window.animation.width, window.animation.height);
+  };
+
+  this.setScrollingdivSizeToScene = function(myWidth, myHeight){
+    // width
+    if (this.dimensions.x === 0) this.dimensions.x = parseInt(myWidth, 10);
+    window.animation.scrollingDiv.style.width = this.dimensions.x + 'px';
+    // height
+    if (this.dimensions.y === 0) this.dimensions.y = parseInt(myHeight, 10);
+    window.animation.scrollingDiv.style.height = this.dimensions.y + 'px';
+
+    setDivSize(window.animation.scrollingDiv, this.dimensions.x, this.dimensions.y);
+  };
+
 
   this.resetAge = function(){
     this.displayedAt = Date.now();
@@ -89,7 +105,6 @@ function Scene(id, title, width, height){
 
   this.makeOthersInvisible = function(){
     var showTextInCurrent = window.animation.textIsDisplaying;
-
     for (var i = window.animation.loadedScenes.length - 1; i >= 0; i--) {
       if (window.animation.loadedScenes[i].id.match(this.id)) {
         this.makeVisible();

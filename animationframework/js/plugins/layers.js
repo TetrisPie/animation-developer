@@ -74,7 +74,7 @@ for (var layernumber = 1; layernumber < this.scene.layers.length; layernumber++)
 Scene.prototype.scrollingPerspective = function(strength){
   (function(){
     // add scroll listener to stage
-    bindEvent(window.animation.stageDiv, 'scroll', function(callee){
+    bindEvent(window.animation.scrollingDivWrapper, 'scroll', function(callee){
       var overflowX = window.animation.currentScene.dimensions.x - window.animation.width;
 
       // scrollX is calculated as percentage difference between a centered scrolling position and current

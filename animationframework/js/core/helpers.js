@@ -115,3 +115,8 @@ function minutesToTime(minutes){
 function getIntegerFromEndOfString(myString){
   return parseInt((myString.match(/\d+$/)[0]), 10);
 }
+
+function setDivSize(div, width, height){
+  div.style.width = width + "px";
+  div.style.height = height + "px";
+}

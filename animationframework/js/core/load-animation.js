@@ -6,10 +6,15 @@ function Animation(width, height, firstSceneId, minWidth, maxWidth, minHeight, m
 	this.firstSceneId = firstSceneId;
 	this.loadedScenes = [];
 	this.stageDiv = createDiv('stage', 'stage');
-	this.stageDiv.style.width = width + 'px';
-	this.stageDiv.style.height = height + 'px';
+	setDivSize(this.stageDiv, width, height);
+
+	this.scrollingDivWrapper = createDiv('scrollingdivwrapper', 'scrollingdivwrapper');
+	this.scrollingDiv = createDiv('scrollingdiv', 'scrollingdiv');
+	setDivSize(this.scrollingDivWrapper, width, height);
+
 	this.width = width;
 	this.height = height;
+	this.dimensions = {x: width, y: height};
 	this.textIsDisplaying = true; // show text as default
 
 	this.minWidth = (typeof minWidth == 'undefined') ? this.width : minWidth;
@@ -77,9 +82,6 @@ function Animation(width, height, firstSceneId, minWidth, maxWidth, minHeight, m
 			console.log("use default animation size");
 			// TODO
 		}
-
-		// console.log("newWidth: " + newWidth);
-		// console.log("newHeight: " + newHeight);
 
 		if (typeof window.metaWrapperDiv !== "undefined") {
 			metaWrapperDiv.style.height = newHeight + "px";
@@ -156,7 +158,11 @@ function Animation(width, height, firstSceneId, minWidth, maxWidth, minHeight, m
 
 		// if we reached this point, the scene isn't loaded yet.
 		var newScene = eval(sceneid + '()');
-		newScene.setSzeneSizeToStageIfNotSetInScenedefinition(width, height);
+
+		newScene.setScrollingdivSizeToScene();
+		newScene.setDivSizeToStage();
+
+		// newScene.setSzeneSizeToStageIfNotSetInScenedefinition(width, height);
 		this.loadedScenes.push(newScene);
 		newScene.stageDiv = this.stageDiv;
 		this.stageDiv.appendChild(newScene.div);
@@ -288,6 +294,9 @@ function animationLoader(title, width, height, firstSceneId, minWidth, maxWidth,
 				window.animation.metaWrapperDiv = metaWrapperDiv;
 			}
 		}
+
+		this.scrollingDivWrapper.appendChild(this.scrollingDiv);
+		window.animationwrapper.appendChild(this.scrollingDivWrapper);
 
 		window.animation.adaptScaling();
 
