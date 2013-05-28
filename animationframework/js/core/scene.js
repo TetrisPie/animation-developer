@@ -67,10 +67,10 @@ function Scene(id, title, width, height){
 	};
 
 	this.makeVisible = function () {
-	    this.div.style.display = 'block';
-	    this.isVisible = true;
-	    this.scrollingLocked = false;
-        this.setScrolling();
+		this.div.style.display = 'block';
+		this.isVisible = true;
+		this.scrollingLocked = false;
+		this.setScrolling();
 	};
 
 	this.makeInvisible = function(){
@@ -83,7 +83,7 @@ function Scene(id, title, width, height){
 
 	this.cleanup = function () {
 	    for (var i = this.actors.length - 1; i >= 0; i--) {
-	        this.actors[i].cleanupBehaviors();
+	      this.actors[i].cleanupBehaviors();
 	    }
 	    this.scrollingLocked = false;
 	};
