@@ -21,12 +21,9 @@ function Scene(id, title, width, height){
   this.dimensions.y = (typeof height !== 'undefined') ? parseInt(height, 10) : 0;
   // <-- dimensions of the scene's div and related settings
 
-
-  function setupScrolling(){
-    // SETUP THE SCENE-OBJECT
-    this.scrollTo(1,0);
-    this.scrollTo(0,0);
-  };
+  // TRIGGER SCROLL-EVENT
+  this.scrollTo(1,0);
+  this.scrollTo(0,0);
 
   this.setSzeneSizeToStageIfNotSetInScenedefinition = function(newWidth, newHeight){
     // width
@@ -198,4 +195,3 @@ Scene.prototype.setScrolling = function () {
     window.animation.stageDiv.style.overflowY = "hidden";
   }
 };
-
