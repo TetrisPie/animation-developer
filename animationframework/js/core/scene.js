@@ -176,18 +176,14 @@ Scene.prototype.unlockScrolling = function () {
 
 Scene.prototype.setScrolling = function () {
   if ((this.dimensions.x > window.animation.width) && !(this.scrollingLocked)) {
-    console.log("a");   
     window.animation.stageDiv.style.overflowX = "scroll";
   } else {
-    console.log("b");
     window.animation.stageDiv.style.overflowX = "hidden";
   }
 
   if ((this.dimensions.y > window.animation.height) && !(this.scrollingLocked)) {
-    console.log("a");
     window.animation.stageDiv.style.overflowY = "scroll";
   } else {
-    console.log("b");
     window.animation.stageDiv.style.overflowY = "hidden";
   }
 };
