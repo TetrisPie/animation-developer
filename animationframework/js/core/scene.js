@@ -67,10 +67,10 @@ function Scene(id, title, width, height){
 	};
 
 	this.makeVisible = function () {
-	    this.div.style.display = 'block';
-	    this.isVisible = true;
-	    this.scrollingLocked = false;
-        this.setScrolling();
+		this.div.style.display = 'block';
+		this.isVisible = true;
+		this.scrollingLocked = false;
+		this.setScrolling();
 	};
 
 	this.makeInvisible = function(){
