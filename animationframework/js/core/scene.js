@@ -25,13 +25,11 @@ function Scene(id, title, width, height){
     this.scrollTo(0,0);
 
 	this.setSzeneSizeToStageIfNotSetInScenedefinition = function(newWidth, newHeight){
-		if (this.dimensions.x === 0) {
-			this.dimensions.x = parseInt(newWidth, 10);
-		}
+		// width
+		if (this.dimensions.x === 0) this.dimensions.x = parseInt(newWidth, 10);
 		this.div.style.width = this.dimensions.x + 'px';
-		if (this.dimensions.y === 0) {
-			this.dimensions.y = parseInt(newHeight, 10);
-		}
+		// height
+		if (this.dimensions.y === 0) this.dimensions.y = parseInt(newHeight, 10);
 		this.div.style.height = this.dimensions.y + 'px';
 	};
 
@@ -161,39 +159,39 @@ function Scene(id, title, width, height){
 }
 
 Scene.prototype.scrollTo = function (x, y) {
-    if (typeof x != 'undefined') {
-        window.animation.stageDiv.scrollLeft = x;
-    }
-    if (typeof y != 'undefined') {
-        window.animation.stageDiv.scrollTop = y;
-    }
-}
+  if (typeof x != 'undefined') {
+    window.animation.stageDiv.scrollLeft = x;
+  }
+	if (typeof y != 'undefined') {
+    window.animation.stageDiv.scrollTop = y;
+  }
+};
 
 Scene.prototype.lockScrolling = function () {
-    this.scrollingLocked = true;
-    this.setScrolling();
-}
+  this.scrollingLocked = true;
+  this.setScrolling();
+};
 
 Scene.prototype.unlockScrolling = function () {
-    this.scrollingLocked = false;
-    this.setScrolling();
-}
+  this.scrollingLocked = false;
+  this.setScrolling();
+};
 
 Scene.prototype.setScrolling = function () {
-    if ((this.dimensions.x > window.animation.width) && !(this.scrollingLocked)) {
-        console.log("a");   
-        window.animation.stageDiv.style.overflowX = "scroll";
-    } else {
-        console.log("b");
-        window.animation.stageDiv.style.overflowX = "hidden";
-    }
+	if ((this.dimensions.x > window.animation.width) && !(this.scrollingLocked)) {
+    console.log("a");   
+    window.animation.stageDiv.style.overflowX = "scroll";
+	} else {
+    console.log("b");
+    window.animation.stageDiv.style.overflowX = "hidden";
+	}
 
-    if ((this.dimensions.y > window.animation.height) && !(this.scrollingLocked)) {
-        console.log("a");
-        window.animation.stageDiv.style.overflowY = "scroll";
-    } else {
-        console.log("b");
-        window.animation.stageDiv.style.overflowY = "hidden";
-    }
-}
+	if ((this.dimensions.y > window.animation.height) && !(this.scrollingLocked)) {
+    console.log("a");
+    window.animation.stageDiv.style.overflowY = "scroll";
+	} else {
+    console.log("b");
+    window.animation.stageDiv.style.overflowY = "hidden";
+	}
+};
 
