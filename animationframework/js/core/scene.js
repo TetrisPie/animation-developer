@@ -160,12 +160,8 @@ function Scene(id, title, width, height){
 }
 
 Scene.prototype.scrollTo = function (x, y) {
-  if (typeof x != 'undefined') {
-    window.animation.stageDiv.scrollLeft = x;
-  }
-  if (typeof y != 'undefined') {
-      window.animation.stageDiv.scrollTop = y;
-    }
+  if (typeof x !== 'undefined') window.animation.stageDiv.scrollLeft = x;
+  if (typeof y !== 'undefined') window.animation.stageDiv.scrollTop = y;
 };
 
 Scene.prototype.lockScrolling = function () {
