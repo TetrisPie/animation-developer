@@ -53,7 +53,6 @@ Actor.prototype.isInLayer = function(layerNumber, factorX, factorY) {
 //   this.perspecticeFactorY = factorY;
 // };
 
-
 Actor.prototype.shiftAbsolute = function(shiftingAmountX, shiftingAmountY, triggeredByAction, reactionTargetIndex){
 for (var layernumber = 1; layernumber < this.scene.layers.length; layernumber++) {
     if (typeof this.scene.layers[layernumber] != "undefined") {
@@ -72,20 +71,17 @@ for (var layernumber = 1; layernumber < this.scene.layers.length; layernumber++)
 };
 
 Scene.prototype.scrollingPerspective = function(strength){
-  (function(){
-    // add scroll listener to stage
-    bindEvent(window.animation.scrollingDivWrapper, 'scroll', function(callee){
-      var overflowX = window.animation.currentScene.dimensions.x - window.animation.width;
+  // add scroll listener to scrolling div
+  bindEvent(window.animation.scrollingDivWrapper, 'scroll', function(callee){
+    var overflowX = window.animation.currentScene.dimensions.x - window.animation.width;
 
-      // scrollX is calculated as percentage difference between a centered scrolling position and current
-      var scrollX = (callee.srcElement.scrollLeft - (overflowX/2)) / (overflowX/200);
-      // var scrollY = (callee.srcElement.scrollTop - (overflowY/2)) / (overflowY/200);
+    // scrollX is calculated as percentage difference between a centered scrolling position and current
+    var scrollX = (callee.srcElement.scrollLeft - (overflowX/2)) / (overflowX/200);
+    // var scrollY = (callee.srcElement.scrollTop - (overflowY/2)) / (overflowY/200);
 
-      window.animation.currentScene.setPerspective(scrollX * strength, callee.srcElement.scrollTop);
-    });
-  })();
+    window.animation.currentScene.setPerspective(scrollX * strength, callee.srcElement.scrollTop);
+  });
 };
-
 
 Scene.prototype.setPerspective = function(shiftingAmountX, shiftingAmountY){
   for (var layernumber = 1; layernumber < this.layers.length; layernumber++) {

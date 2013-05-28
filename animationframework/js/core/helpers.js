@@ -1,4 +1,4 @@
-// IE9 fix
+// IE9 fix for console-log
 if(!window.console) {
   var console = {
     log : function(){},
@@ -15,6 +15,14 @@ function relativeOrAbsolutePath(defaultLocalPathPrefix, filePath){
   } else {
     return defaultLocalPathPrefix + filePath;
   }
+}
+
+function uuid(){
+  // UUID-generator inspired by http://stackoverflow.com/questions/105034/how-to-create-a-guid-uuid-in-javascript/2117523#2117523
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+    var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
+    return v.toString(16);
+  });
 }
 
 function randomId(){
@@ -35,6 +43,13 @@ function truth(expression){
   }
 }
 
+function getParameterByName(name) {
+    // code from http://stackoverflow.com/questions/901115/how-can-i-get-query-string-values/901144#901144
+    name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+    return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+}
 function distance(x1, y1, x2, y2){
   return Math.abs(Math.sqrt(((x2-x1)*(x2-x1)) + ((y2-y1)*(y2-y1))));
 }
@@ -49,6 +64,11 @@ function now(){
 }
 
 function timeInMinutes(minutes){
+  console.log("DEPRECATION-WARNING: timeInMinutes() is deprecated, please use minutesToMilliseconds()")
+  return minutesToMilliseconds(minutes);
+}
+
+function minutesToMilliseconds(minutes){
   return minutes * 1000 * 60;
 }
 
@@ -119,4 +139,19 @@ function getIntegerFromEndOfString(myString){
 function setDivSize(div, width, height){
   div.style.width = width + "px";
   div.style.height = height + "px";
+}
+
+function dowhen(theAction, conditionAsString, tryAgainIn, doAnywayAfter){
+  /*
+    Checks every 'tryAgainIn' milliseconds for 'conditionAsString'.
+    If 'conditionAsString' is the case it executes 'theAction'.
+    After 'doAnywayAfter' milliseconds 'theAction' will execute anway.
+  */
+  if (eval(conditionAsString) || doAnywayAfter <= 0) {
+    // condition satisfied or time up, fire!
+    theAction();
+  } else {
+    // condition not satisfied, let's try again later
+    window.setTimeout(function(){dowhen(theAction, conditionAsString, tryAgainIn, doAnywayAfter - tryAgainIn)}, tryAgainIn);
+  };
 }

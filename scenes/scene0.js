@@ -4,7 +4,7 @@
 var scene0 = function(){
   var scene = new Scene('scene0', 'All');
 
-  scene.write(20, 20, "Animation Framework</span>", "title");
+  scene.write(20, 20, "Animation Framework", "title");
   scene.write(20, 50, "initiated by <a href='http://mehreinfach.de'>Mehreinfach</a>, download free at <a href='http://animation.io'>animation.io</a>", "small");
 
   // scene.write(20, 100, "Animation example
@@ -100,15 +100,21 @@ var scene0 = function(){
 
   // BOUNCES
   var csstricks = scene.createActor('button.png', 20, 520, 240, 60);
-  var newBatch = scene.createActor('new.png', 220, 510, 50, 50);
+  var newBadge = scene.createActor('new.png', 220, 510, 50, 50);
   csstricks.setText("bounces", "", "button");
   csstricks.navigatesOnTouch('scene24');
 
   // VIDEOACTOR
   var videoactor = scene.createActor('button.png', 270, 520, 240, 60);
-  var newBatch = scene.createActor('new.png', 470, 510, 50, 50);
+  var newBadge = scene.createActor('new.png', 470, 510, 50, 50);
   videoactor.setText("video (dev)", "", "button");
   videoactor.navigatesOnTouch('scene25');
+
+  // PUBLIC ACTOR
+  var publicactor = scene.createActor('button.png', 520, 520, 240, 60);
+  var newBadge = scene.createActor('new.png', 720, 510, 50, 50);
+  publicactor.setText("public actor (dev)", "", "button");
+  publicactor.navigatesOnTouch('scene26');
 
   return scene;
 };

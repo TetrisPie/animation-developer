@@ -3,7 +3,7 @@ var scene7 = function(){
 
   var home = scene.createActor('home.png', 10, 10);
   home.navigatesOnTouch('scene0');
-  
+
   scene.write(20, 90, "actor1 drifts, actor 2 clones its movement");
   var actor1 = scene.createActor('actor.png', -140, 130);
   var actor2 = scene.createActor('actor.png', -400, 130);

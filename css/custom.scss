@@ -17,7 +17,7 @@
   border-radius: 5px;
 
   &.grey, .grey {
-    color: #aaa;    
+    color: #aaa;
   }
 
   &.black, .black {
@@ -46,7 +46,7 @@
   &.title, .title {
     font-weight: 700;
     font-size: 150%;
-  }  
+  }
 }
 
 
@@ -82,6 +82,23 @@ body {
 }
 
 /* =========================================================== */
+/* WAITING-GIF */
+
+#waitingdiv {
+  position: relative;
+  text-align: center;
+  font-family: 'Helvetica Neue', 'Arial', sans-serif;
+  color: #aaa;
+  height: 100px;
+  top: 280px;
+
+  img  {
+    margin: 20px auto;
+    display: block;
+  }
+}
+
+/* =========================================================== */
 /* COUNTER & TEXT IN SCENE 17 */
 
 .counter {
@@ -110,7 +127,7 @@ body {
   color: #fff;
   font-size: 17pt;
   line-height: 17pt;
-  margin-top: 38px;
+  margin-top: 30px;
   margin-left: 10px;
   font-weight: normal;
 }

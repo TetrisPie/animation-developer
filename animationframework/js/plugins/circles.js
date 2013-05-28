@@ -1,7 +1,7 @@
 function Circling(actor, radius, hertz, tilt, triggeredByAction, reactionTargetIndex){
   var circling = new Plugin(0,0, actor, triggeredByAction, reactionTargetIndex);
 
-  circling.tiĺt = tilt;
+  circling.tilt = tilt;
 
   circling.reset = function(){
     circling.resetPlugin(); // quasi "call to super";
@@ -26,7 +26,7 @@ function Circling(actor, radius, hertz, tilt, triggeredByAction, reactionTargetI
 
     this.newX = (radius * Math.cos(this.tmpValue / 500*hertz)) * 2;
     this.newY = (radius * Math.sin(this.tmpValue / 500*hertz)) * 2;
-    
+
     this.vectorX = (this.newX - this.oldX);
     this.vectorY = (this.newY - this.oldY);
 
@@ -34,15 +34,15 @@ function Circling(actor, radius, hertz, tilt, triggeredByAction, reactionTargetI
     this.oldY = this.newY;
 
     if (this.firstRun) {
-      this.firstRun = false;      
+      this.firstRun = false;
     } else {
       this.targetObject.vector.x += this.vectorX;
-      this.targetObject.vector.y += this.vectorY;      
+      this.targetObject.vector.y += this.vectorY;
     }
 
-    if (this.counter <= 10) {
-      l("this.tilt: " + this.tilt)
-    };
+    // if (this.counter <= 10) {
+    //   console.log("this.tilt: " + this.tilt) // WTF?
+    // };
 
   };
 

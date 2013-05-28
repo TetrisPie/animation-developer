@@ -1,7 +1,8 @@
 /* jshint -W061 */ // allow "evil eval"
 
 function Animation(width, height, firstSceneId, minWidth, maxWidth, minHeight, maxHeight){
-	config(this); // read in configuration residing in animationconfig.js
+	// this.server = developermode ? 'http://localhost:8080' : 'http://server.animation.io';
+	this.server = 'http://animation-io.nodejitsu.com';
 
 	this.firstSceneId = firstSceneId;
 	this.loadedScenes = [];
@@ -57,13 +58,13 @@ function Animation(width, height, firstSceneId, minWidth, maxWidth, minHeight, m
 		*/
 
 		if (divHeight > 10 && divWidth > 10) {
-			// take both height and width consideration
-			console.log("take both height and width consideration");
+			// take both height and width into consideration
+			// console.log("take both height and width into consideration");
 
 			// TODO
 
 		} else if (divWidth > 10){ // take only width into consideration
-			console.log("take only width into consideration");
+			// console.log("take only width into consideration");
 
 			if (divWidth > this.maxWidth) { // the div is wider than allowed, set to maximum
 				newWidth = this.maxWidth;
@@ -203,6 +204,7 @@ function Animation(width, height, firstSceneId, minWidth, maxWidth, minHeight, m
 				window.animation.scrollingDivWrapper.scrollTop = 1;
 			}
 		}
+		updateKey('scene', sceneid);
 	};
 
 	this.showFirstScene = function(){
@@ -245,6 +247,9 @@ function Animation(width, height, firstSceneId, minWidth, maxWidth, minHeight, m
 }
 
 function loadAnimation(title, width, height, firstSceneId, minWidth, maxWidth, minHeight, maxHeight){
+	config(this); // read in configuration residing in animationconfig.js
+	getOrCreateIdentity();
+
 	if (!compatibleBrowser()) {
 		document.getElementById('backupdiv').style.display = "block";
 		return;
@@ -253,8 +258,10 @@ function loadAnimation(title, width, height, firstSceneId, minWidth, maxWidth, m
 }
 
 function loadAnimationInto(title, metaWrapperDivId, firstSceneId, width, height){
-	var metaWrapperDiv = document.getElementById(metaWrapperDivId);
+	config(this); // read in configuration residing in animationconfig.js
+	getOrCreateIdentity();
 
+	var metaWrapperDiv = document.getElementById(metaWrapperDivId);
 	var targetDiv = createDiv('animationwrapper', '');
 	metaWrapperDiv.appendChild(targetDiv);
 
@@ -268,21 +275,15 @@ function animationLoader(title, width, height, firstSceneId, minWidth, maxWidth,
 	window.onload = function(){
 		if (oldOnload) oldOnload();
 
-		// scroll away address bar:
+		// scroll away address bar on e.g. iOS-devices:
 		setTimeout(function(){window.scrollTo(0, 1);}, 100);
 
 		if (typeof targetDiv !== "undefined") {
-			console.log("width: " + targetDiv.clientWidth);
-			console.log("height: " + targetDiv.clientHeight);
-
-			console.log("width: " + targetDiv.offsetWidth);
-			console.log("height: " + targetDiv.offsetHeight);
-
 			minWidth = maxWidth = targetDiv.clientWidth;
 			minHeight = maxHeight = targetDiv.clientHeight;
 		}
 
-		window.animation = Animation(width, height, firstSceneId, minWidth, maxWidth, minHeight, maxHeight);
+		window.animation = Animation(width, height, keyOr('scene', firstSceneId), minWidth, maxWidth, minHeight, maxHeight);
 
 		if (typeof targetDiv === "undefined") {
 			window.animationwrapper = createDiv('animationwrapper', '');
@@ -303,18 +304,33 @@ function animationLoader(title, width, height, firstSceneId, minWidth, maxWidth,
 
 		window.animation.adaptScaling();
 
-		// read scene-number from hashtag in URL or start with default:
-		var sceneNum = parseInt(window.location.hash.substring(1), 10);
-		if (isNaN(sceneNum)) {
-			window.animation.showScene(firstSceneId);
-		} else{
-			eval("window.animation.showScene('scene" + sceneNum + "')");
+		if (window.animation.config.waitForServer > 0) {
+			// according to animationconfig.js the animation should wait for the server to
+			// return a result. In the meantime we show a rotating waiting.gif.
+			var waitingImg = document.createElement('img');
+			waitingImg.src = "images/waiting.gif";
+			window.animation.waitingDiv = document.createElement('div');
+			window.animation.waitingDiv.id = 'waitingdiv';
+			window.animation.waitingDiv.appendChild(waitingImg);
+			window.animation.waitingDiv.innerHTML += window.animation.config.waitingText;
+			window.animation.stageDiv.appendChild(waitingDiv);
 		}
-		window.animation.startLoop();
 
-		// setTimeout(function(){window.animationwrapper.style.opacity = 1},2000);
-		// window.animationwrapper.style.opacity = 0.2;
-		fadeIn(window.animationwrapper);
+		waitForCurrentuserDataFromServerFor(window.animation.waitForServer, function(){
+			// remove the waiting-gif, if it was created
+			if (typeof window.animation.waitingDiv !== 'undefined') window.stageDiv.removeChild(window.animation.waitingDiv);
+
+			// read scene-number from hashtag in URL or start with default:
+			var sceneNum = parseInt(window.location.hash.substring(1), 10);
+			if (isNaN(sceneNum)) {
+				window.animation.showScene(keyOr('scene', firstSceneId));
+			} else{
+				eval("window.animation.showScene('scene" + sceneNum + "')");
+			}
+			window.animation.startLoop();
+
+			fadeIn(window.animationwrapper);
+		}); // <-- waitForCurrentuserDataFromServerFor();
 	};
 
 	if (window.onresize) var oldOnresize = window.onresize;
