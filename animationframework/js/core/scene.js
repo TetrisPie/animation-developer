@@ -181,7 +181,7 @@ Scene.prototype.unlockScrolling = function () {
 
 Scene.prototype.setScrolling = function () {
     if ((this.dimensions.x > window.animation.width) && !(this.scrollingLocked)) {
-        console.log("a");   
+        console.log("a");
         window.animation.stageDiv.style.overflowX = "scroll";
     } else {
         console.log("b");
