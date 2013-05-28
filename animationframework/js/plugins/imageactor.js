@@ -7,6 +7,7 @@ Scene.prototype.createActor = function (filename, startAtX, startAtY, width, hei
         actor.image.originalPath = filename;
         actor.filename = filename.substring(filename.lastIndexOf('/') + 1)
         actor.image.setAttribute('src', relativeOrAbsolutePath(defaultImageDirectory, actor.image.originalPath));
+        actor.image.setAttribute('class', 'actor');
         this.image.setAttribute('draggable', 'false');
         actor.image.actor = actor;
         actor.phases.push(relativeOrAbsolutePath(defaultImageDirectory, filename));

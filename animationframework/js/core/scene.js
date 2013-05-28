@@ -21,9 +21,12 @@ function Scene(id, title, width, height){
   this.dimensions.y = (typeof height !== 'undefined') ? parseInt(height, 10) : 0;
   // <-- dimensions of the scene's div and related settings
 
-  // TRIGGER SCROLL-EVENT
-  this.scrollTo(1,0);
-  this.scrollTo(0,0);
+  this.scrollToZero = function(){
+    // TRIGGER SCROLL-EVENT
+    this.scrollTo(100,100);
+    this.scrollTo(0,0);
+  };
+  this.scrollToZero();
 
   this.setSzeneSizeToStageIfNotSetInScenedefinition = function(newWidth, newHeight){
     // width
@@ -82,6 +85,7 @@ function Scene(id, title, width, height){
   };
 
   this.makeVisible = function () {
+    this.scrollToZero();
     this.div.style.display = 'block';
     this.isVisible = true;
     this.scrollingLocked = false;
@@ -175,8 +179,8 @@ function Scene(id, title, width, height){
 }
 
 Scene.prototype.scrollTo = function (x, y) {
-  if (typeof x !== 'undefined') window.animation.stageDiv.scrollLeft = x;
-  if (typeof y !== 'undefined') window.animation.stageDiv.scrollTop = y;
+  if (typeof x !== 'undefined') window.animation.scrollingDivWrapper.scrollLeft = x;
+  if (typeof y !== 'undefined') window.animation.scrollingDivWrapper.scrollTop = y;
 };
 
 Scene.prototype.lockScrolling = function () {
@@ -191,14 +195,14 @@ Scene.prototype.unlockScrolling = function () {
 
 Scene.prototype.setScrolling = function () {
   if ((this.dimensions.x > window.animation.width) && !(this.scrollingLocked)) {
-    window.animation.stageDiv.style.overflowX = "scroll";
+    window.animation.scrollingDivWrapper.style.overflowX = "scroll";
   } else {
-    window.animation.stageDiv.style.overflowX = "hidden";
+    window.animation.scrollingDivWrapper.style.overflowX = "hidden";
   }
 
   if ((this.dimensions.y > window.animation.height) && !(this.scrollingLocked)) {
-    window.animation.stageDiv.style.overflowY = "scroll";
+    window.animation.scrollingDivWrapper.style.overflowY = "scroll";
   } else {
-    window.animation.stageDiv.style.overflowY = "hidden";
+    window.animation.scrollingDivWrapper.style.overflowY = "hidden";
   }
 };

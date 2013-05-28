@@ -8,9 +8,13 @@ div, img {
   -moz-user-select: none;
 }
 
-.stage {
-  /*overflow: scroll;*/
+#animationwrapper {
   position: relative;
+}
+
+.stage {
+  overflow: hidden;
+  position: absolute;
 }
 
 .scene {
@@ -21,6 +25,21 @@ div, img {
   & > * {
     position: absolute;
   }
+}
+
+.scrollingdivwrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: auto;
+  pointer-events:none;
+}
+
+.scrollingdiv {
+  pointer-events:none;
+  // background:url('your_transparent.png');
+
+  // position: absolute;
 }
 
 .text.black {
@@ -73,9 +92,8 @@ div, img {
     -moz-border-radius-topright: 5px;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
-    border-top: 1px solid #dddddd;
-    border-left: 1px solid #dddddd;
-    border-right: 1px solid #dddddd;
+    border: 1px solid #ddd;
+    border-bottom: none;
     color: #aaa;
     font-size: 30px;
     width: 30px;

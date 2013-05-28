@@ -198,6 +198,9 @@ function Animation(width, height, firstSceneId, minWidth, maxWidth, minHeight, m
 				this.dropUnneededScenes(this.currentScene.preloadSceneIds);
 				this.loadNeededScenes(this.currentScene.preloadSceneIds);
 				window.forceReloadTimer = setTimeout('reloadAndFadeToScene("' + sceneid + '")', window.animation.config.maximumAnimationAge);
+
+				window.animation.scrollingDivWrapper.scrollLeft = 0;
+				window.animation.scrollingDivWrapper.scrollTop = 1;
 			}
 		}
 	};
