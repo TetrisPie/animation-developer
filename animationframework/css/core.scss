@@ -2,6 +2,7 @@ body {
   -webkit-text-size-adjust: none;
 }
 
+
 div, img {
   user-select: none;
   -webkit-user-select: none;
@@ -32,7 +33,20 @@ div, img {
   top: 0;
   left: 0;
   overflow: auto;
+
   pointer-events:none;
+
+  &::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 22px;
+    height: 22px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 22px;
+    border: 2px solid white; /* should match background, can't be transparent */
+    background-color: rgba(122, 0, 0, .5);
+  }
 }
 
 .scrollingdiv {

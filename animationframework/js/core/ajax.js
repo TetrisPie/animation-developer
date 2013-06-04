@@ -25,14 +25,14 @@ function setCurrentUser(data){
   // after getOrCreateCurrentUserFromServer-request
   window.currentUser = JSON.parse(data);
   window.currentUserLoaded = true;
-  console.log(window.currentUser);
+  // console.log(window.currentUser);
 }
 
 function keyOr(keyname, defaultvalue){
-  console.log("keyname: " + keyname);
-  console.log("defaultvalue: " + defaultvalue);
-  console.log(currentUser);
-  console.log("currentUser[" + keyname + "]: " + currentUser[keyname]);
+  // console.log("keyname: " + keyname);
+  // console.log("defaultvalue: " + defaultvalue);
+  // console.log(currentUser);
+  // console.log("currentUser[" + keyname + "]: " + currentUser[keyname]);
   // If there a value is set for 'currentUser[keyname]' (e.g. it came saved from server)
   // then return that, otherwise return the 'defaultvalue'.
   return typeof currentUser[keyname] !== 'undefined' ? currentUser[keyname] : defaultvalue;
@@ -41,9 +41,9 @@ function keyOr(keyname, defaultvalue){
 function updateKey(key, value){
   // Set a user-property both in the local object and on the server.
 
-  console.log("SETTING KEY VALUE");
-  console.log("key: " + key);
-  console.log("value: " + value);
+  // console.log("SETTING KEY VALUE");
+  // console.log("key: " + key);
+  // console.log("value: " + value);
 
   // 1. set value as local currentUser-property and flag it unsaved
   currentUser[key] = value;

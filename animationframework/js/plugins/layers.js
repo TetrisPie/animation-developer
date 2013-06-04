@@ -70,30 +70,51 @@ for (var layernumber = 1; layernumber < this.scene.layers.length; layernumber++)
   return this;
 };
 
-Scene.prototype.scrollingPerspective = function(strength){
-  // add scroll listener to scrolling div
+Scene.prototype.scrollingPerspective = function(strengthX, strengthY, neutralLayer, horizonLayer){
+  /*
+    On the triggering of a scroll event of the “scrollingDivWrapper”,
+    the scene is beeing scrolled taking perspective into account.
+    The “strength”-value determines how strong the perspective-effect
+    for the neutralLayer.
+    * “neutralLayer” moves exactly the same speed as the scroll bar, default is layer 10.
+    * “horizonLayer“ doesn't move at all, default is layer 0.
+  */
+
+  this.neutralLayer = (typeof neutralLayer === 'undefined' ? 10 : neutralLayer);
+  this.horizonLayer = (typeof horizonLayer === 'undefined' ? 0 : horizonLayer);
+  this.layerMultiplier = 1 / (this.neutralLayer - this.horizonLayer);
+
   bindEvent(window.animation.scrollingDivWrapper, 'scroll', function(callee){
+
     var overflowX = window.animation.currentScene.dimensions.x - window.animation.width;
+    var overflowY = window.animation.currentScene.dimensions.y - window.animation.height;
 
-    // scrollX is calculated as percentage difference between a centered scrolling position and current
-    var scrollX = (callee.srcElement.scrollLeft - (overflowX/2)) / (overflowX/200);
-    // var scrollY = (callee.srcElement.scrollTop - (overflowY/2)) / (overflowY/200);
+    // scrolly is calculated as percentage difference between a centered scrolling position and current
+    var scrollX = -(callee.srcElement.scrollLeft - overflowX/2) / (overflowX/200);
+    var scrollY = -(callee.srcElement.scrollTop - overflowY/2) / (overflowY/200);
 
-    window.animation.currentScene.setPerspective(scrollX * strength, callee.srcElement.scrollTop);
+    window.animation.currentScene.setPerspective(scrollX * strengthX, scrollY * strengthY);
   });
 };
 
 Scene.prototype.setPerspective = function(shiftingAmountX, shiftingAmountY){
-  for (var layernumber = 1; layernumber < this.layers.length; layernumber++) {
+  // go through all layers…
+  for (var layernumber = 0; layernumber < this.layers.length; layernumber++) {
+    // shift the images in this layer if there are any:
     if (typeof this.layers[layernumber] != "undefined") {
+
+      // calculate shifting-strength for this layer:
+      var shiftfactor = 1 - ((this.neutralLayer  - layernumber) * this.layerMultiplier);
+
       for (var actorCounterInLayer = this.layers[layernumber].length - 1; actorCounterInLayer >= 0; actorCounterInLayer--) {
         var obj = this.layers[layernumber][actorCounterInLayer];
         if (shiftingAmountX) {
-          obj.offsetX = shiftingAmountX * (layernumber-1);
+          obj.offsetX = shiftingAmountX * shiftfactor * 2;
           obj.needsMoving = true;
         }
+        console.log("shiftingAmountY: " + shiftingAmountY);
         if (shiftingAmountY) {
-          obj.offsetY = shiftingAmountY * (layernumber-1);
+          obj.offsetY = shiftingAmountY * shiftfactor * 2;
           obj.needsMoving = true;
         }
       }
@@ -112,7 +133,7 @@ Actor.prototype.shiftsPerspectiveOnTouch = function(shiftingAmountX, shiftingAmo
 };
 
 Scene.prototype.shiftPerspective = function(shiftingAmountX, shiftingAmountY){
-  for (var layernumber = 1; layernumber < this.layers.length; layernumber++) {
+  for (var layernumber = 0; layernumber < this.layers.length; layernumber++) {
     if (typeof this.layers[layernumber] != "undefined") {
       for (var actorCounterInLayer = this.layers[layernumber].length - 1; actorCounterInLayer >= 0; actorCounterInLayer--) {
         var obj = this.layers[layernumber][actorCounterInLayer];
