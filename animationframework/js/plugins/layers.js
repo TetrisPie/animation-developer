@@ -70,7 +70,7 @@ for (var layernumber = 1; layernumber < this.scene.layers.length; layernumber++)
   return this;
 };
 
-Scene.prototype.scrollingPerspective = function (strengthX, strengthY, neutralLayer, horizonLayer) {
+Scene.prototype.scrollingPerspective = function (neutralLayer, horizonLayer) {
     /*
     On the triggering of a scroll event of the “scrollingDivWrapper”,
     the scene is beeing scrolled taking perspective into account.
@@ -88,21 +88,21 @@ Scene.prototype.scrollingPerspective = function (strengthX, strengthY, neutralLa
 
     bindEvent(window.animation.scrollingDivWrapper, 'scroll', function (callee) {
 
-      // TODO: are we addind scroll events on every scene load, endlessly?
+    // TODO: are we adding scroll events on every scene load, endlessly?
 
-      if (myscene.isVisible) {
-        var overflowX = window.animation.currentScene.dimensions.x - window.animation.width;
-        var overflowY = window.animation.currentScene.dimensions.y - window.animation.height;
+    if (myscene.isVisible) {
+      var overflowX = window.animation.currentScene.dimensions.x - window.animation.width;
+      var overflowY = window.animation.currentScene.dimensions.y - window.animation.height;
 
-        // scrolly is calculated as percentage difference between a centered scrolling position and current
-        var scrollX = -(callee.srcElement.scrollLeft - overflowX / 2.0) / 10;
-        var scrollY = -(callee.srcElement.scrollTop - overflowY / 2.0) / 10;
-        var diva = -(callee.srcElement.scrollLeft - overflowX / 2.0);
-        var divb = (overflowX / 200.0);
-        window.animation.currentScene.setPerspective(scrollX * strengthX, scrollY * strengthY);
-      };
+      // scrolly is calculated as percentage difference between a centered scrolling position and current
+      var scrollX = -(callee.srcElement.scrollLeft - overflowX / 2.0) / 2;
+      var scrollY = -(callee.srcElement.scrollTop - overflowY / 2.0) / 2;
+      var diva = -(callee.srcElement.scrollLeft - overflowX / 2.0);
+      var divb = (overflowX / 200.0);
+      window.animation.currentScene.setPerspective(scrollX, scrollY);
+    };
 
-    });
+  });
 };
 
 Scene.prototype.setPerspective = function (shiftingAmountX, shiftingAmountY) {
@@ -170,4 +170,3 @@ Scene.prototype.shiftPerspective = function(shiftingAmountX, shiftingAmountY){
     }
   }
 };
-

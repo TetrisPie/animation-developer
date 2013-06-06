@@ -90,6 +90,7 @@ function Scene(id, title, width, height){
     this.isVisible = true;
     this.scrollingLocked = false;
     this.setScrolling();
+    this.setScrollingdivSizeToScene();
   };
 
   this.makeInvisible = function(){

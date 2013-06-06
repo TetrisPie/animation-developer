@@ -160,7 +160,6 @@ function Animation(width, height, firstSceneId, minWidth, maxWidth, minHeight, m
 		// if we reached this point, the scene isn't loaded yet.
 		var newScene = eval(sceneid + '()');
 
-		newScene.setScrollingdivSizeToScene();
 		newScene.setDivSizeToStage();
 
 		// newScene.setSzeneSizeToStageIfNotSetInScenedefinition(width, height);
