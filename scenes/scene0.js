@@ -110,11 +110,5 @@ var scene0 = function(){
   videoactor.setText("video (dev)", "", "button");
   videoactor.navigatesOnTouch('scene25');
 
-  // PUBLIC ACTOR
-  var publicactor = scene.createActor('button.png', 520, 520, 240, 60);
-  var newBadge = scene.createActor('new.png', 720, 510, 50, 50);
-  publicactor.setText("public actor (dev)", "", "button");
-  publicactor.navigatesOnTouch('scene26');
-
   return scene;
 };
