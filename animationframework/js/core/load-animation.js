@@ -245,9 +245,13 @@ function Animation(width, height, firstSceneId, minWidth, maxWidth, minHeight, m
 	return this;
 }
 
-function loadAnimation(title, width, height, firstSceneId, minWidth, maxWidth, minHeight, maxHeight){
+function animationPreflight(){
 	config(this); // read in configuration residing in animationconfig.js
 	getOrCreateIdentity();
+}
+
+function loadAnimation(title, width, height, firstSceneId, minWidth, maxWidth, minHeight, maxHeight){
+	animationPreflight();
 
 	if (!compatibleBrowser()) {
 		document.getElementById('backupdiv').style.display = "block";
@@ -257,8 +261,7 @@ function loadAnimation(title, width, height, firstSceneId, minWidth, maxWidth, m
 }
 
 function loadAnimationInto(title, metaWrapperDivId, firstSceneId, width, height){
-	config(this); // read in configuration residing in animationconfig.js
-	getOrCreateIdentity();
+	animationPreflight();
 
 	var metaWrapperDiv = document.getElementById(metaWrapperDivId);
 	var targetDiv = createDiv('animationwrapper', '');
@@ -268,6 +271,7 @@ function loadAnimationInto(title, metaWrapperDivId, firstSceneId, width, height)
 }
 
 function animationLoader(title, width, height, firstSceneId, minWidth, maxWidth, minHeight, maxHeight, targetDiv, metaWrapperDiv){
+	// called by loadAnimation and loadAnimationInto after they set stuff up
 	document.title = title;
 
 	if (window.onload) var oldOnload = window.onload;
