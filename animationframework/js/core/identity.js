@@ -9,7 +9,7 @@ function getOrCreateIdentity(){
 
   if (currentUserUuid === null) {
     // NO USER SAVED ON THIS MACHINE/BROWSER
-    console.log("NO USER SAVED ON THIS MACHINE/BROWSER");
+    console.log("No animation-identity found on this machine/browser.");
 
     currentUserUuid = uuid();
     console.log("created identity " + currentUserUuid);
@@ -17,7 +17,7 @@ function getOrCreateIdentity(){
 
     // Cookie don't work when called as local file:
     if(developermode && readCookie("currentUserUuid") === null)
-      console.log("\nERROR Couldn't set cookie! Are you running framework as local file?\n");
+      console.error("\nCouldn't set animation.io-identity-cookie. Are you running framework as local file?\n");
 
   } else {
     // FOUND A USER-UUID VIA COOKIE ON THIS MACHINE
