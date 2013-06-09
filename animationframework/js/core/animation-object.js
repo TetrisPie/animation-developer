@@ -29,17 +29,6 @@ function Animation(width, height, firstSceneId, minWidth, maxWidth, minHeight, m
 	};
 }
 
-function setGuessedOrientation(){
-  if(window.innerWidth > window.innerHeight) {
-    window.orientation = "landscape";
-    return "landscape";
-  } else {
-    window.orientation = "portrait";
-    return "portrait";
-  }
-}
-setGuessedOrientation();
-
 // requestAnim shim layer by Paul Irish
 requestAnimFrame = (function(){
   return  window.requestAnimationFrame       ||

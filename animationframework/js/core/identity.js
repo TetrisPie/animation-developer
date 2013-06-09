@@ -1,11 +1,26 @@
-function getOrCreateIdentity(){
-  var currentUserUuid;
+function transferForm(transferID){
+  var ret = createDiv('incoming_transfer', 'transfer');
 
-  if (getParameterByName('setuser').length > 0) {
-    currentUserUuid = getParameterByName('setuser');
-  } else {
-    currentUserUuid= readCookie("currentUserUuid");
-  }
+  // headline
+  var headline = document.createElement('h1');
+  headline.innerHTML = window.animationConfigData.incoming_transfer_head;
+  ret.appendChild(headline);
+
+  // loading-sign
+  var myWaitingDiv = new waitingDiv(window.animationConfigData.incoming_transfer_loading_text);
+  ret.appendChild(myWaitingDiv);
+
+  // connect to server
+
+
+  return ret;
+}
+
+function getOrCreateIdentity(callback){
+  var currentUserUuid;
+  var transferID = getParameterByName('setuser');
+
+  var currentUserUuid = transferID.length ? transferID : readCookie("currentUserUuid");
 
   if (currentUserUuid === null) {
     // NO USER SAVED ON THIS MACHINE/BROWSER
@@ -25,7 +40,7 @@ function getOrCreateIdentity(){
   }
 
   currentUser = {"uuid":currentUserUuid}; // "real" data comes from server will overwrite this in a sec
-  getOrCreateCurrentUserFromServer(currentUserUuid);
+  getOrCreateCurrentUserFromServer(currentUserUuid, callback);
 }
 
 function identitylink(){

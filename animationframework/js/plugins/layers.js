@@ -105,42 +105,44 @@ Scene.prototype.scrollingPerspective = function (neutralLayer, horizonLayer) {
   });
 };
 
-Scene.prototype.setPerspective = function (shiftingAmountX, shiftingAmountY) {
-    // go through all layers…
-    for (var layernumber = 0; layernumber < this.layers.length; layernumber++) {
-        // shift the images in this layer if there are any:
-        if (typeof this.layers[layernumber] != "undefined") {
-            // calculate shifting-strength for this layer:
-            var shiftfactor = 1 - ((this.neutralLayer - layernumber) * this.layerMultiplier);
-            for (var actorCounterInLayer = this.layers[layernumber].length - 1; actorCounterInLayer >= 0; actorCounterInLayer--) {
-                var obj = this.layers[layernumber][actorCounterInLayer];
-                if (shiftingAmountX) {
-                    if (obj.zeroOffsX == 0) {
-                        if (layernumber >= this.horizonLayer){
-                           obj.zeroOffsX = shiftingAmountX * shiftfactor * 2;
-                        } else
-                        {
-                           obj.zeroOffsX = -(shiftingAmountX * shiftfactor * 2);
-                        }
-                    }
-                    obj.offsetX = shiftingAmountX * shiftfactor * 2;
-                    obj.needsMoving = true;
-                }
-                if (shiftingAmountY) {
-                    if (obj.zeroOffsY == 0) {
-                        if (layernumber >= this.horizonLayer){
-                           obj.zeroOffsY = shiftingAmountY * shiftfactor * 2;
-                        } else
-                        {
-                           obj.zeroOffsY = -(shiftingAmountY * shiftfactor * 2);
-                        }
-                    }
-                    obj.offsetY = shiftingAmountY * shiftfactor * 2;
-                    obj.needsMoving = true;
-                }
+Scene.prototype.setPerspective = function(shiftingAmountX, shiftingAmountY) {
+  // go through all layers…
+  if (typeof this.layers === 'undefined') return; // scene has no layers, so no perspective to set
+
+  for (var layernumber = 0; layernumber < this.layers.length; layernumber++) {
+    // shift the images in this layer if there are any:
+    if (typeof this.layers[layernumber] != "undefined") {
+      // calculate shifting-strength for this layer:
+      var shiftfactor = 1 - ((this.neutralLayer - layernumber) * this.layerMultiplier);
+      for (var actorCounterInLayer = this.layers[layernumber].length - 1; actorCounterInLayer >= 0; actorCounterInLayer--) {
+        var obj = this.layers[layernumber][actorCounterInLayer];
+        if (shiftingAmountX) {
+          if (obj.zeroOffsX == 0) {
+            if (layernumber >= this.horizonLayer){
+               obj.zeroOffsX = shiftingAmountX * shiftfactor * 2;
+            } else
+            {
+               obj.zeroOffsX = -(shiftingAmountX * shiftfactor * 2);
             }
+          }
+          obj.offsetX = shiftingAmountX * shiftfactor * 2;
+          obj.needsMoving = true;
         }
+        if (shiftingAmountY) {
+          if (obj.zeroOffsY == 0) {
+            if (layernumber >= this.horizonLayer){
+              obj.zeroOffsY = shiftingAmountY * shiftfactor * 2;
+            } else
+            {
+              obj.zeroOffsY = -(shiftingAmountY * shiftfactor * 2);
+            }
+          }
+          obj.offsetY = shiftingAmountY * shiftfactor * 2;
+          obj.needsMoving = true;
+        }
+      }
     }
+  }
 };
 
 Actor.prototype.shiftsPerspective = function(shiftingAmountX, shiftingAmountY, triggeredByAction, reactionTargetIndex){

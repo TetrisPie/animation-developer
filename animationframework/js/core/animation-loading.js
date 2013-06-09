@@ -1,6 +1,5 @@
 function animationPreflight(){
   setAnimationConfigData(); // read in configuration residing in animationconfig.js
-  getOrCreateIdentity();
 
   if (!compatibleBrowser()) {
     document.getElementById('backupdiv').style.display = "block";
@@ -11,11 +10,22 @@ function animationPreflight(){
 function loadAnimation(title, width, height, firstSceneId, minWidth, maxWidth, minHeight, maxHeight){
   animationPreflight();
 
+  // prepare the data object
+  // TODO we should be passing nothing but this data object eventually, as this is a non-animator-facing
   var data = {};
-  data.loadInto = 'screen';
+  data.loadIntoType = 'window';
   data.title = title;
   data.width = width;
   data.height = height;
+
+  // create the animationWrapper and put it on screen
+  window.animationwrapper = createDiv('animationwrapper', '');
+  window.document.body.appendChild(window.animationwrapper);
+
+  // get or create user, or transfer identity, then launch the loader
+  getOrCreateIdentity(function(){
+    animationLoader(data, firstSceneId, width, width, height, height);
+  });
 
   animationLoader(data, firstSceneId, minWidth, maxWidth, minHeight, maxHeight);
 }
@@ -23,21 +33,27 @@ function loadAnimation(title, width, height, firstSceneId, minWidth, maxWidth, m
 function loadAnimationInto(title, metaWrapperDivId, firstSceneId, width, height){
   animationPreflight();
 
+  // prepare the data object
+  // TODO we should be passing nothing but this data object eventually, as this is a non-animator-facing
   var data = {};
-  data.loadInto = 'div';
+  data.loadIntoType = 'div';
   data.title = title;
   data.width = data.minWidth = data.maxWidth = width;
   data.height = data.minHeight = data.maxHeight = width;
   data.height = height;
 
-  var metaWrapperDiv = document.getElementById(metaWrapperDivId);
-  var targetDiv = createDiv('animationwrapper', '');
-  metaWrapperDiv.appendChild(targetDiv);
+  window.metaWrapperDiv = document.getElementById(metaWrapperDivId);
+  window.animationwrapper = createDiv('animationwrapper', '');
+  window.metaWrapperDiv.appendChild(window.animationwrapper);
 
-  animationLoader(data, firstSceneId, width, width, height, height, targetDiv, metaWrapperDiv);
+  // get or create user, or transfer identity, then launch the loader
+  getOrCreateIdentity(function(){
+    animationLoader(data, firstSceneId, width, width, height, height);
+  });
+
 }
 
-function animationLoader(data, firstSceneId, minWidth, maxWidth, minHeight, maxHeight, targetDiv, metaWrapperDiv){
+function animationLoader(data, firstSceneId, minWidth, maxWidth, minHeight, maxHeight){
   // called by loadAnimation and loadAnimationInto after they set stuff up
   document.title = data.title;
 
@@ -48,45 +64,36 @@ function animationLoader(data, firstSceneId, minWidth, maxWidth, minHeight, maxH
     // scroll away address bar on e.g. iOS-devices:
     setTimeout(function(){window.scrollTo(0, 1);}, 100);
 
-    if (typeof targetDiv !== "undefined") {
-      minWidth = maxWidth = targetDiv.clientWidth;
-      minHeight = maxHeight = targetDiv.clientHeight;
-    }
-
+    // whoa, create the animation
     window.animation = new Animation(data.width, data.height, keyOr('scene', firstSceneId), minWidth, maxWidth, minHeight, maxHeight);
 
-    if (typeof targetDiv === "undefined") {
-      window.animationwrapper = createDiv('animationwrapper', '');
-      window.document.body.appendChild(window.animationwrapper);
-      window.animationwrapper.appendChild(window.animation.stageDiv);
-      window.animation.resizeToWindow = true;
-    } else {
-      console.log();
-      window.animationwrapper = targetDiv;
-      window.animationwrapper.appendChild(window.animation.stageDiv);
-      window.animation.resizeToDiv = true;
-      if (typeof metaWrapperDiv !== "undefined") {
-        window.animation.metaWrapperDiv = metaWrapperDiv;
-      }
+    // stageDiv cam from constructor, add it to animationwrapper
+    window.animationwrapper.appendChild(window.animation.stageDiv);
+
+    // later when resizing it matters whether we are resizing to window or div
+    window.animation.resizeToDiv = (data.loadIntoType === 'div');
+    window.animation.resizeToWindow = (data.loadIntoType === 'window');
+
+    // when embedded in div, the div's size (set via CSS) sets the limits (otherwise the window)
+    if (window.animation.resizeToDiv) {
+      minWidth = maxWidth = window.animationwrapper.clientWidth;
+      minHeight = maxHeight = window.animationwrapper.clientHeight;
     }
 
+    // extra-div that reads in scroll-events
     window.animation.scrollingDivWrapper.appendChild(window.animation.scrollingDiv);
     window.animationwrapper.appendChild(window.animation.scrollingDivWrapper);
 
-    window.animation.adaptScaling();
+    // let's do our first scale…
+    window.animation.scaleStageToDivOrWindow();
 
+    // Waiting, part 1/2: are we waiting for data from server? set waiting-div!
     if (window.animationConfigData.waitForServer > 0) {
-      // according to animationconfig.js the animation should wait for the server to
-      // return a result. In the meantime we show a rotating waiting.gif.
-      var waitingImg = document.createElement('img');
-      waitingImg.src = "images/waiting.gif";
-      window.animation.waitingDiv = document.createElement('div');
-      window.animation.waitingDiv.id = 'waitingdiv';
-      window.animation.waitingDiv.appendChild(waitingImg);
-      window.animation.waitingDiv.innerHTML += window.animationConfigData.waitingText;
+      window.animation.waitingDiv = waitingDiv(window.animationConfigData.waitingText);
       window.animation.stageDiv.appendChild(window.animation.waitingDiv);
     }
 
+    // Waiting, part 2/2: ask for data, wait for response, then launch animation
     waitForCurrentuserDataFromServerFor(window.animationConfigData.waitForServer, function(){
       // remove the waiting-gif, if it was created
       if (typeof window.animation.waitingDiv !== 'undefined') window.animation.stageDiv.removeChild(window.animation.waitingDiv);
@@ -106,8 +113,7 @@ function animationLoader(data, firstSceneId, minWidth, maxWidth, minHeight, maxH
 
   if (window.onresize) var oldOnresize = window.onresize;
   window.onresize = function() {
-    // setGuessedOrientation();
     if(oldOnresize) oldOnresize();
-    window.animation.adaptScaling();
+    window.animation.scaleStageToDivOrWindow();
   };
 }

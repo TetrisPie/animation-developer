@@ -9,6 +9,33 @@ if(!window.console) {
   };
 }
 
+function trim(str) {
+  // fast string-trim, inspired by http://blog.stevenlevithan.com/archives/faster-trim-javascript
+  str = str.replace(/^\s+/, '');
+  for (var i = str.length - 1; i >= 0; i--) {
+    if (/\S/.test(str.charAt(i))) {
+      str = str.substring(0, i + 1);
+      break;
+    }
+  }
+  return str;
+}
+
+function waitingDiv(text){
+  var myWaitingDiv = document.createElement('div');
+  var waitingImg = document.createElement('img');
+
+  waitingImg.src = "images/waiting.gif";
+  myWaitingDiv.id = 'waitingdiv';
+  myWaitingDiv.appendChild(waitingImg);
+  myWaitingDiv.innerHTML += text;
+  return myWaitingDiv;
+}
+
+function frameworkInfo(){
+  return "ANIMATION.IO"
+}
+
 function relativeOrAbsolutePath(defaultLocalPathPrefix, filePath){
   if(/^https?:\/\//.exec(filePath.toLowerCase())){
     return filePath;
@@ -64,7 +91,7 @@ function now(){
 }
 
 function timeInMinutes(minutes){
-  console.log("DEPRECATION-WARNING: timeInMinutes() is deprecated, please use minutesToMilliseconds()")
+  console.warn("timeInMinutes() is deprecated, please use minutesToMilliseconds()")
   return minutesToMilliseconds(minutes);
 }
 
@@ -139,6 +166,7 @@ function getIntegerFromEndOfString(myString){
 function setDivSize(div, width, height){
   div.style.width = width + "px";
   div.style.height = height + "px";
+  return div;
 }
 
 function dowhen(theAction, conditionAsString, tryAgainIn, doAnywayAfter){

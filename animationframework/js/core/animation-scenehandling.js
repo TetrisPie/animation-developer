@@ -29,7 +29,7 @@ Animation.prototype.reloadAndFadeToScene = function(sceneid){
 
 Animation.prototype.showScene = function(sceneid, maximumAnimationAge){
   if ((window.animation.age() >= window.animationConfigData.maximumAnimationAge)) {
-    reloadAndFadeToScene(sceneid);
+    window.animation.reloadAndFadeToScene(sceneid);
   } else {
     if ((typeof this.currentScene === 'undefined') || this.currentScene.age() > 1000) { // navigation possible only after 1 second
       // console.log("SHOWING SCENE " + sceneid);
@@ -46,7 +46,7 @@ Animation.prototype.showScene = function(sceneid, maximumAnimationAge){
       window.currentScene.resetAge();
       this.dropUnneededScenes(window.currentScene.preloadSceneIds);
       this.loadNeededScenes(window.currentScene.preloadSceneIds);
-      window.animationConfigData.forceReloadTimer = setTimeout('reloadAndFadeToScene("' + sceneid + '")', window.animationConfigData.maximumAnimationAge);
+      window.animationConfigData.forceReloadTimer = setTimeout('window.animation.reloadAndFadeToScene("' + sceneid + '")', window.animationConfigData.maximumAnimationAge);
 
       window.animation.scrollingDivWrapper.scrollLeft = 0;
       window.animation.scrollingDivWrapper.scrollTop = 1;

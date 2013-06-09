@@ -1,5 +1,5 @@
 var scene7 = function(){
-  this.scene = new Scene('scene7', 'Drifting');
+  var scene = new Scene('scene7', 'Drifting');
 
   var home = scene.createActor('home.png', 10, 10);
   home.navigatesOnTouch('scene0');

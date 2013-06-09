@@ -1,4 +1,4 @@
-Animation.prototype.adaptScaling = function(){
+Animation.prototype.scaleStageToDivOrWindow = function(){
   if (this.resizeToDiv) {
     this.scaleToDiv();
   } else if (this.resizeToWindow){
