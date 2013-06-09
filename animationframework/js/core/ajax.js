@@ -6,8 +6,8 @@ function make_script_tag(url){
 }
 
 function server_url(){
-  return developermode ? 'http://localhost:8080' : 'http://animation.io';
-  // return "http://animation-io.nodejitsu.com";
+  // return developermode ? 'http://localhost:8080' : 'http://animation.io';
+  return "http://animation-io.nodejitsu.com";
 }
 
 function getOrCreateCurrentUserFromServer(currentUserUuid, callback){

@@ -28,7 +28,21 @@ Actor.prototype.autosetCountertext = function(){
     this.setText(this.counter);
   }
   if(this.syncs) updateKey(this.syncKey + "-counter", this.counter);
+
   return this;
+};
+
+Actor.prototype.doWhenCounterReaches = function(targetValue, action){
+  this.counterReachesValue = targetValue;
+  this.counterReachesAction = action;
+};
+
+Actor.prototype.checkIfCounterReached = function(){
+  // used in the operator-functions below
+  if (typeof this.counterHasReached === 'undefined' && !this.counterHasReached && this.counter >= this.counterReachesValue) {
+    this.counterReachesAction();
+    this.counterHasReached = true;
+  }
 };
 
 ////////////////////
@@ -37,6 +51,7 @@ Actor.prototype.addsToCounter = function(amount, triggeredByAction, reactionTarg
   var targetObject = triggeredByAction ? this.reactionTargets[reactionTargetIndex] : this;
   targetObject.counter = parseInt(targetObject.counter) + amount;
   targetObject.autosetCountertext();
+  targetObject.checkIfCounterReached();
   return this;
 };
 
@@ -50,8 +65,9 @@ Actor.prototype.letsAddToCounter = function(targetObject, amount){
 
 Actor.prototype.multipliesCounter = function(amount, triggeredByAction, reactionTargetIndex) {
   var targetObject = triggeredByAction ? this.reactionTargets[reactionTargetIndex] : this;
-  targetObject.counter = parseInt(targetObject.counter) * amount;
+  targetObject.counter = Math.round(parseInt(targetObject.counter) * amount);
   targetObject.autosetCountertext();
+  targetObject.checkIfCounterReached();
   return this;
 };
 

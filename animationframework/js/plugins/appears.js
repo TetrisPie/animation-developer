@@ -11,7 +11,6 @@ function Appearing(actor, startAfter, appearLength, startsVisible, triggeredByAc
   appearing.appearLength = appearLength;
   started = false;
 
-
   if ((typeof startsVisible !== 'undefined') && startsVisible === true) {
     appearing.startsVisible = true;
   } else {

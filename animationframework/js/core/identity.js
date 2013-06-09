@@ -1,25 +1,8 @@
-function transferForm(transferID){
-  var ret = createDiv('incoming_transfer', 'transfer');
-
-  // headline
-  var headline = document.createElement('h1');
-  headline.innerHTML = window.animationConfigData.incoming_transfer_head;
-  ret.appendChild(headline);
-
-  // loading-sign
-  var myWaitingDiv = new waitingDiv(window.animationConfigData.incoming_transfer_loading_text);
-  ret.appendChild(myWaitingDiv);
-
-  // connect to server
-
-
-  return ret;
-}
-
 function getOrCreateIdentity(callback){
   var currentUserUuid;
   var transferID = getParameterByName('setuser');
 
+  // did a UID
   var currentUserUuid = transferID.length ? transferID : readCookie("currentUserUuid");
 
   if (currentUserUuid === null) {
