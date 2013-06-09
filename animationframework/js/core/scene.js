@@ -22,7 +22,7 @@ function Scene(id, title, width, height){
   // <-- dimensions of the scene's div and related settings
 
   this.scrollToZero = function(){
-    // TRIGGER SCROLL-EVENT
+    // Useful for triggering scroll-event
     this.scrollTo(100,100);
     this.scrollTo(0,0);
   };

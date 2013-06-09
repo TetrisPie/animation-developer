@@ -1,15 +1,30 @@
-function getOrCreateIdentity(){
-  var currentUserUuid;
+function transferForm(transferID){
+  var ret = createDiv('incoming_transfer', 'transfer');
 
-  if (getParameterByName('setuser').length > 0) {
-    currentUserUuid = getParameterByName('setuser');
-  } else {
-    currentUserUuid= readCookie("currentUserUuid");
-  }
+  // headline
+  var headline = document.createElement('h1');
+  headline.innerHTML = window.animationConfigData.incoming_transfer_head;
+  ret.appendChild(headline);
+
+  // loading-sign
+  var myWaitingDiv = new waitingDiv(window.animationConfigData.incoming_transfer_loading_text);
+  ret.appendChild(myWaitingDiv);
+
+  // connect to server
+
+
+  return ret;
+}
+
+function getOrCreateIdentity(callback){
+  var currentUserUuid;
+  var transferID = getParameterByName('setuser');
+
+  var currentUserUuid = transferID.length ? transferID : readCookie("currentUserUuid");
 
   if (currentUserUuid === null) {
     // NO USER SAVED ON THIS MACHINE/BROWSER
-    console.log("NO USER SAVED ON THIS MACHINE/BROWSER");
+    console.log("No animation-identity found on this machine/browser.");
 
     currentUserUuid = uuid();
     console.log("created identity " + currentUserUuid);
@@ -17,7 +32,7 @@ function getOrCreateIdentity(){
 
     // Cookie don't work when called as local file:
     if(developermode && readCookie("currentUserUuid") === null)
-      console.log("\nERROR Couldn't set cookie! Are you running framework as local file?\n");
+      console.error("\nCouldn't set animation.io-identity-cookie. Are you running framework as local file?\n");
 
   } else {
     // FOUND A USER-UUID VIA COOKIE ON THIS MACHINE
@@ -25,7 +40,7 @@ function getOrCreateIdentity(){
   }
 
   currentUser = {"uuid":currentUserUuid}; // "real" data comes from server will overwrite this in a sec
-  getOrCreateCurrentUserFromServer(currentUserUuid);
+  getOrCreateCurrentUserFromServer(currentUserUuid, callback);
 }
 
 function identitylink(){
