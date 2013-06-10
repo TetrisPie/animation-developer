@@ -45,7 +45,7 @@ div, img {
   &::-webkit-scrollbar-thumb {
     border-radius: 22px;
     border: 2px solid white; /* should match background, can't be transparent */
-    background-color: rgba(122, 0, 0, .5);
+    background-color: rgba(0, 0, 0, .5);
   }
 }
 
