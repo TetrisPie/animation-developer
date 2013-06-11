@@ -10,7 +10,6 @@ var scene26 = function () {
   var mytext = "<a href=\"mailto:you@example.com?subject=transfer%20identity&body=" + encodeURIComponent(identitylink()) + "\">mail your identity to another computer</a>";
   scene.write(10, 100, mytext, "");
 
-
   // scene.write(10, 100, "…working on a globally synchronized actor", "");
 
   // var actor1 = scene.createActor('actor.png', 250, 530);
