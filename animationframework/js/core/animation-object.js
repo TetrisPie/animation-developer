@@ -9,9 +9,6 @@ function Animation(width, height, firstSceneId, minWidth, maxWidth, minHeight, m
   this.stageDiv = createDiv('stage', 'stage');
   setDivSize(this.stageDiv, width, height);
 
-  // this.scrollingDivWrapper = createDiv('scrollingdivwrapper', 'scrollingdivwrapper');
-  // this.scrollingDiv = createDiv('scrollingdiv', 'scrollingdiv');
-  // setDivSize(this.scrollingDivWrapper, width, height);
   setDivSize(this.stageDiv, width, height);
 
   this.width = width;
@@ -43,11 +40,11 @@ requestAnimFrame = (function(){
 })();
 
 function startLoop(){
-  // this.animloop = function(){
-  //   requestAnimFrame(animloop);
-  //     for (var i = 0; i < window.currentScene.actors.length; i++) {
-  //       animateactor(window.currentScene.actors[i]);
-  //     }
-  // };
-  // this.animloop();
+  this.animloop = function(){
+    requestAnimFrame(animloop);
+      for (var i = 0; i < window.currentScene.actors.length; i++) {
+        animateactor(window.currentScene.actors[i]);
+      }
+  };
+  this.animloop();
 }

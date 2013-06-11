@@ -86,23 +86,23 @@ Scene.prototype.scrollingPerspective = function (neutralLayer, horizonLayer) {
 
     var myscene = this;
 
-  //   bindEvent(window.animation.scrollingDivWrapper, 'scroll', function (callee) {
+    bindEvent(window.animation.stageDiv, 'scroll', function (callee) {
 
-  //   // TODO: are we adding scroll events on every scene load, endlessly?
+    // TODO: are we adding scroll events on every scene load, endlessly?
 
-  //   if (myscene.isVisible) {
-  //     var overflowX = window.currentScene.dimensions.x - window.animation.width;
-  //     var overflowY = window.currentScene.dimensions.y - window.animation.height;
+    if (myscene.isVisible) {
+      var overflowX = window.currentScene.dimensions.x - window.animation.width;
+      var overflowY = window.currentScene.dimensions.y - window.animation.height;
 
-  //     // scrolly is calculated as percentage difference between a centered scrolling position and current
-  //     var scrollX = -(callee.srcElement.scrollLeft - overflowX / 2.0) / 2;
-  //     var scrollY = -(callee.srcElement.scrollTop - overflowY / 2.0) / 2;
-  //     var diva = -(callee.srcElement.scrollLeft - overflowX / 2.0);
-  //     var divb = (overflowX / 200.0);
-  //     window.currentScene.setPerspective(scrollX, scrollY);
-  //   };
+      // scrolly is calculated as percentage difference between a centered scrolling position and current
+      var scrollX = -(callee.srcElement.scrollLeft - overflowX / 2.0) / 2;
+      var scrollY = -(callee.srcElement.scrollTop - overflowY / 2.0) / 2;
+      var diva = -(callee.srcElement.scrollLeft - overflowX / 2.0);
+      var divb = (overflowX / 200.0);
+      window.currentScene.setPerspective(scrollX, scrollY);
+    };
 
-  // });
+  });
 };
 
 Scene.prototype.setPerspective = function(shiftingAmountX, shiftingAmountY) {

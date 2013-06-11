@@ -30,28 +30,16 @@ function Scene(id, title, width, height){
 
   this.setSzeneSizeToStageIfNotSetInScenedefinition = function(newWidth, newHeight){
     // width
-    // if (this.dimensions.x === 0) this.dimensions.x = parseInt(newWidth, 10);
-    // this.div.style.width = this.dimensions.x + 'px';
-    // // height
-    // if (this.dimensions.y === 0) this.dimensions.y = parseInt(newHeight, 10);
-    // this.div.style.height = this.dimensions.y + 'px';
+    if (this.dimensions.x === 0) this.dimensions.x = parseInt(newWidth, 10);
+    this.div.style.width = this.dimensions.x + 'px';
+    // height
+    if (this.dimensions.y === 0) this.dimensions.y = parseInt(newHeight, 10);
+    this.div.style.height = this.dimensions.y + 'px';
   };
 
   this.setDivSizeToStage = function(myWidth, myHeight){
     setDivSize(this.div, window.animation.width, window.animation.height);
   };
-
-  this.setScrollingdivSizeToScene = function(myWidth, myHeight){
-    // width
-    if (this.dimensions.x === 0) this.dimensions.x = parseInt(myWidth, 10);
-    // window.animation.scrollingDiv.style.width = this.dimensions.x + 'px';
-    // height
-    if (this.dimensions.y === 0) this.dimensions.y = parseInt(myHeight, 10);
-    // window.animation.scrollingDiv.style.height = this.dimensions.y + 'px';
-
-    // setDivSize(window.animation.scrollingDiv, this.dimensions.x, this.dimensions.y);
-  };
-
 
   this.resetAge = function(){
     this.displayedAt = Date.now();
@@ -90,8 +78,6 @@ function Scene(id, title, width, height){
     this.isVisible = true;
     this.scrollingLocked = false;
     this.setScrolling();
-    this.setScrollingdivSizeToScene();
-
 
     // EXPERIMENTAL
     this.div.style.width = width + "px";
@@ -159,8 +145,8 @@ function Scene(id, title, width, height){
     var newText = document.createElement('div');
     newText.innerHTML = html;
     newText.setAttribute('class', 'text ' + (typeof cssclass === "undefined" ? "" : cssclass));
-    // newText.style.left = myX + 'px';
-    // newText.style.top = myY + 'px';
+    newText.style.left = myX + 'px';
+    newText.style.top = myY + 'px';
     this.div.appendChild(newText);
     this.texts.push(newText);
   };
@@ -168,7 +154,7 @@ function Scene(id, title, width, height){
   this.showText = function(){
     this.textDisplaying = true;
     for (var i = this.texts.length - 1; i >= 0; i--) {
-      // this.texts[i].style.visibility = 'visible';
+      this.texts[i].style.visibility = 'visible';
     }
     window.animation.textIsDisplaying = true;
   };
@@ -176,7 +162,7 @@ function Scene(id, title, width, height){
   this.hideText = function(){
     this.textDisplaying = false;
     for (var i = this.texts.length - 1; i >= 0; i--) {
-      // this.texts[i].style.visibility = 'hidden';
+      this.texts[i].style.visibility = 'hidden';
     }
     window.animation.textIsDisplaying = false;
   };

@@ -10,23 +10,23 @@ function ScrollingTo(actor, targetX, targetY, forceX, forceY, leaveScrollbarInvi
   scrollingto.reset();
 
   scrollingto.applybehavior = function () {
-      if (!this.finishedScrollingTo) {
-          var moveVector = vector(window.animation.stageDiv.scrollLeft, window.animation.stageDiv.scrollTop, targetX, targetY);
-          if (moveVector.distance > 2) {
-              window.animation.stageDiv.style.overflowX = "hidden";
-              window.animation.stageDiv.style.overflowY = "hidden";
-              window.animation.stageDiv.scrollLeft += this.force.x * moveVector.x;
-              window.animation.stageDiv.scrollTop += this.force.y * moveVector.y;
-          } else {
-              this.finishedScrollingTo = true;
-              if (leaveScrollbarInvisible){ 
-              window.animation.stageDiv.style.overflowX = "hidden";
-              window.animation.stageDiv.style.overflowY = "hidden";
-              } else { 
-              window.animation.currentScene.setScrolling(); 
-              }
-          };
-      };
+    if (!this.finishedScrollingTo) {
+      var moveVector = vector(window.animation.stageDiv.scrollLeft, window.animation.stageDiv.scrollTop, targetX, targetY);
+      if (moveVector.distance > 2) {
+        window.animation.stageDiv.style.overflowX = "hidden";
+        window.animation.stageDiv.style.overflowY = "hidden";
+        window.animation.stageDiv.scrollLeft += this.force.x * moveVector.x;
+        window.animation.stageDiv.scrollTop += this.force.y * moveVector.y;
+      } else {
+        this.finishedScrollingTo = true;
+        if (leaveScrollbarInvisible){
+        window.animation.stageDiv.style.overflowX = "hidden";
+        window.animation.stageDiv.style.overflowY = "hidden";
+        } else {
+        window.animation.currentScene.setScrolling();
+        }
+    };
+    };
   };
   return scrollingto;
 };

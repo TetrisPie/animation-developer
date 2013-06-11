@@ -5,7 +5,7 @@ var scene26 = function () {
   var scene = new Scene('scene26', 'Video', 2000, 1000);
 
   var home = scene.createActor('home.png', 10, 10);
-  // home.navigatesOnTouch('scene0');
+  home.navigatesOnTouch('scene0');
 
   var mytext = "<a href=\"mailto:you@example.com?subject=transfer%20identity&body=" + encodeURIComponent(identitylink()) + "\">mail your identity to another computer</a>";
   scene.write(10, 100, mytext, "");
