@@ -18,11 +18,28 @@ a project by Mehreinfach: http://mehreinfach.de
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-		<link rel="stylesheet" type="text/css" href="animationframework/css/core.css" charset="utf-8">
-		<link rel="stylesheet" type="text/css" href="css/custom.css" charset="utf-8">
+		<!-- <link rel="stylesheet" type="text/css" href="animationframework/css/core.css" charset="utf-8"> -->
+		<!-- <link rel="stylesheet" type="text/css" href="css/custom.css" charset="utf-8"> -->
+
+
+		<style type="text/css">
+			.stage {
+				border: 5px solid yellow;
+				overflow: scroll;
+				position: absolute;
+			}
+
+			.scene {
+				position: static;
+				border: 5px solid black;
+			}
+
+			.actor {
+				position: absolute;
+			}
+		</style>
 
 		<!--<script src="http://remote-tilt.com/js/device-motion-polyfill.js"></script>-->
-
 
 		<!-- animation core: -->
 		<script src="animationframework/js/core/animation-object.js"></script>
@@ -47,64 +64,64 @@ a project by Mehreinfach: http://mehreinfach.de
 		<script src="animationframework/js/animationconfig.js"></script>
 
 		<!-- animation plugins: -->
-		<script src="animationframework/js/plugins/waves.js"></script>
-		<script src="animationframework/js/plugins/appears.js?t=2"></script>
-		<script src="animationframework/js/plugins/moves.js"></script>
-		<script src="animationframework/js/plugins/movesto.js"></script>
-		<script src="animationframework/js/plugins/swings.js"></script>
-		<script src="animationframework/js/plugins/pulsates.js"></script>
-		<script src="animationframework/js/plugins/dissolves.js"></script>
-		<script src="animationframework/js/plugins/rotates.js"></script>
-		<script src="animationframework/js/plugins/plays.js"></script>
-		<script src="animationframework/js/plugins/drifts.js"></script>
-		<script src="animationframework/js/plugins/shakes.js"></script>
-		<script src="animationframework/js/plugins/links.js"></script>
-		<script src="animationframework/js/plugins/resetreactions.js"></script>
-		<script src="animationframework/js/plugins/resetbehaviors.js"></script>
-		<script src="animationframework/js/plugins/togglestext.js"></script>
-		<script src="animationframework/js/plugins/passestouchthrough.js"></script>
-		<script src="animationframework/js/plugins/clonesmovement.js"></script>
-		<script src="animationframework/js/plugins/counts.js"></script>
-		<script src="animationframework/js/plugins/hastext.js"></script>
-		<script src="animationframework/js/plugins/multiplechoice.js"></script>
-		<script src="animationframework/js/plugins/changesimagesrc.js"></script>
-		<script src="animationframework/js/plugins/circles.js"></script>
-		<script src="animationframework/js/plugins/popup.js"></script>
-		<script src="animationframework/js/plugins/layers.js"></script>
-		<script src="animationframework/js/plugins/bounces.js"></script>
-		<script src="animationframework/js/plugins/videoplay.js"></script>
-		<script src="animationframework/js/plugins/videopause.js"></script>
-		<script src="animationframework/js/plugins/sync.js"></script>
-		<script src="animationframework/js/plugins/scrollbarvisibility.js"></script>
-        <script src="animationframework/js/plugins/scrollsto.js"></script>
+		<!-- <script src="animationframework/js/plugins/waves.js"></script>-->
+		<!-- <script src="animationframework/js/plugins/appears.js?t=2"></script>-->
+		<!-- <script src="animationframework/js/plugins/moves.js"></script>-->
+		<!-- <script src="animationframework/js/plugins/movesto.js"></script>-->
+		<!-- <script src="animationframework/js/plugins/swings.js"></script>-->
+		<!-- <script src="animationframework/js/plugins/pulsates.js"></script>-->
+		<!-- <script src="animationframework/js/plugins/dissolves.js"></script>-->
+		<!-- <script src="animationframework/js/plugins/rotates.js"></script>-->
+		<!-- <script src="animationframework/js/plugins/plays.js"></script>-->
+		<!-- <script src="animationframework/js/plugins/drifts.js"></script>-->
+		<!-- <script src="animationframework/js/plugins/shakes.js"></script>-->
+		<!-- <script src="animationframework/js/plugins/links.js"></script>-->
+		<!-- <script src="animationframework/js/plugins/resetreactions.js"></script>-->
+		<!-- <script src="animationframework/js/plugins/resetbehaviors.js"></script>-->
+		<!-- <script src="animationframework/js/plugins/togglestext.js"></script>-->
+		<!-- <script src="animationframework/js/plugins/passestouchthrough.js"></script>-->
+		<!-- <script src="animationframework/js/plugins/clonesmovement.js"></script>-->
+		<!-- <script src="animationframework/js/plugins/counts.js"></script>-->
+		 <script src="animationframework/js/plugins/hastext.js"></script>
+		<!-- <script src="animationframework/js/plugins/multiplechoice.js"></script>-->
+		<!-- <script src="animationframework/js/plugins/changesimagesrc.js"></script>-->
+		<!-- <script src="animationframework/js/plugins/circles.js"></script>-->
+		<!-- <script src="animationframework/js/plugins/popup.js"></script>-->
+		<!-- <script src="animationframework/js/plugins/layers.js"></script>-->
+		<!-- <script src="animationframework/js/plugins/bounces.js"></script>-->
+		<!-- <script src="animationframework/js/plugins/videoplay.js"></script>-->
+		<!-- <script src="animationframework/js/plugins/videopause.js"></script>-->
+		<!-- <script src="animationframework/js/plugins/sync.js"></script>-->
+		<!-- <script src="animationframework/js/plugins/scrollbarvisibility.js"></script>-->
+    <!-- <script src="animationframework/js/plugins/scrollsto.js"></script>-->
 
 		<!-- your scenes: -->
-		<script src="scenes/scene0.js"></script>
-		<script src="scenes/scene1.js"></script>
-		<script src="scenes/scene2.js"></script>
-		<script src="scenes/scene3.js"></script>
-		<script src="scenes/scene4.js"></script>
-		<script src="scenes/scene5.js"></script>
-		<script src="scenes/scene6.js"></script>
-		<script src="scenes/scene7.js"></script>
-		<script src="scenes/scene8.js"></script>
-		<script src="scenes/scene9.js"></script>
-		<script src="scenes/scene10.js"></script>
-		<script src="scenes/scene11.js"></script>
-		<script src="scenes/scene12.js"></script>
-		<script src="scenes/scene13.js"></script>
-		<script src="scenes/scene14.js"></script>
-		<script src="scenes/scene15.js"></script>
-		<script src="scenes/scene16.js"></script>
-		<script src="scenes/scene17.js"></script>
-		<script src="scenes/scene18.js"></script>
-		<script src="scenes/scene19.js"></script>
-		<script src="scenes/scene20.js"></script>
-		<script src="scenes/scene21.js"></script>
-		<script src="scenes/scene22.js"></script>
-		<script src="scenes/scene23.js"></script>
-		<script src="scenes/scene24.js"></script>
-		<script src="scenes/scene25.js"></script>
+		<!--<script src="scenes/scene0.js"></script>-->
+		<!--<script src="scenes/scene1.js"></script>-->
+		<!--<script src="scenes/scene2.js"></script>-->
+		<!--<script src="scenes/scene3.js"></script>-->
+		<!--<script src="scenes/scene4.js"></script>-->
+		<!--<script src="scenes/scene5.js"></script>-->
+		<!--<script src="scenes/scene6.js"></script>-->
+		<!--<script src="scenes/scene7.js"></script>-->
+		<!--<script src="scenes/scene8.js"></script>-->
+		<!--<script src="scenes/scene9.js"></script>-->
+		<!--<script src="scenes/scene10.js"></script>-->
+		<!--<script src="scenes/scene11.js"></script>-->
+		<!--<script src="scenes/scene12.js"></script>-->
+		<!--<script src="scenes/scene13.js"></script>-->
+		<!--<script src="scenes/scene14.js"></script>-->
+		<!--<script src="scenes/scene15.js"></script>-->
+		<!--<script src="scenes/scene16.js"></script>-->
+		<!--<script src="scenes/scene17.js"></script>-->
+		<!--<script src="scenes/scene18.js"></script>-->
+		<!--<script src="scenes/scene19.js"></script>-->
+		<!--<script src="scenes/scene20.js"></script>-->
+		<!--<script src="scenes/scene21.js"></script>-->
+		<!--<script src="scenes/scene22.js"></script>-->
+		<!--<script src="scenes/scene23.js"></script>-->
+		<!--<script src="scenes/scene24.js"></script>-->
+		<!--<script src="scenes/scene25.js"></script>-->
 		<script src="scenes/scene26.js"></script>
 	</head>
 

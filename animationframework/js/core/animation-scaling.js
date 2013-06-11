@@ -45,22 +45,22 @@ Animation.prototype.scaleToWindow = function(){
   }
 
   // position on screen:
-  window.animationwrapper.style.marginTop = ((window.innerHeight - parseInt(this.height * scaleFactor, 10))/2) + 'px';
-  window.animationwrapper.style.width = newWidth + 'px';
-  window.animationwrapper.style.marginLeft = ((window.innerWidth - parseInt(this.width * scaleFactor, 10))/2) + 'px';
-  window.animationwrapper.style.height = newHeight + 'px';
+  // window.animationwrapper.style.marginTop = ((window.innerHeight - parseInt(this.height * scaleFactor, 10))/2) + 'px';
+  // window.animationwrapper.style.width = newWidth + 'px';
+  // window.animationwrapper.style.marginLeft = ((window.innerWidth - parseInt(this.width * scaleFactor, 10))/2) + 'px';
+  // window.animationwrapper.style.height = newHeight + 'px';
 };
 
 Animation.prototype.rescale = function(scaleFactor){
-  // this.stageDiv.style.width = (this.width * scaleFactor) + "px";
-  this.stageDiv.style.transformOrigin = "0 0";
-  this.stageDiv.style.transform = "scale(" + scaleFactor + ", " + scaleFactor + ")";
-  this.stageDiv.style.msTransformOrigin = "0 0";
-  this.stageDiv.style.msTransform = "scale(" + scaleFactor + ", " + scaleFactor + ")";
-  this.stageDiv.style.webkitTransformOrigin = "0 0";
-  this.stageDiv.style.webkitTransform = "scale(" + scaleFactor + ", " + scaleFactor + ")";
-  this.stageDiv.style.OTransformOrigin = "0 0";
-  this.stageDiv.style.OTransform = "scale(" + scaleFactor + ", " + scaleFactor + ")";
+  this.stageDiv.style.width = (this.width * scaleFactor) + "px";
+  // this.stageDiv.style.transformOrigin = "0 0";
+  // this.stageDiv.style.transform = "scale(" + scaleFactor + ", " + scaleFactor + ")";
+  // this.stageDiv.style.msTransformOrigin = "0 0";
+  // this.stageDiv.style.msTransform = "scale(" + scaleFactor + ", " + scaleFactor + ")";
+  // this.stageDiv.style.webkitTransformOrigin = "0 0";
+  // this.stageDiv.style.webkitTransform = "scale(" + scaleFactor + ", " + scaleFactor + ")";
+  // this.stageDiv.style.OTransformOrigin = "0 0";
+  // this.stageDiv.style.OTransform = "scale(" + scaleFactor + ", " + scaleFactor + ")";
 };
 
 Animation.prototype.scaleToDiv = function(){
@@ -103,8 +103,8 @@ Animation.prototype.scaleToDiv = function(){
     }
 
     if (typeof window.metaWrapperDiv !== "undefined") {
-      metaWrapperDiv.style.height = newHeight + "px";
-      metaWrapperDiv.style.width = newWidth + "px";
+      // metaWrapperDiv.style.height = newHeight + "px";
+      // metaWrapperDiv.style.width = newWidth + "px";
     }
 
     window.animation.rescale(parseFloat(newWidth/window.animation.width));

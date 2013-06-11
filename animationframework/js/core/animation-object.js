@@ -9,9 +9,10 @@ function Animation(width, height, firstSceneId, minWidth, maxWidth, minHeight, m
 	this.stageDiv = createDiv('stage', 'stage');
 	setDivSize(this.stageDiv, width, height);
 
-	this.scrollingDivWrapper = createDiv('scrollingdivwrapper', 'scrollingdivwrapper');
-	this.scrollingDiv = createDiv('scrollingdiv', 'scrollingdiv');
-	setDivSize(this.scrollingDivWrapper, width, height);
+	// this.scrollingDivWrapper = createDiv('scrollingdivwrapper', 'scrollingdivwrapper');
+	// this.scrollingDiv = createDiv('scrollingdiv', 'scrollingdiv');
+  // setDivSize(this.scrollingDivWrapper, width, height);
+	setDivSize(this.stageDiv, width, height);
 
 	this.width = width;
 	this.height = height;

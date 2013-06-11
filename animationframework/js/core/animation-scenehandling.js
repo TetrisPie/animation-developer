@@ -48,8 +48,8 @@ Animation.prototype.showScene = function(sceneid, maximumAnimationAge){
       this.loadNeededScenes(window.currentScene.preloadSceneIds);
       window.animationConfigData.forceReloadTimer = setTimeout('window.animation.reloadAndFadeToScene("' + sceneid + '")', window.animationConfigData.maximumAnimationAge);
 
-      window.animation.scrollingDivWrapper.scrollLeft = 0;
-      window.animation.scrollingDivWrapper.scrollTop = 1;
+      // window.animation.scrollingDivWrapper.scrollLeft = 0;
+      // window.animation.scrollingDivWrapper.scrollTop = 1;
     }
   }
   updateKey('scene', sceneid);

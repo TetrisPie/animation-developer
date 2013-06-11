@@ -84,8 +84,8 @@ var Actor = function (startX, startY, imagesizeX, imagesizeY) {
 
   this.setSize = function (width, height) {
       this.imagesize = { x: width, y: height };
-      this.image.style.width = width + 'px';
-      this.image.style.height = height + 'px';
+      // this.image.style.width = width + 'px';
+      // this.image.style.height = height + 'px';
   };
 
   this.enter = function (myScene) {
@@ -139,139 +139,139 @@ Actor.prototype.loadsOnTouch = function(sceneid, secondImageFilename) {
 };
 
 Actor.prototype.delays = function(myDelay){
-	this.originaldelay = myDelay;
-	this.delay = myDelay;
+  this.originaldelay = myDelay;
+  this.delay = myDelay;
 };
 
 Actor.prototype.age = function(){
-	return (now() - this.startAnimationTimestamp);
+  return (now() - this.startAnimationTimestamp);
 };
 
 Actor.prototype.alterOpacity = function(newOpacity){
-	if (newOpacity !== this.currentOpacity) {
-		this.currentOpacity = newOpacity;
-		this.image.style.opacity = this.currentOpacity;
-		this.image.style.filter = 'alpha(opacity=' + this.newOpacity*100 + ')';
-	}
+  if (newOpacity !== this.currentOpacity) {
+    this.currentOpacity = newOpacity;
+    // this.image.style.opacity = this.currentOpacity;
+    // this.image.style.filter = 'alpha(opacity=' + this.newOpacity*100 + ')';
+  }
 };
 
 Actor.prototype.setInitialOpacity = function(newOpacity){
-	this.originalOpacity = newOpacity;
-	this.alterOpacity(newOpacity);
+  this.originalOpacity = newOpacity;
+  this.alterOpacity(newOpacity);
 };
 
 Actor.prototype.setInvisible = function(){
-	this.image.style.visibility = 'hidden';
-	this.currentlyVisible = false;
+  // this.image.style.visibility = 'hidden';
+  this.currentlyVisible = false;
 };
 
 Actor.prototype.setVisible = function(newOpacity){
-	if (typeof newOpacity !== 'undefined') {
-		this.alterOpacity(newOpacity);
-	}
-	this.image.style.visibility = '';
-	this.currentlyVisible = true;
+  if (typeof newOpacity !== 'undefined') {
+    this.alterOpacity(newOpacity);
+  }
+  // this.image.style.visibility = '';
+  this.currentlyVisible = true;
 };
 Actor.prototype.resets = function(resetDelay){
-	// called in scenes when an actor should be resetting
-	this.doesReset = true;
-	if (typeof resetDelay === "undefined") {
-		resetDelay = 0;
-	}
-	this.resetDelay = resetDelay;
+  // called in scenes when an actor should be resetting
+  this.doesReset = true;
+  if (typeof resetDelay === "undefined") {
+    resetDelay = 0;
+  }
+  this.resetDelay = resetDelay;
 };
 
 Actor.prototype.resetReactions = function(){
-	for (var i = this.reactions.length - 1; i >= 0; i--) {
-		this.reactions[i].reset();
-	}
+  for (var i = this.reactions.length - 1; i >= 0; i--) {
+    this.reactions[i].reset();
+  }
 };
 
 Actor.prototype.resetBehaviors = function(){
-	for (var i = this.behaviors.length - 1; i >= 0; i--) {
-		this.behaviors[i].reset();
-	}
+  for (var i = this.behaviors.length - 1; i >= 0; i--) {
+    this.behaviors[i].reset();
+  }
 };
 
 function moveActor(actor){
-	actor.position.x += actor.vector.x;
-	actor.position.y += actor.vector.y;
+  actor.position.x += actor.vector.x;
+  actor.position.y += actor.vector.y;
 
-    actor.image.style.left = (actor.position.x + actor.offsetX) + 'px';
-    actor.image.style.top = (actor.position.y + actor.offsetY) + 'px';
+    // actor.image.style.left = (actor.position.x + actor.offsetX) + 'px';
+    // actor.image.style.top = (actor.position.y + actor.offsetY) + 'px';
 
   actor.lastVector = actor.vector;
-	actor.vector = {x: 0, y: 0};
+  actor.vector = {x: 0, y: 0};
   actor.needsMoving = false;
 }
 
 function tiltActor(actor){
-	actor.tilt = (actor.tilt + actor.spin) % 360;
-	actor.image.style.transform = 'rotate(' + actor.tilt + 'deg)'; // Firefox
-	actor.image.style.webkitTransform = 'rotate(' + actor.tilt + 'deg)'; // Webkit (Chrome, Safari)
-	actor.image.style.msTransform = 'rotate(' + actor.tilt + 'deg)'; // Internet Explorer
-	actor.image.style.OTransform = 'rotate(' + actor.tilt + 'deg)'; //Opera
-	actor.spin = 0;
+  actor.tilt = (actor.tilt + actor.spin) % 360;
+  // actor.image.style.transform = 'rotate(' + actor.tilt + 'deg)'; // Firefox
+  // actor.image.style.webkitTransform = 'rotate(' + actor.tilt + 'deg)'; // Webkit (Chrome, Safari)
+  // actor.image.style.msTransform = 'rotate(' + actor.tilt + 'deg)'; // Internet Explorer
+  // actor.image.style.OTransform = 'rotate(' + actor.tilt + 'deg)'; //Opera
+  actor.spin = 0;
 }
 
 function visibleOnStage(actor){
-	return !notVisibleOnStage;
+  return !notVisibleOnStage;
 }
 
 function notVisibleOnStage(actor){
-		return (actor.position.x > actor.scene.dimensions.x) || ((actor.position.x + actor.imagesize.x) < 0) || ((actor.position.y + actor.imagesize.y) < 0) || (actor.position.y > actor.scene.dimensions.y);
+    return (actor.position.x > actor.scene.dimensions.x) || ((actor.position.x + actor.imagesize.x) < 0) || ((actor.position.y + actor.imagesize.y) < 0) || (actor.position.y > actor.scene.dimensions.y);
 }
 
 function animateactor(actor){
-	if (actor.doesReset && notVisibleOnStage(actor)) {
-		// console.log("actor " + actor.image.src + " is waiting for reset");
-			if (actor.waitingForReset) {
-				if ((t() - actor.waitingForResetSince) >= actor.resetDelay) {
-					actor.reset();
-					actor.waitingForReset = false;
-				}
-		} else if (actor.doesReset) {
-			// console.log("actor " + actor.image.src + " should start resetting");
-			actor.alterOpacity(0);
-			actor.waitingForReset = true;
-			actor.waitingForResetSince = t();
-		}
-	}
-	else if ((actor.delay > 0) && !actor.finishedDelaying) {
-		// NEEDS TO DELAY
-		if (actor.startedDelayingAt === null) {
-			// start delaying
-			actor.startedDelayingAt = t();
-		} else if (t() >= (actor.startedDelayingAt + actor.delay)) {
-			// stop delaying
-			actor.finishedDelaying = true;
-		} /* else {
-			// still delaying
-		} */
-	} else {
-		// DOESN'T NEED TO DELAY
+  if (actor.doesReset && notVisibleOnStage(actor)) {
+    // console.log("actor " + actor.image.src + " is waiting for reset");
+      if (actor.waitingForReset) {
+        if ((t() - actor.waitingForResetSince) >= actor.resetDelay) {
+          actor.reset();
+          actor.waitingForReset = false;
+        }
+    } else if (actor.doesReset) {
+      // console.log("actor " + actor.image.src + " should start resetting");
+      actor.alterOpacity(0);
+      actor.waitingForReset = true;
+      actor.waitingForResetSince = t();
+    }
+  }
+  else if ((actor.delay > 0) && !actor.finishedDelaying) {
+    // NEEDS TO DELAY
+    if (actor.startedDelayingAt === null) {
+      // start delaying
+      actor.startedDelayingAt = t();
+    } else if (t() >= (actor.startedDelayingAt + actor.delay)) {
+      // stop delaying
+      actor.finishedDelaying = true;
+    } /* else {
+      // still delaying
+    } */
+  } else {
+    // DOESN'T NEED TO DELAY
 
-		if (actor.phases.length > 1) {
-			if (actor.currentPhase() !== actor.oldPhase) {
-				actor.image.src = actor.phases[actor.currentPhase()];
-				actor.oldPhase = actor.currentPhase();
-			}
-		}
+    if (actor.phases.length > 1) {
+      if (actor.currentPhase() !== actor.oldPhase) {
+        actor.image.src = actor.phases[actor.currentPhase()];
+        actor.oldPhase = actor.currentPhase();
+      }
+    }
 
-		// run through all behaviors
-		for (var i = 0; i < actor.behaviors.length; i++){
-			actor.behaviors[i].applybehavior();
-		}
+    // run through all behaviors
+    for (var i = 0; i < actor.behaviors.length; i++){
+      actor.behaviors[i].applybehavior();
+    }
 
     /*
       Moving stuff around is expensive, so do it only if needed.
     */
-		if (actor.needsMoving || (actor.vector.x !== 0) || (actor.vector.y !== 0)){
-			moveActor(actor);
-		}
+    if (actor.needsMoving || (actor.vector.x !== 0) || (actor.vector.y !== 0)){
+      moveActor(actor);
+    }
 
-		if (actor.spin !== 0 || actor.tilt !== 0) {
-			tiltActor(actor);
-		}
-	}
+    if (actor.spin !== 0 || actor.tilt !== 0) {
+      tiltActor(actor);
+    }
+  }
 }

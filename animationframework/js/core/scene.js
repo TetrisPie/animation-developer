@@ -44,12 +44,12 @@ function Scene(id, title, width, height){
   this.setScrollingdivSizeToScene = function(myWidth, myHeight){
     // width
     if (this.dimensions.x === 0) this.dimensions.x = parseInt(myWidth, 10);
-    window.animation.scrollingDiv.style.width = this.dimensions.x + 'px';
+    // window.animation.scrollingDiv.style.width = this.dimensions.x + 'px';
     // height
     if (this.dimensions.y === 0) this.dimensions.y = parseInt(myHeight, 10);
-    window.animation.scrollingDiv.style.height = this.dimensions.y + 'px';
+    // window.animation.scrollingDiv.style.height = this.dimensions.y + 'px';
 
-    setDivSize(window.animation.scrollingDiv, this.dimensions.x, this.dimensions.y);
+    // setDivSize(window.animation.scrollingDiv, this.dimensions.x, this.dimensions.y);
   };
 
 
@@ -91,6 +91,11 @@ function Scene(id, title, width, height){
     this.scrollingLocked = false;
     this.setScrolling();
     this.setScrollingdivSizeToScene();
+
+
+    // EXPERIMENTAL
+    this.div.style.width = width + "px";
+    this.div.style.height = height + "px";
   };
 
   this.makeInvisible = function(){
@@ -154,8 +159,8 @@ function Scene(id, title, width, height){
     var newText = document.createElement('div');
     newText.innerHTML = html;
     newText.setAttribute('class', 'text ' + (typeof cssclass === "undefined" ? "" : cssclass));
-    newText.style.left = myX + 'px';
-    newText.style.top = myY + 'px';
+    // newText.style.left = myX + 'px';
+    // newText.style.top = myY + 'px';
     this.div.appendChild(newText);
     this.texts.push(newText);
   };
@@ -163,7 +168,7 @@ function Scene(id, title, width, height){
   this.showText = function(){
     this.textDisplaying = true;
     for (var i = this.texts.length - 1; i >= 0; i--) {
-      this.texts[i].style.visibility = 'visible';
+      // this.texts[i].style.visibility = 'visible';
     }
     window.animation.textIsDisplaying = true;
   };
@@ -171,7 +176,7 @@ function Scene(id, title, width, height){
   this.hideText = function(){
     this.textDisplaying = false;
     for (var i = this.texts.length - 1; i >= 0; i--) {
-      this.texts[i].style.visibility = 'hidden';
+      // this.texts[i].style.visibility = 'hidden';
     }
     window.animation.textIsDisplaying = false;
   };
@@ -180,8 +185,8 @@ function Scene(id, title, width, height){
 }
 
 Scene.prototype.scrollTo = function (x, y) {
-  if (typeof x !== 'undefined') window.animation.scrollingDivWrapper.scrollLeft = x;
-  if (typeof y !== 'undefined') window.animation.scrollingDivWrapper.scrollTop = y;
+  // if (typeof x !== 'undefined') window.animation.scrollingDivWrapper.scrollLeft = x;
+  // if (typeof y !== 'undefined') window.animation.scrollingDivWrapper.scrollTop = y;
 };
 
 Scene.prototype.lockScrolling = function () {
@@ -196,14 +201,14 @@ Scene.prototype.unlockScrolling = function () {
 
 Scene.prototype.setScrolling = function () {
   if ((this.dimensions.x > window.animation.width) && !(this.scrollingLocked)) {
-    window.animation.scrollingDivWrapper.style.overflowX = "scroll";
+    // window.animation.scrollingDivWrapper.style.overflowX = "scroll";
   } else {
-    window.animation.scrollingDivWrapper.style.overflowX = "hidden";
+    // window.animation.scrollingDivWrapper.style.overflowX = "hidden";
   }
 
   if ((this.dimensions.y > window.animation.height) && !(this.scrollingLocked)) {
-    window.animation.scrollingDivWrapper.style.overflowY = "scroll";
+    // window.animation.scrollingDivWrapper.style.overflowY = "scroll";
   } else {
-    window.animation.scrollingDivWrapper.style.overflowY = "hidden";
+    // window.animation.scrollingDivWrapper.style.overflowY = "hidden";
   }
 };
