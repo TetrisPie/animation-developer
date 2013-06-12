@@ -40,7 +40,7 @@ function Scene(id, title, width, height){
   this.setDivSizeToStage = function(myWidth, myHeight){
     setDivSize(this.div, window.animation.width, window.animation.height);
   };
-
+3
   this.resetAge = function(){
     this.displayedAt = Date.now();
     return this.displayedAt;
@@ -171,8 +171,8 @@ function Scene(id, title, width, height){
 }
 
 Scene.prototype.scrollTo = function (x, y) {
-  // if (typeof x !== 'undefined') window.animation.scrollingDivWrapper.scrollLeft = x;
-  // if (typeof y !== 'undefined') window.animation.scrollingDivWrapper.scrollTop = y;
+  if (typeof x !== 'undefined') window.animation.stageDiv.scrollLeft = x;
+  if (typeof y !== 'undefined') window.animation.stageDiv.scrollTop = y;
 };
 
 Scene.prototype.lockScrolling = function () {
@@ -187,14 +187,14 @@ Scene.prototype.unlockScrolling = function () {
 
 Scene.prototype.setScrolling = function () {
   if ((this.dimensions.x > window.animation.width) && !(this.scrollingLocked)) {
-    // window.animation.scrollingDivWrapper.style.overflowX = "scroll";
+    window.animation.stageDiv.style.overflowX = "scroll";
   } else {
-    // window.animation.scrollingDivWrapper.style.overflowX = "hidden";
+    window.animation.stageDiv.style.overflowX = "hidden";
   }
 
   if ((this.dimensions.y > window.animation.height) && !(this.scrollingLocked)) {
-    // window.animation.scrollingDivWrapper.style.overflowY = "scroll";
+    window.animation.stageDiv.style.overflowY = "scroll";
   } else {
-    // window.animation.scrollingDivWrapper.style.overflowY = "hidden";
+    window.animation.stageDiv.style.overflowY = "hidden";
   }
 };

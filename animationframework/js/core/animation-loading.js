@@ -80,10 +80,6 @@ function animationLoader(data, firstSceneId, minWidth, maxWidth, minHeight, maxH
       minHeight = maxHeight = window.animationwrapper.clientHeight;
     }
 
-    // extra-div that reads in scroll-events
-    // window.animation.scrollingDivWrapper.appendChild(window.animation.scrollingDiv);
-    // window.animationwrapper.appendChild(window.animation.scrollingDivWrapper);
-
     // let's do our first scale…
     window.animation.scaleStageToDivOrWindow();
 
