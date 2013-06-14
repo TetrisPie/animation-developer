@@ -1,5 +1,5 @@
 /* global Scene */
-/* exported scene25 */
+/* exported scene26 */
 
 var scene26 = function () {
   var scene = new Scene('scene26', 'Video', 2000, 1000);
