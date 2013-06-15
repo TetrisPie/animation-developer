@@ -100,15 +100,19 @@ var scene0 = function(){
 
   // BOUNCES
   var csstricks = scene.createActor('button.png', 20, 520, 240, 60);
-  var newBadge = scene.createActor('new.png', 220, 510, 50, 50);
   csstricks.setText("bounces", "", "button");
   csstricks.navigatesOnTouch('scene24');
 
   // VIDEOACTOR
   var videoactor = scene.createActor('button.png', 270, 520, 240, 60);
-  var newBadge = scene.createActor('new.png', 470, 510, 50, 50);
   videoactor.setText("video (dev)", "", "button");
   videoactor.navigatesOnTouch('scene25');
+
+  // QUIZ
+  var csstricks = scene.createActor('button.png', 520, 520, 240, 60);
+  var newBadge = scene.createActor('new.png', 715, 510, 50, 50);
+  csstricks.setText("quiz", "", "button");
+  csstricks.navigatesOnTouch('scene27');
 
   return scene;
 };

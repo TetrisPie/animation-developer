@@ -4,8 +4,8 @@
 var scene27 = function () {
   var scene = new Scene('scene27', 'Quiz', 2000, 1000);
 
-  scene.write(10, 20, "Simple Quiz", "title");
-  scene.write(10, 160, "Solve the math to see the home-button!", "title");
+  scene.write(10, 20, "simple quiz via meta-script", "title");
+  scene.write(10, 70, "Solve the math to see the home-button!","");
 
   var actor1 = scene.createActor('actor.png', 10, 190).setText("How much is 1 + 1?");
   var actor2 = scene.createActor('actor.png', 270, 190).setText("2");
