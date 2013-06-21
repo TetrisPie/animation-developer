@@ -40,7 +40,7 @@ function Scene(id, title, width, height){
   this.setDivSizeToStage = function(myWidth, myHeight){
     setDivSize(this.div, window.animation.width, window.animation.height);
   };
-3
+
   this.resetAge = function(){
     this.displayedAt = Date.now();
     return this.displayedAt;
